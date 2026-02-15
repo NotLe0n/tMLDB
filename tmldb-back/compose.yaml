@@ -1,0 +1,7 @@
+﻿services:
+  tmldb-back:
+    image: tmldb-back
+    build:
+      context: .
+      dockerfile: Dockerfile
+
