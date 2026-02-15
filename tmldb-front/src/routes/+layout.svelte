@@ -2,7 +2,7 @@
 	import favicon from '$lib/assets/favicon.svg';
 	import type { SearchResult } from '$lib';
     import Icon from '$lib/Icon.svelte';
-    import { mdiAccount, mdiPackage, mdiPackageVariant } from '@mdi/js';
+    import { mdiAccount, mdiPackageVariant } from '@mdi/js';
 
 	let { children } = $props()
 

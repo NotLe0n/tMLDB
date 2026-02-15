@@ -1,5 +1,4 @@
 <script>
-	// @ts-ignore
 	import SvgIcon from '@jamescoyle/svelte-icon';
 
 	const { path, ...others } = $props()

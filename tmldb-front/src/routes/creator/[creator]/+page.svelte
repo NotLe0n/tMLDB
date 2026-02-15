@@ -2,7 +2,6 @@
 	import type { ModData } from "$lib";
 	import ModListCard from "$lib/ModListCard.svelte";
 	import LoadingSpinner from "$lib/LoadingSpinner.svelte";
-	// @ts-ignore
 	import CreatorHistoryChart from "./CreatorHistoryChart.svelte";
     import CreatorHeader from "./CreatorHeader.svelte";
     import type { PageData } from './$types';
