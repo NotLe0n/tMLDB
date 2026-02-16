@@ -6,10 +6,6 @@
         <RootNamespace>tmldb_back</RootNamespace>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
-
-	<ItemGroup>
-		<None Include="config.ini" CopyToPublishDirectory="Always" />
-	</ItemGroup>
 	
     <ItemGroup>
         <PackageReference Include="Dapper" Version="2.1.66" />

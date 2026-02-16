@@ -11,7 +11,8 @@ RUN npm ci
 FROM base AS build
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN npm run build
+ARG BACKEND_URL
+RUN BACKEND_URL=$BACKEND_URL npm run build
 
 # Production stage
 FROM base AS production

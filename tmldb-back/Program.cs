@@ -17,9 +17,8 @@ public class Program
 	public static void Main(string[] args)
 	{
 		var builder = WebApplication.CreateBuilder(args);
-		builder.Configuration.AddIniFile("config.ini");
-		
-		string? connectionString = builder.Configuration.GetValue<string>("DB_CONN");
+
+		string? connectionString = Environment.GetEnvironmentVariable("DB_CONN");
 		if (connectionString == null) {
 			throw new Exception("Connection string not found");
 		}
