@@ -13,6 +13,7 @@ namespace tmldb_back;
 public class Program
 {
 	private static NpgsqlDataSource dataSource;
+	public static readonly string? TmlapisUrl = Environment.GetEnvironmentVariable("TMLAPIS_URL");
 
 	public static void Main(string[] args)
 	{

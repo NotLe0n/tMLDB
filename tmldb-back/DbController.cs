@@ -89,7 +89,7 @@ public class DbController : Controller
 
 		var topCreatorsResponses = res as TopCreatorsResponse[] ?? res.ToArray();
 		string ids = string.Join("&steamids=", topCreatorsResponses.Select(x => x.AuthorId));
-		string requestUrl = $"https://tmlapis.le0n.dev/1.4/get_steam_avatar?steamids={ids}"; 
+		string requestUrl = $"{Program.TmlapisUrl}/1.4/get_steam_avatar?steamids={ids}"; 
 		
 		using var client = new HttpClient();
 		var avatars = await client.GetFromJsonAsync<Dictionary<string, string>>(requestUrl);
@@ -105,28 +105,28 @@ public class DbController : Controller
 	public async Task<object?> GetModInfo(long modId)
 	{
 		using var client = new HttpClient();
-		return await client.GetFromJsonAsync<object>($"https://tmlapis.le0n.dev/1.4/mod/{modId}");
+		return await client.GetFromJsonAsync<object>($"{Program.TmlapisUrl}/1.4/mod/{modId}");
 	}
 	
 	[HttpGet("mod_info/{modName}")]
 	public async Task<object?> GetModInfo(string modName)
 	{
 		using var client = new HttpClient();
-		return await client.GetFromJsonAsync<object>($"https://tmlapis.le0n.dev/1.4/mod/{modName}");
+		return await client.GetFromJsonAsync<object>($"{Program.TmlapisUrl}/1.4/mod/{modName}");
 	}
 	
 	[HttpGet("creator_info/{steamId:long}")]
 	public async Task<object?> GetCreatorInfo(long steamId)
 	{
 		using var client = new HttpClient();
-		return await client.GetFromJsonAsync<object>($"https://tmlapis.le0n.dev/1.4/author/{steamId}");
+		return await client.GetFromJsonAsync<object>($"{Program.TmlapisUrl}/1.4/author/{steamId}");
 	}
 	
 	[HttpGet("creator_info/{steamName}")]
 	public async Task<object?> GetCreatorInfo(string steamName)
 	{
 		using var client = new HttpClient();
-		return await client.GetFromJsonAsync<object>($"https://tmlapis.le0n.dev/1.4/author/{steamName}");
+		return await client.GetFromJsonAsync<object>($"{Program.TmlapisUrl}/1.4/author/{steamName}");
 	}
 
 	private static T[] Diff<T>(T[] xs) where T : ISubtractionOperators<T, T, T>, IAdditiveIdentity<T, T>
@@ -351,7 +351,7 @@ public class DbController : Controller
 			""", new { PageSize, offset, @search });
 		
 		string ids = string.Join("&steamids=", creatorListResponse.Select(x => x.AuthorId));
-		string requestUrl = $"https://tmlapis.le0n.dev/1.4/get_steam_avatar?steamids={ids}";
+		string requestUrl = $"{Program.TmlapisUrl}/1.4/get_steam_avatar?steamids={ids}";
 		
 		using var client = new HttpClient();
 		var avatars = await client.GetFromJsonAsync<Dictionary<string, string>>(requestUrl);
