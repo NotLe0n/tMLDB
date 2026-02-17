@@ -89,7 +89,7 @@
 		--dropdown-opacity: 1;
 		--searchbar-border-radius: 0.5rem 0.5rem 0 0;
 		
-		&:not(:has(.search-bar:focus)):not(:has(.search-result-container:hover)), &:has(.empty) {
+		&:not(:has(#search-bar:focus)):not(:has(.search-result-container:hover)), &:has(.empty) {
 			--dropdown-display: none;
 			--dropdown-opacity: 0;
 			--searchbar-border-radius: 0.5rem;
