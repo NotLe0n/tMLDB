@@ -107,7 +107,7 @@
 
 	.modlist-card {
 		display: grid;
-		grid-template-columns: var(--icon-size) auto 2px auto;
+		grid-template-columns: var(--icon-size) 1fr 2px 22rem;
 		grid-template-rows: var(--icon-size);
 		width: 100%;
 		gap: 1rem;
