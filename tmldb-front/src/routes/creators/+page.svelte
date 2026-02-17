@@ -68,13 +68,17 @@
 	}
 </script>
 
+<svelte:head>
+	<title>tMLDB - Creators</title>
+	<meta name="description" content="View a list of all Terraria modders">
+</svelte:head>
+
 <div id="creators-container">
 	<header>
-		<h1>Creators</h1>
+		<h2>Creators</h2>
 		<div id="controls">
 			<SearchFilter bind:searchQuery onsubmit={updateCreatorList} />
 			<div class="controls-box">
-				<p>Sort by</p>
 				<SortSelector 
 					sortOptions={sortOptions}
 					bind:selectedIdx={sortSelection} 
@@ -106,7 +110,7 @@
 
 header {
 	padding: 0 3.5rem;
-	h1 {
+	h2 {
 		text-align: center;
 		margin-bottom: 20px;
 	}
@@ -123,8 +127,10 @@ header {
 
 .controls-box {
 	display: flex;
+	flex-wrap: wrap;
 	align-items: center;
-	gap: 1rem;
+	justify-content: center;
+	gap: 0.25rem 1rem;
 }
 
 #reset-button {
@@ -142,10 +148,12 @@ header {
 }
 
 #creators-list {
+	--min-card-size: 19rem;
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(20rem, auto));
+	grid-template-columns: repeat(auto-fit, minmax(var(--min-card-size), 1fr));
 	overflow-y: auto;
 	gap: 1rem;
+
 	--scrollbar-area: 10px;
 	--space-area: 3.5rem;
 	padding-left: calc(var(--space-area) + var(--scrollbar-area));
@@ -154,6 +162,10 @@ header {
 
 	@media (max-width: 520px) {
 		--space-area: 2rem;
+	}
+
+	@media (max-width: 375px) {
+		--min-card-size: 15rem;
 	}
 }
 </style>

@@ -27,14 +27,16 @@
 	async function getModHistogram(): Promise<ModHistogramResponse> {
 		return await (await fetch("/api/mod_histogram")).json();
 	}
-
-	let searchQuery = $state("");
 </script>
+
+<svelte:head>
+	<title>tMLDB</title>
+</svelte:head>
 
 <div id="home-container">
 	<section id="hero">
 		<h1>tModLoader Database</h1>
-		<p class="tagline">The place to look up Terraria mods</p>
+		<h3 class="tagline">The place to look up Terraria mods</h3>
 	</section>
 
 	<section id="stats-section">
@@ -119,15 +121,6 @@
 
 section {
 	width: 100%;
-
-	h2 {
-		text-align: center;
-		font-size: 2.5rem;
-
-		@media (max-width: 520px) {
-			font-size: 2rem;
-		}
-	}
 }
 
 #hero {
@@ -135,19 +128,13 @@ section {
 	width: 100%;
 
 	h1 {
-		font-size: 3.5rem;
 		margin-bottom: 0.5rem;
 		background: var(--gradient);
 		background-clip: text;
 		-webkit-text-fill-color: transparent;
-
-		@media (max-width: 435px) {
-			font-size: 3rem;
-		}
 	}
 
 	.tagline {
-		font-size: 1.3rem;
 		opacity: 0.8;
 		margin-bottom: 2rem;
 	}
@@ -181,7 +168,7 @@ section {
 	margin-bottom: 2rem;
 	gap: .5rem;
 
-	@media (max-width: 435px) {
+	@media (max-width: 425px) {
 		flex-direction: column;
 	}
 }

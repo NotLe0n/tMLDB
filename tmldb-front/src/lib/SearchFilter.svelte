@@ -3,7 +3,7 @@
 	let { searchQuery = $bindable(), onsubmit } : SearchFilterProps = $props()
 </script>
 
-<form {onsubmit} method="GET">
+<form {onsubmit}>
 	<input
 		type="text"
 		name="search"
@@ -11,20 +11,19 @@
 		bind:value={searchQuery}
 		class="search-bar"
 	/>
-	<button type="submit" class="search-button" >Filter</button>
+	<button type="submit" class="search-button">Filter</button>
 </form>
 
 <style>
 	form {
-		display: flex;
+		display: grid;
+		grid-template-columns: 1fr min-content;
 		gap: 0.5rem;
 		flex: 1;
 	}
 
 	.search-bar {
-		flex: 1;
-		padding: 0.75rem 1rem;
-
+		min-width: 25ch;
 		outline: none;
 		background-color: var(--tertiary-bg);
 		border: 1px solid var(--secondary);
@@ -35,6 +34,10 @@
 		&:focus {
 			box-shadow: 0 0 2px 3px var(--tertiary-hov);
 			border-color: var(--highlight);
+		}
+
+		@media (max-width: 700px) {
+			min-width: 15ch;
 		}
 	}
 

@@ -20,10 +20,13 @@
 
 <style>
 	.stat-card {
-		display: flex;
-		min-width: 10rem;
+		display: grid;
+		grid-template-columns: 2.5rem auto;
+		grid-template-rows: 2.5rem;
+		min-inline-size: fit-content;
 		gap: 0.75rem;
 		padding: 1rem;
+		padding-right: 2rem;
 		background: rgba(255, 255, 255, 0.08);
 		border: 1px solid rgba(255, 255, 255, 0.12);
 		border-radius: 0.85rem;
@@ -36,8 +39,6 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: 2.5rem;
-		height: 2.5rem;
 		background: rgba(255, 255, 255, 0.06);
 		border-radius: 0.5rem;
 	}
@@ -54,21 +55,12 @@
 		text-transform: uppercase;
 		letter-spacing: 0.08em;
 		color: rgba(255, 255, 255, 0.65);
+		text-wrap: nowrap;
 	}
 
 	.stat-value {
 		font-size: 1.35rem;
 		color: rgba(255, 255, 255, 0.95);
 		font-weight: 700;
-	}
-
-	@media (max-width: 480px) {
-		.stat-card {
-			min-width: 7rem;
-		}
-
-		.stat-label {
-			display: none;
-		}
 	}
 </style>

@@ -25,6 +25,7 @@
 </script>
 
 <div id="sort-selector-container">
+	<p>Sort by</p>
 	<button 
 		class="dropdown-toggle" 
 		popovertarget="sort-dropdown"

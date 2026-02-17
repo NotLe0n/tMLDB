@@ -14,11 +14,27 @@
 	}
 </script>
 
-<div id="page">
+<svelte:head>
+	<title>tMLDB - {creator.steam_name}</title>
+	<meta name="description" content="View information about the Terraria modder '{creator.steam_name}' including statistics, download history, and mod dependencies.">
+	<meta name="theme-color" content="#1b8d1b">
+
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="tMLDB - {creator.steam_name}" />
+	<meta property="og:description" content="View information about the Terraria modder '{creator.steam_name}' including statistics, download history, and mod dependencies." />
+	<meta property="og:image" content="https://tml-card.le0n.dev/?steamid64={creator.steam_id}" />
+
+	<meta property="twitter:card" content="summary_large_image" />
+	<meta property="twitter:title" content="tMLDB - {creator.steam_name}" />
+	<meta property="twitter:description" content="View information about the Terraria modder '{creator.steam_name}' including statistics, download history, and mod dependencies." />
+	<meta property="twitter:image" content="https://tml-card.le0n.dev/?steamid64={creator.steam_id}" />
+</svelte:head>
+
+<div id="creator-page">
 	<CreatorHeader {creator} />
 
 	<article id="mods-list">
-		<h2>Mods by {creator.steam_name}</h2>
+		<h3>Mods by {creator.steam_name}</h3>
 		<div id="mods-container">
 			{#each creator.mods as mod}
 				<ModListCard {mod} />
@@ -31,7 +47,7 @@
 		{:then creatorHistory}
 			{#if creatorHistory.dates.length > 0}
 				<article id="mod-history">
-					<h2>Daily change over time</h2>
+					<h3>Daily change over time</h3>
 					<div>
 						<CreatorHistoryChart data={creatorHistory} modNameMap={getModNameMap(creator.mods)} />
 					</div>
@@ -41,8 +57,8 @@
 </div>
 
 <style>
-	#page {
-		padding: clamp(2rem, 4vw, 4rem);
+	#creator-page {
+		padding: clamp(1rem, 4vw, 4rem);
 		display: flex;
 		flex-direction: column;
 		gap: 2.5rem;
@@ -56,9 +72,8 @@
 		background: var(--tertiary-bg);
 		border: 1px solid rgba(132, 204, 22, 0.15);
 
-		h2 {
+		h3 {
 			margin-bottom: 1.5rem;
-			font-size: 1.8rem;
 		}
 	}
 

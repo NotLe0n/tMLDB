@@ -32,106 +32,148 @@
 	const voteRatio = $derived(getVoteRatio(votesUp, votesDown))
 	const timeCreated = $derived(formatDate(mod.time_created))
 	const timeUpdated = $derived(formatDate(mod.time_updated))
+	const iconSize = 128
 </script>
 
-<a href={`/mod/${mod.mod_id}`}>
+<a href={`/mod/${mod.mod_id}`} class="link-container" style="--icon-size: {iconSize}px">
 	<div class="modlist-card">
-		<ModIcon src={mod.workshop_icon_url} name={mod.display_name} size=128></ModIcon>
-		<div class="card-main">
-			<div class="content">
-				<div class="header">
-					<h2>{mod.display_name}</h2>
-					<small>by {mod.author}</small>
+		<div class="mod-icon">
+			<ModIcon src={mod.workshop_icon_url} name={mod.display_name} size={iconSize} />
+		</div>
+		<div class="content">
+			<div class="header">
+				<h3>{mod.display_name}</h3>
+				<small>by {mod.author}</small>
+			</div>
+			<div class="description">
+				{@html descriptionHTML}
+			</div>
+		</div>
+		<div class="divider"></div>
+		<div class="numbers">
+			<div class="non-vote">
+				<div class="stat-item time-stat">
+					<Icon path={mdiClockPlus} size=16 />
+					<span>Created on</span>
+					<span>{timeCreated}</span>
 				</div>
-				<div class="description">
-					{@html descriptionHTML}
+				<div class="stat-item time-stat">
+					<Icon path={mdiClockEdit} size=16 />
+					<span>Updated on</span>
+					<span>{timeUpdated}</span>
+				</div>
+
+				<div class="stat-item" title="Downloads">
+					<Icon path={mdiDownload} size=16 viewBox='5 0 15 19' />
+					<span class="stat-value">{mod.downloads_total.toLocaleString()}</span>
+				</div>
+				<div class="stat-item" title="Views">
+					<Icon path={mdiEye} size=16 />
+					<span class="stat-value">{mod.views.toLocaleString()}</span>
+				</div>
+				<div class="stat-item" title="Favorites">
+					<Icon path={mdiStar} size=16 />
+					<span class="stat-value">{mod.favorited.toLocaleString()}</span>
+				</div>
+				<div class="stat-item" title="Cumulative Playtime">
+					<Icon path={mdiClock} size=16 />
+					<span class="stat-value">{formatDuration(Number.parseInt(mod.playtime))}</span>
 				</div>
 			</div>
-			<div class="divider"></div>
-			<div class="numbers">
-				<div class="stats">
-					<div class="stat-item">
-						<Icon path={mdiClockPlus} size=16 />
-						<span>Created on</span>
-						<span>{timeCreated}</span>
-					</div>
-					<div class="stat-item">
-						<Icon path={mdiClockEdit} size=16 />
-						<span>Updated on</span>
-						<span>{timeUpdated}</span>
-					</div>
+			<div class="vote-stats">
+				<div class="stat-item" title="Upvotes">
+					<Icon path={mdiThumbUp} size=16 />
+					<span class="stat-value">{votesUp.toLocaleString()}</span>
 				</div>
-				<div class="stats">
-					<div class="stat-item" title="Downloads">
-						<Icon path={mdiDownload} size=16 viewBox='5 0 15 19' />
-						<span class="stat-value">{mod.downloads_total.toLocaleString()}</span>
-					</div>
-					<div class="stat-item" title="Views">
-						<Icon path={mdiEye} size=16 />
-						<span class="stat-value">{mod.views.toLocaleString()}</span>
-					</div>
-					<div class="stat-item" title="Favorites">
-						<Icon path={mdiStar} size=16 />
-						<span class="stat-value">{mod.favorited.toLocaleString()}</span>
-					</div>
-					<div class="stat-item" title="Cumulative Playtime">
-						<Icon path={mdiClock} size=16 />
-						<span class="stat-value">{formatDuration(Number.parseInt(mod.playtime))}</span>
-					</div>
+				<div class="stat-item" title="Downvotes">
+					<Icon path={mdiThumbDown} size=16 />
+					<span class="stat-value">{votesDown.toLocaleString()}</span>
 				</div>
-				<div>
-					<div class="stats">
-						<div class="stat-item" title="Upvotes">
-							<Icon path={mdiThumbUp} size=16 />
-							<span class="stat-value">{votesUp.toLocaleString()}</span>
-						</div>
-						<div class="stat-item" title="Downvotes">
-							<Icon path={mdiThumbDown} size=16 />
-							<span class="stat-value">{votesDown.toLocaleString()}</span>
-						</div>
-					</div>
-					<div 
-						class="rating-bar" 
-						style="--score: {voteRatio}%" 
-						title="Vote Ratio: {voteRatio.toFixed(2)}%"></div>
-				</div>
+				<div 
+					class="rating-bar" 
+					style="--score: {voteRatio}%" 
+					title="Vote Ratio: {voteRatio.toFixed(2)}%"
+				></div>
 			</div>
 		</div>
 	</div>
 </a>
 
 <style>
+	.link-container {
+		container-type: inline-size;
+		display: flex;
+	}
+
 	.modlist-card {
 		display: grid;
-		grid-template-columns: 128px auto;
+		grid-template-columns: var(--icon-size) auto 2px auto;
+		grid-template-rows: var(--icon-size);
+		width: 100%;
 		gap: 1rem;
 		padding: 1rem;
 		background-color: var(--tertiary-bg);
 		border-radius: 1rem;
 		transition: background-color 0.2s;
+		align-items: center;
 
 		&:hover {
 			background-color: var(--tertiary-hov);
 		}
-	}
 
-	.card-main {
-		display: grid;
-		grid-template-columns: auto 2px 25rem;
-		gap: 1rem;
-		height: 128px;
-		overflow: hidden;
+		@container (width < 1000px) {
+			grid-template-columns: var(--icon-size) auto;
+			grid-template-rows: var(--icon-size) 2px auto;
 
-		@media (max-width: 1100px) {
-			grid-template-columns: unset;
-			grid-template-rows: 128px 2px auto;
-			height: auto;
+			.numbers {
+				grid-template-columns: 25rem minmax(10rem, 22rem);
+				grid-template-rows: auto;
+				
+				gap: 0.5rem 4rem;
+				align-items: center;
+				justify-content: space-between;
+			}
+		}
+
+		@container (700px <= width < 1000px) {
+			.divider, .numbers {
+				grid-column: span 2;
+			}
+		}
+
+		@container (width < 700px) {
+			grid-template-columns: 1fr;
+			.mod-icon {
+				display: none;
+			}
+			.numbers {
+				grid-template-columns: 1fr;
+				grid-template-rows: auto auto;
+			}
+		}
+
+		@container (width < 400px) {
+			grid-template-rows: auto auto;
+			.divider, .description {
+				display: none;
+			}
+
+			.non-vote {
+				grid-template-columns: auto auto;
+				grid-template-rows: repeat(4, 1rem);
+				justify-content: space-between;
+			}
+
+			.header {
+				flex-direction: column;
+			}
 		}
 	}
 
 	.divider {
 		background-color: var(--tertiary);
 		border-radius: 10px;
+		height: 100%;
 	}
 
 	.content {
@@ -139,11 +181,12 @@
 		flex-direction: column;
 		gap: 0.5rem;
 		min-width: 0;
+		height: 100%;
 	}
 
 	.header {
 		display: flex;
-		gap: 1rem;
+		gap: 0.25rem 1rem;
 		align-items: baseline;
 
 		small {
@@ -162,17 +205,22 @@
 	}
 
 	.numbers {
-		width: 100%;
-		height: 128px;
+		height: 100%;
 		display: grid;
+		grid-template-rows: 1fr 1fr;
 		align-items: center;
+		justify-content: space-evenly;
 	}
 
-	.stats {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.5rem 1rem;
-		justify-content: space-between;
+	.non-vote {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		grid-template-rows: 1fr 1fr;
+		gap: 0.25rem 1rem;
+
+		.time-stat {
+			grid-column: span 2;
+		}
 	}
 
 	.stat-item {
@@ -188,6 +236,12 @@
 		color: var(--primary);
 	}
 
+	.vote-stats {
+		display: grid;
+		grid-template-columns: auto auto;
+		justify-content: space-between;
+	}
+
 	.rating-bar {
 		width: 100%;
 		height: 5px;
@@ -199,26 +253,6 @@
 			rgba(235, 38, 38, 1) var(--score),
 			rgba(235, 38, 38, 1) 100%
 		);
-	}
-
-	@media (max-width: 700px) {
-		.card-main {
-			display: flex;
-			flex-direction: column;
-			justify-content: space-around;
-		}
-
-		.divider {
-			display: none;
-		}
-
-		.description {
-			display: none;
-		}
-
-		.numbers {
-			gap: .25rem;
-			height: auto;
-		}
+		grid-column: span 2;
 	}
 </style>

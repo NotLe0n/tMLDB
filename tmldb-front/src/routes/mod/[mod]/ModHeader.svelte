@@ -100,7 +100,6 @@
 		gap: 0.75rem;
 
 		h1 {
-			font-size: clamp(2.2rem, 4vw, 3.5rem);
 			margin: 0;
 		}
 	}
@@ -160,6 +159,10 @@
 		width: 100%;
 	}
 
+	:global(#mod-page #stat-grid>:last-child) {
+		grid-column: span 2;
+	}
+
 	@media (max-width: 1400px) {
 		header {
 			grid-template-columns: 1fr;
@@ -183,6 +186,16 @@
 		
 		#stat-grid {
 			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (max-width: 555px) {
+		#stat-grid {
+			grid-template-columns: 1fr;
+		}
+
+		:global(#mod-page #stat-grid>:last-child) {
+			grid-column: unset;
 		}
 	}
 </style>

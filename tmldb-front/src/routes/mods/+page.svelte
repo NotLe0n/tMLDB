@@ -92,26 +92,33 @@
 	}
 </script>
 
+<svelte:head>
+	<title>tMLDB - Mods</title>
+	<meta name="description" content="View a list of all Terraria mods">
+</svelte:head>
+
 <div id="modlist-container">
 	<header>
-		<h1>Mod List</h1>
+		<h2>Mod List</h2>
 		<div id="controls">
 			<SearchFilter bind:searchQuery onsubmit={updateModList} />
 			<div class="controls-box">
-				<p>Sort by</p>
-				<SortSelector 
-					sortOptions={sortOptions}
-					bind:selectedIdx={sortSelection} 
-					bind:sortDesc={sortDesc} 
-					onchange={updateModList} 
-				/>
-				<p>Filter by</p>
-				<FilterSelector 
-					bind:modSides={modSideFilter}
-					bind:tags={tagsFilter}
-					bind:versions={versionsFilter}
-					onapply={updateModList} 
-				/>
+				<div>
+					<SortSelector 
+						sortOptions={sortOptions}
+						bind:selectedIdx={sortSelection} 
+						bind:sortDesc={sortDesc} 
+						onchange={updateModList} 
+					/>
+				</div>
+				<div>
+					<FilterSelector 
+						bind:modSides={modSideFilter}
+						bind:tags={tagsFilter}
+						bind:versions={versionsFilter}
+						onapply={updateModList} 
+					/>
+				</div>
 				<button id="reset-button" title="Reset all" onclick={resetParams}>
 					<Icon path={mdiCogRefresh} />
 				</button>
@@ -133,11 +140,15 @@
 	grid-template-rows: auto 1fr;
 	gap: .5rem;
 	padding-top: 1rem;
+	--space-area: 3.5rem;
+	@media (max-width: 596px) {
+		--space-area: 2rem;
+	}
 }
 
 header {
-	padding: 0 3.5rem;
-	h1 {
+	padding: 0 var(--space-area);
+	h2 {
 		text-align: center;
 		margin-bottom: 20px;
 	}
@@ -154,8 +165,10 @@ header {
 
 .controls-box {
 	display: flex;
+	flex-wrap: wrap;
 	align-items: center;
-	gap: 1rem;
+	justify-content: center;
+	gap: 0.25rem 1rem;
 }
 
 #reset-button {
@@ -178,13 +191,8 @@ header {
 	flex-direction: column;
 	gap: 1rem;
 	--scrollbar-area: 10px;
-	--space-area: 3.5rem;
 	padding-left: calc(var(--space-area) + var(--scrollbar-area));
 	padding-right: var(--scrollbar-area);
 	margin-right: calc(var(--space-area) - var(--scrollbar-area));
-
-	@media (max-width: 520px) {
-		--space-area: 2rem;
-	}
 }
 </style>

@@ -25,7 +25,7 @@
 			<div id="header-body">
 				<div id="creator-name">
 					<h1>{creator.steam_name}</h1>
-					<a href="https://steamcommunity.com/profiles/{creator.steam_id}">
+					<a href="https://steamcommunity.com/profiles/{creator.steam_id}" title="Creator Steam page">
 						<Icon path={mdiSteam} />
 					</a>
 				</div>
@@ -41,28 +41,24 @@
 				</div>
 			</div>
 		</div>
+		<div id="stat-grid">
+			<StatCard label="Mods Created" value={creator.total} icon={mdiPackageVariant} />
+			<StatCard label="Total Downloads" value={creator.total_downloads} icon={mdiDownload} />
+			<StatCard label="Total Favorites" value={creator.total_favorites} icon={mdiHeart} />
+			<StatCard label="Total Views" value={creator.total_views} icon={mdiEye} />
+		</div>
 	{:else}
 		<LoadingSpinner size=24 />
 	{/if}
-	<div id="header-right">
-		{#if creator}
-			<div id="stat-grid">
-				<StatCard label="Mods Created" value={creator.total} icon={mdiPackageVariant} />
-				<StatCard label="Total Downloads" value={creator.total_downloads} icon={mdiDownload} />
-				<StatCard label="Total Favorites" value={creator.total_favorites} icon={mdiHeart} />
-				<StatCard label="Total Views" value={creator.total_views} icon={mdiEye} />
-			</div>
-		{:else}
-			<LoadingSpinner size=24 />
-		{/if}
-	</div>
 </header>
 
 <style>
 	header {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 2rem;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		align-items: center;
+		gap: 2rem 8rem;
 		background: linear-gradient(var(--gradient-rot), 
 			rgb(from var(--primary) r g b / .4) 20%,
 			rgb(from var(--secondary) r g b / .2) 80%);
@@ -97,7 +93,6 @@
 		gap: 0.75rem;
 
 		h1 {
-			font-size: clamp(2.2rem, 4vw, 3.5rem);
 			margin: 0;
 		}
 	}
@@ -105,12 +100,7 @@
 	#creator-meta {
 		color: rgba(255, 255, 255, 0.7);
 		font-size: 1.1rem;
-	}
-
-	#header-right {
-		display: flex;
-		align-items: center;
-		justify-content: center;
+		text-wrap: pretty;
 	}
 
 	#stat-grid {
@@ -118,22 +108,14 @@
 		grid-template-columns: repeat(2, 1fr);
 		gap: 0.75rem;
 		width: 100%;
-	}
-
-	@media (max-width: 1000px) {
-		header {
-			grid-template-columns: 1fr;
-		}
-		#header-body h1 {
-			font-size: 3rem;
-		}
+		flex: 1;
+		max-width: 60rem;
 	}
 
 	@media (max-width: 730px) {
 		#header-left {
 			display: flex;
 			flex-direction: column;
-			align-items: stretch;
 
 			#creator-avatar {
 				align-self: center;
@@ -143,9 +125,11 @@
 		#header-body {
 			align-items: center;
 		}
-		
+	}
+
+	@media (max-width: 555px) {
 		#stat-grid {
-			grid-template-columns: repeat(2, 1fr);
+			grid-template-columns: unset;
 		}
 	}
 </style>

@@ -8,7 +8,7 @@
 
 <a href={`/creator/${creator.author_id}`}>
 	<div class="creator-list-card" id={creator.author_name}>
-		<h2>{creator.author_name}</h2>
+		<h3>{creator.author_name}</h3>
 		<div class="card-content">
 			<img src={creator.avatar} alt={creator.author_name}>
 			<div class="stats-grid">
@@ -46,6 +46,7 @@
 		background-color: var(--tertiary-bg);
 		border-radius: 1rem;
 		transition: background-color 0.2s, border-color 0.2s;
+		container-type: inline-size;
 
 		&:hover {
 			background-color: var(--tertiary-hov);
@@ -67,8 +68,7 @@
 		justify-content: center;
 	}
 
-	h2 {
-		font-size: 1.4rem;
+	h3 {
 		color: var(--secondary);
 		white-space: nowrap;
 		overflow: hidden;
@@ -91,7 +91,12 @@
 
 	.stat-label {
 		color: rgba(255, 255, 255, 0.7);
+
+		@container (width < 300px) {
+			display: none;
+		}
 	}
+
 
 	.stat-value {
 		font-weight: 600;

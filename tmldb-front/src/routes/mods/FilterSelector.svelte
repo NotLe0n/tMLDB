@@ -37,6 +37,7 @@
 </script>
 
 <div id="filter-selector-container">
+	<p>Filter by</p>
 	<button class="dropdown-toggle" popovertarget="filter-dropdown">
 		<Icon path={mdiMenuDown} size="20" />
 	</button>
@@ -46,7 +47,7 @@
 			<p>Loading Filters</p>
 		{:then filters}
 			<div>
-				<strong>Mod Side</strong>
+				<b>Mod Side</b>
 				<div class="filter-container">
 					{#each filters.mod_sides as mod_side, i}
 						<input 
@@ -60,7 +61,7 @@
 				</div>
 			</div>
 			<div>
-				<strong>Tag</strong>
+				<b>Tag</b>
 				<div class="filter-container">
 					{#each filters.tags as tag, i}
 						<input
@@ -74,7 +75,7 @@
 				</div>
 			</div>
 			<div id="version-filter-section">
-				<strong>tModloader Version</strong>
+				<b>tModloader Version</b>
 				<button class="version-dropdown-toggle" popovertarget="version-dropdown">
 					{selectedVersionsStr}
 					<Icon path={mdiMenuDown} size="16" />
@@ -158,10 +159,6 @@
 		&:popover-open {
 			display: flex;
 		}
-	}
-
-	strong {
-		font-weight: bold;
 	}
 
 	input[type="checkbox"] {

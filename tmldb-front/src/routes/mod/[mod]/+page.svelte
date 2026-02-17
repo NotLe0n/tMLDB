@@ -16,7 +16,23 @@
 	}
 </script>
 
-<div id="page">
+<svelte:head>
+	<title>tMLDB - {mod.display_name}</title>
+	<meta name="description" content="View information about the {mod.display_name} mod for tModLoader including statistics, download history, and mod dependencies.">
+	<meta name="theme-color" content="#1b8d1b">
+
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="tMLDB - {mod.display_name}" />
+	<meta property="og:description" content="View information about the {mod.display_name} mod for tModLoader including statistics, download history, and mod dependencies." />
+	<meta property="og:image" content="https://tml-card.le0n.dev/?modname={mod.mod_id}" />
+
+	<meta property="twitter:card" content="summary_large_image" />
+	<meta property="twitter:title" content="tMLDB - {mod.display_name}" />
+	<meta property="twitter:description" content="View information about the {mod.display_name} mod for tModLoader including statistics, download history, and mod dependencies." />
+	<meta property="twitter:image" content="https://tml-card.le0n.dev/?modname={mod.mod_id}" />
+</svelte:head>
+
+<div id="mod-page">
 	<ModHeader {mod} />
 
 	<article id="description">
@@ -65,8 +81,8 @@
 </div>
 
 <style>
-	#page {
-		padding: clamp(2rem, 4vw, 4rem);
+	#mod-page {
+		padding: clamp(1rem, 4vw, 4rem);
 		display: flex;
 		flex-direction: column;
 		gap: 2.5rem;

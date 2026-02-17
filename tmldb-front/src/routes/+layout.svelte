@@ -33,37 +33,35 @@
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
-<nav>
-	<div id="nav-content">
-		<div class="nav-left">
-			<span class="logo">tMLDB</span>
-			<div class="nav-links">
-				<a href="/" class="nav-link">Home</a>
-				<a href="/mods" class="nav-link">Mods</a>
-				<a href="/creators" class="nav-link">Creators</a>
-				<a href="/tree" class="nav-link" hidden>Tree</a>
-			</div>
-		</div>
-		<form onsubmit={search} id="search-form">
-			<input id="search-type" type="checkbox" bind:checked={searchMod} >
-			<label for="search-type" title="Click to toggle mods/creators">
-				{#if searchMod}
-					<Icon path={mdiPackageVariant} />
-				{:else}
-					<Icon path={mdiAccount} />
-				{/if}
-			</label>
-
-			<input 
-				class="search-bar"
-				type="text" 
-				bind:value={searchQuery}
-				oninput={onKeySearch}
-				placeholder="Search {searchMod ? 'mods' : 'creators'}..."
-			>
-		</form>
+<header>
+	<div class="nav-left">
+		<span class="logo">tMLDB</span>
+		<nav>
+			<a href="/">Home</a>
+			<a href="/mods">Mods</a>
+			<a href="/creators">Creators</a>
+			<a href="/tree" hidden>Tree</a>
+		</nav>
 	</div>
-</nav>
+	<form onsubmit={search} id="search-form">
+		<input id="search-type" type="checkbox" bind:checked={searchMod} >
+		<label for="search-type" title="Click to toggle mods/creators">
+			{#if searchMod}
+				<Icon path={mdiPackageVariant} />
+			{:else}
+				<Icon path={mdiAccount} />
+			{/if}
+		</label>
+
+		<input 
+			id="search-bar"
+			type="text" 
+			bind:value={searchQuery}
+			oninput={onKeySearch}
+			placeholder="Search {searchMod ? 'mods' : 'creators'}..."
+		>
+	</form>
+</header>
 <div class={["search-result-container", searchResults.length == 0 && "empty"]}>
 	{#each searchResults as res}
 		<a href="/{searchMod ? "mod" : "creator"}/{res.id}">{res.name}</a>
@@ -98,47 +96,32 @@
 		}
 	}
 
-	nav {
+	header {
+		--nav-bg1: rgba(27, 141, 27, 0.15);
+		--nav-bg2: rgba(34, 197, 94, 0.1);
+
+		box-sizing: border-box;
 		position: fixed;
 		width: 100%;
 		height: var(--nav-height);
 		top: 0;
-		background: linear-gradient(90deg, rgba(27, 141, 27, 0.15) 0%, rgba(34, 197, 94, 0.1) 50%, rgba(27, 141, 27, 0.15) 100%);
+		background: linear-gradient(90deg, var(--nav-bg1) 0%, var(--nav-bg2) 50%, var(--nav-bg1) 100%);
 		backdrop-filter: blur(10px);
 		border-bottom: 1px solid rgba(132, 204, 22, 0.2);
 		z-index: 1;
 		
-		#nav-content {
-			display: flex;
-			padding: 0 2rem;
-			align-items: center;
-			justify-content: space-between;
-			height: 100%;
-			max-width: 1400px;
-			margin: 0 auto;
-		}
+		display: flex;
+		padding: 0 2rem;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem 4rem;
+	
+		@media (max-width: 768px) {
+			justify-content: center;
+			flex-direction: column;
 
-		@media (max-width: 850px) {
-			#nav-content {
+			.nav-left, nav {
 				gap: 1rem;
-				padding: 0 1rem;
-			}
-
-			.nav-left {
-				gap: 1rem;
-			}
-
-			.nav-links {
-				gap: 1rem;
-				font-size: 0.85rem;
-			}
-		}
-
-		@media (max-width: 520px) {
-			position: absolute;
-			#nav-content {
-				justify-content: center;
-				flex-direction: column;
 			}
 		}
 	}
@@ -160,12 +143,12 @@
 		transition: transform 0.2s;
 	}
 
-	.nav-links {
+	nav {
 		display: flex;
 		gap: 2rem;
 	}
 
-	.nav-link {
+	nav a {
 		color: rgb(from white r g b / 0.8);
 		text-decoration: none;
 		font-size: 0.95rem;
@@ -183,7 +166,7 @@
 
 	#search-form {
 		display: grid;
-		grid-template-columns: 2rem 300px;
+		grid-template-columns: 2rem minmax(200px, 300px);
 		gap: .5rem;
 	}
 
@@ -206,7 +189,7 @@
 		}
 	}
 
-	.search-bar {
+	#search-bar {
 		appearance: none;
 		outline: none;
 
@@ -227,10 +210,6 @@
 		&::placeholder {
 			color: var(--search-bar-color);
 		}
-
-		@media (max-width: 850px) {
-			width: 120px;
-		}
 	}
 
 	.search-result-container {
@@ -242,7 +221,7 @@
 		top: anchor(bottom);
 		left: anchor(left);
 
-		width: 300px;
+		max-width: 300px;
 		max-height: 40rem;
 		padding: .25rem;
 		border: solid 1px var(--primary);
@@ -284,13 +263,13 @@
 		align-items: center;
 		gap: 1rem;
 		justify-content: space-between;
-		padding: 0 2rem;
+		padding: 1rem 2rem;
 		background-color: #090f1c;
 		min-height: var(--footer-height);
 
 		#disclaimer {
 			color: rgb(from white r g b / 0.6);
-			text-wrap-style: pretty;
+			text-wrap: pretty;
 		}
 
 		#footer-links {

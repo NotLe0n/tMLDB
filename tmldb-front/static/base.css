@@ -13,7 +13,7 @@
 	--footer-height: 4rem;
 	--search-bar-color: rgb(255, 255, 255, 0.6);
 
-	@media (max-width: 520px) {
+	@media (max-width: 768px) {
 		--nav-height: 8rem;
 	}
 }
@@ -78,11 +78,12 @@ a {
 	text-decoration: none;
 }
 
-h1 { font-size: 2.5rem; }
-h2 { font-size: 1.75rem; }
-h3 { font-size: 1.5rem; }
-h4 { font-size: 1.25rem; }
-p { font-size: 1rem; }
+h1 { font-size: clamp(2.0rem, 8vw, 3.5rem) }
+h2 { font-size: clamp(1.75rem, 6vw, 2.5rem) }
+h3 { font-size: clamp(1.1rem, 4vw, 1.5rem) }
+h4 { font-size: clamp(1rem, 3vw, 1.25rem) }
+p { --max-font-size: 1rem; }
+b { font-weight: bold; }
 
 ::-webkit-scrollbar {
 	width: 8px;

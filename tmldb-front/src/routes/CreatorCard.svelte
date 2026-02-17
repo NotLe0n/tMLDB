@@ -20,6 +20,7 @@
 
 <style>
 	.creator-card {
+		container-type: inline-size;
 		display: flex;
 		align-items: center;
 		gap: 1rem;
@@ -35,10 +36,6 @@
 			transform: translateY(-2px);
 			box-shadow: 0 4px 12px 0 rgb(from var(--primary) r g b / 0.3);
 			background-color: var(--tertiary-hov);
-		}
-
-		@media (max-width: 319px) {
-			flex-direction: column;
 		}
 	}
 
@@ -65,8 +62,12 @@
 
 	.creator-stats {
 		display: flex;
-		gap: 1rem;
+		gap: 0.25rem 1rem;
 		font-size: 0.9rem;
 		opacity: 0.8;
+
+		@container (width <= 18rem) {
+			flex-direction: column;
+		}
 	}
 </style>

@@ -26,6 +26,7 @@
 <style>
 	.voting-card {
 		display: flex;
+		flex-wrap: wrap;
 		gap: 1rem;
 		padding: 1rem;
 		background: rgba(255, 255, 255, 0.08);
@@ -33,7 +34,6 @@
 		border-radius: 0.85rem;
 		backdrop-filter: blur(10px);
 		justify-content: space-evenly;
-		grid-column: span 2;
 	}
 
 	.stat-content {
