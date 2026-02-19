@@ -1,13 +1,13 @@
 <script lang="ts">
-	import LinkButton from '$lib/LinkButton.svelte'
-	import ModIcon from '$lib/ModIcon.svelte'
+	import LinkButton from '$lib/components/LinkButton.svelte'
+	import ModIcon from '$lib/components/ModIcon.svelte'
 	import ModTag from './ModTag.svelte'
 	import ModSocialsList from './ModSocialsList.svelte'
-	import StatCard from '$lib/StatCard.svelte'
+	import StatCard from '$lib/components/StatCard.svelte'
 	import VotingCard from './VotingCard.svelte'
 	import { mdiDownload, mdiHeart, mdiClockOutline, mdiEye } from '@mdi/js'
 	import { formatDate, formatDuration, type ModData } from '$lib'
-    import LoadingSpinner from '$lib/LoadingSpinner.svelte';
+	import LoadingSpinner from '$lib/components/LoadingSpinner.svelte';
 
 	const { mod }: { mod: ModData | undefined } = $props()
 	
@@ -17,7 +17,7 @@
 
 <header>
 	{#if mod}
-		<div id="header-left">
+		<div id="header-left" style="--icon-size: {modIconSize}px">
 			<div id="mod-icon">
 				<ModIcon src={mod.workshop_icon_url} name={mod.display_name} size={modIconSize} />
 			</div>
@@ -92,16 +92,13 @@
 		grid-template-rows: auto 1fr;
 		gap: .5rem clamp(1.5rem, 3vw, 3rem);
 		align-items: center;
+		max-width: 45rem;
 	}
 
 	#header-body {
 		display: flex;
 		flex-direction: column;
 		gap: 0.75rem;
-
-		h1 {
-			margin: 0;
-		}
 	}
 
 	#mod-internals {
@@ -159,8 +156,10 @@
 		width: 100%;
 	}
 
-	:global(#mod-page #stat-grid>:last-child) {
-		grid-column: span 2;
+	@media (min-width: 555px) {
+		:global(.voting-card) {
+			grid-column: span 2;
+		}
 	}
 
 	@media (max-width: 1400px) {
@@ -192,10 +191,6 @@
 	@media (max-width: 555px) {
 		#stat-grid {
 			grid-template-columns: 1fr;
-		}
-
-		:global(#mod-page #stat-grid>:last-child) {
-			grid-column: unset;
 		}
 	}
 </style>

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import LoadingSpinner from "$lib/LoadingSpinner.svelte";
+	import LoadingSpinner from "$lib/components/LoadingSpinner.svelte";
 
 	interface OnDetectCallback { (): Promise<void> }
 	type ScrollDetectorProps = { loading: boolean, onDetect: OnDetectCallback }

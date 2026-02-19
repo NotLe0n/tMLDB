@@ -11,7 +11,9 @@
 	--gradient: linear-gradient(var(--gradient-rot), var(--highlight), var(--secondary));
 	--nav-height: 4rem;
 	--footer-height: 4rem;
+	--footer-display: flex;
 	--search-bar-color: rgb(255, 255, 255, 0.6);
+	scrollbar-color: rgba(132, 204, 22, 0.4) rgba(255, 255, 255, 0.05);
 
 	@media (max-width: 768px) {
 		--nav-height: 8rem;
@@ -84,22 +86,3 @@ h3 { font-size: clamp(1.1rem, 4vw, 1.5rem) }
 h4 { font-size: clamp(1rem, 3vw, 1.25rem) }
 p { --max-font-size: 1rem; }
 b { font-weight: bold; }
-
-::-webkit-scrollbar {
-	width: 8px;
-	height: 8px;
-}
-
-::-webkit-scrollbar-track {
-	background: rgba(255, 255, 255, 0.05);
-	border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb {
-	background: rgba(132, 204, 22, 0.4);
-	border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-	background: rgba(132, 204, 22, 0.6);
-}

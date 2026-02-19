@@ -1,7 +1,7 @@
 <script lang="ts">
 	import bbobHTML from '@bbob/html'
 	import presetHTML5 from '@bbob/preset-html5'
-	import ModIcon from '$lib/ModIcon.svelte';
+	import ModIcon from '$lib/components/ModIcon.svelte';
 
 	type TopModsResponse = { display_name: string, internal_name: string, description: string, icon: string }
 	let {mod}: { mod: TopModsResponse } = $props();

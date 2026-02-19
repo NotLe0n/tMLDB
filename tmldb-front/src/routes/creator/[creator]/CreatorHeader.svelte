@@ -1,8 +1,8 @@
 <script lang="ts">
-    import type { AuthorData } from "$lib";
-    import Icon from "$lib/Icon.svelte";
-    import LoadingSpinner from "$lib/LoadingSpinner.svelte";
-	import StatCard from "$lib/StatCard.svelte";
+	import type { AuthorData } from "$lib";
+	import Icon from "$lib/components/Icon.svelte";
+	import LoadingSpinner from "$lib/components/LoadingSpinner.svelte";
+	import StatCard from "$lib/components/StatCard.svelte";
 	import { mdiDownload, mdiHeart, mdiEye, mdiPackageVariant, mdiSteam } from "@mdi/js";
 
 	const { creator } : { creator: AuthorData | undefined } = $props()
@@ -20,7 +20,7 @@
 
 <header>
 	{#if creator}
-		<div id="header-left">
+		<div id="header-left" style="--avatar-size: {avatarSize}px">
 			<img id="creator-avatar" src={creator.steam_avatar} alt={creator.steam_name} width={avatarSize} height={avatarSize} />
 			<div id="header-body">
 				<div id="creator-name">

@@ -1,10 +1,10 @@
 <script lang="ts">
 	import ModsHistogram from "./ModsHistogram.svelte";
 	import ModCard from "./ModCard.svelte";
-	import StatCard from "$lib/StatCard.svelte";
+	import StatCard from "$lib/components/StatCard.svelte";
 	import CreatorCard from "./CreatorCard.svelte";
-	import LinkButton from "$lib/LinkButton.svelte";
-	import LoadingSpinner from "$lib/LoadingSpinner.svelte";
+	import LinkButton from "$lib/components/LinkButton.svelte";
+	import LoadingSpinner from "$lib/components/LoadingSpinner.svelte";
 	import { mdiDownload, mdiEye, mdiPackageVariant, mdiAccount } from "@mdi/js";
 
 	type GlobalStatsResponse = { mods: number, downloads: number, views: number, creators: number }
@@ -131,7 +131,7 @@ section {
 		margin-bottom: 0.5rem;
 		background: var(--gradient);
 		background-clip: text;
-		-webkit-text-fill-color: transparent;
+		color: transparent;
 	}
 
 	.tagline {

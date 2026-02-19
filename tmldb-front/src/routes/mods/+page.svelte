@@ -1,16 +1,15 @@
 <script lang="ts">
 	import type { ModListData } from "$lib";
-	import { mdiClockEdit, mdiClockPlus, mdiDownload, mdiEye, mdiCogRefresh, mdiStar, mdiThumbsUpDown } from "@mdi/js";
+	import { mdiClockEdit, mdiClockPlus, mdiDownload, mdiEye, mdiStar, mdiThumbsUpDown } from "@mdi/js";
 
 	import FilterSelector from "./FilterSelector.svelte";
-	import ModListCard from "$lib/ModListCard.svelte";
-	import SortSelector from "$lib/SortSelector.svelte";
-    import SearchFilter from "$lib/SearchFilter.svelte";
-    import ScrollDetector from "$lib/ScrollDetector.svelte";
-    import { onMount } from "svelte";
-    import { page } from "$app/state";
-    import { goto } from "$app/navigation";
-    import Icon from "$lib/Icon.svelte";
+	import ModListCard from "$lib/components/ModListCard.svelte";
+	import SortSelector from "$lib/components/SortSelector.svelte";
+	import ScrollDetector from "$lib/components/ScrollDetector.svelte";
+	import { onMount } from "svelte";
+	import { page } from "$app/state";
+	import { goto } from "$app/navigation";
+	import ListPage from "$lib/components/page-components/ListPage.svelte";
 
 	const DEFAULT_SEARCH = ""
 	const DEFAULT_SORT = 0
@@ -97,102 +96,42 @@
 	<meta name="description" content="View a list of all Terraria mods">
 </svelte:head>
 
-<div id="modlist-container">
-	<header>
-		<h2>Mod List</h2>
-		<div id="controls">
-			<SearchFilter bind:searchQuery onsubmit={updateModList} />
-			<div class="controls-box">
-				<div>
-					<SortSelector 
-						sortOptions={sortOptions}
-						bind:selectedIdx={sortSelection} 
-						bind:sortDesc={sortDesc} 
-						onchange={updateModList} 
-					/>
-				</div>
-				<div>
-					<FilterSelector 
-						bind:modSides={modSideFilter}
-						bind:tags={tagsFilter}
-						bind:versions={versionsFilter}
-						onapply={updateModList} 
-					/>
-				</div>
-				<button id="reset-button" title="Reset all" onclick={resetParams}>
-					<Icon path={mdiCogRefresh} />
-				</button>
-			</div>
+<ListPage onsubmit={updateModList} bind:searchQuery={searchQuery} resetControls={resetParams}>
+	{#snippet controls()}
+		<div>
+			<SortSelector 
+				sortOptions={sortOptions}
+				bind:selectedIdx={sortSelection} 
+				bind:sortDesc={sortDesc} 
+				onchange={updateModList} 
+			/>
 		</div>
-	</header>
-	<div id="modlist">
-		{#each modList as mod}
-			<ModListCard {mod} />
-		{/each}
-		<ScrollDetector bind:loading={loading} onDetect={onScrollDetect} />
-	</div>
-</div>
+		<div>
+			<FilterSelector 
+				bind:modSides={modSideFilter}
+				bind:tags={tagsFilter}
+				bind:versions={versionsFilter}
+				onapply={updateModList} 
+			/>
+		</div>
+	{/snippet}
+
+	{#snippet list()}
+		<div id="modlist">
+			{#each modList as mod}
+				<ModListCard {mod} />
+			{/each}
+			<ScrollDetector bind:loading={loading} onDetect={onScrollDetect} />
+		</div>
+	{/snippet}
+</ListPage>
 
 <style>
-#modlist-container {
-	display: grid;
-	height: calc(100vh - var(--nav-height) - var(--footer-height) - 1rem);
-	grid-template-rows: auto 1fr;
-	gap: .5rem;
-	padding-top: 1rem;
-	--space-area: 3.5rem;
-	@media (max-width: 596px) {
-		--space-area: 2rem;
+	#modlist {
+		overflow-y: auto;
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		padding-right: 0.5rem;
 	}
-}
-
-header {
-	padding: 0 var(--space-area);
-	h2 {
-		text-align: center;
-		margin-bottom: 20px;
-	}
-}
-
-#controls {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 0.5rem 1rem;
-	align-items: center;
-	justify-content: center;
-	padding: 0 10px;
-}
-
-.controls-box {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-	justify-content: center;
-	gap: 0.25rem 1rem;
-}
-
-#reset-button {
-	display: flex;
-	background-color: var(--tertiary-bg);
-	border: 1px solid var(--secondary);
-	border-radius: .5rem;
-	padding: 5px 10px;
-	cursor: pointer;
-	transition: border-color .2s, background-color .2s;
-
-	&:hover {
-		background-color: var(--tertiary-hov);
-	}
-}
-
-#modlist {
-	overflow-y: auto;
-	display: flex;
-	flex-direction: column;
-	gap: 1rem;
-	--scrollbar-area: 10px;
-	padding-left: calc(var(--space-area) + var(--scrollbar-area));
-	padding-right: var(--scrollbar-area);
-	margin-right: calc(var(--space-area) - var(--scrollbar-area));
-}
 </style>

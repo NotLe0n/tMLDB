@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { mdiMenuDown } from "@mdi/js";
-    import Icon from "$lib/Icon.svelte";
+	import Icon from "$lib/components/Icon.svelte";
 
 	let { modSides = $bindable([]), tags = $bindable([]), versions = $bindable([]), onapply } = $props()
 
@@ -119,7 +119,7 @@
 		background-color: var(--tertiary-bg);
 		border: 1px solid var(--secondary);
 		border-radius: .5rem;
-		padding: 9px 10px;
+		padding: 7px 10px;
 		cursor: pointer;
 		transition: border-color .2s, background-color .2s, opacity .5s;
 

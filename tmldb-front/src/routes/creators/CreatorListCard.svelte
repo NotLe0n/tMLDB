@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { CreatorListData } from "$lib";
 	import { mdiDownload, mdiEye, mdiPackageVariant, mdiStar } from "@mdi/js";
-    import Icon from "$lib/Icon.svelte";
+	import Icon from "$lib/components/Icon.svelte";
 
 	const { creator }: { creator: CreatorListData } = $props();
 </script>
@@ -41,7 +41,7 @@
 	.creator-list-card {
 		display: grid;
 		grid-template-rows: auto 1fr;
-		gap: 0.33rem;
+		gap: 0.15rem;
 		padding: 1rem;
 		background-color: var(--tertiary-bg);
 		border-radius: 1rem;
@@ -69,11 +69,10 @@
 	}
 
 	h3 {
-		color: var(--secondary);
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
-		padding-bottom: 0.15rem;
+		padding-bottom: 0.33rem;
 	}
 
 	.stats-grid {

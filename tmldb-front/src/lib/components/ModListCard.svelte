@@ -4,7 +4,7 @@
 	import ModIcon from "./ModIcon.svelte";
 	import bbobHTML from '@bbob/html'
 	import presetHTML5 from '@bbob/preset-html5'
-    import Icon from "./Icon.svelte";
+	import Icon from "./Icon.svelte";
 
 	const { mod }: { mod: ModListData | ModData } = $props()
 	
@@ -107,7 +107,7 @@
 
 	.modlist-card {
 		display: grid;
-		grid-template-columns: var(--icon-size) 1fr 2px 22rem;
+		grid-template-columns: var(--icon-size) 1fr 2px 23rem;
 		grid-template-rows: var(--icon-size);
 		width: 100%;
 		gap: 1rem;
@@ -231,9 +231,13 @@
 		align-items: center;
 	}
 
-	.stat-value {
+	.time-stat span:first-of-type {
+		opacity: 0.8;
+	}
+
+	.time-stat span:last-of-type, .stat-value {
+		color: var(--highlight);
 		font-weight: 600;
-		color: var(--primary);
 	}
 
 	.vote-stats {

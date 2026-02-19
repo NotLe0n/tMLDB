@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { mdiCube, mdiFacebook, mdiReddit, mdiSteam, mdiTwitter, mdiYoutube } from '@mdi/js';
-    import Icon from '$lib/Icon.svelte';
+	import Icon from '$lib/components/Icon.svelte';
 
 	type ModSocials = {
 		youtube?: string | null,

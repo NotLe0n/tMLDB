@@ -1,8 +1,8 @@
 <script lang="ts">
 	import favicon from '$lib/assets/favicon.svg';
 	import type { SearchResult } from '$lib';
-    import Icon from '$lib/Icon.svelte';
-    import { mdiAccount, mdiPackageVariant } from '@mdi/js';
+	import Icon from '$lib/components/Icon.svelte';
+	import { mdiAccount, mdiPackageVariant } from '@mdi/js';
 
 	let { children } = $props()
 
@@ -97,15 +97,12 @@
 	}
 
 	header {
-		--nav-bg1: rgba(27, 141, 27, 0.15);
-		--nav-bg2: rgba(34, 197, 94, 0.1);
-
 		box-sizing: border-box;
 		position: fixed;
 		width: 100%;
 		height: var(--nav-height);
 		top: 0;
-		background: linear-gradient(90deg, var(--nav-bg1) 0%, var(--nav-bg2) 50%, var(--nav-bg1) 100%);
+		background: rgba(27, 141, 27, 0.15);
 		backdrop-filter: blur(10px);
 		border-bottom: 1px solid rgba(132, 204, 22, 0.2);
 		z-index: 1;
@@ -134,9 +131,8 @@
 
 	.logo {
 		background: var(--gradient);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
 		background-clip: text;
+		color: transparent;
 		font-weight: 700;
 		font-size: 1.5rem;
 		text-decoration: none;
@@ -259,7 +255,7 @@
 	}
 
 	footer {
-		display: flex;
+		display: var(--footer-display);
 		align-items: center;
 		gap: 1rem;
 		justify-content: space-between;

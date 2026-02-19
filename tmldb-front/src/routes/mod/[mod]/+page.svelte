@@ -3,10 +3,11 @@
 	import presetHTML5 from '@bbob/preset-html5'
 
 	import ModHistoryChart from './ModHistoryChart.svelte'
-    import LoadingSpinner from '$lib/LoadingSpinner.svelte';
-    import ModListCard from '$lib/ModListCard.svelte';
-    import ModHeader from './ModHeader.svelte';
-    import type { PageData } from './$types';
+	import LoadingSpinner from '$lib/components/LoadingSpinner.svelte';
+	import ModListCard from '$lib/components/ModListCard.svelte';
+	import ModHeader from './ModHeader.svelte';
+	import type { PageData } from './$types';
+	import StatPage from '$lib/components/page-components/StatPage.svelte';
 
 	let { data }: { data: PageData } = $props();
 	const mod = $derived(data.mod);
@@ -32,7 +33,7 @@
 	<meta property="twitter:image" content="https://tml-card.le0n.dev/?modname={mod.mod_id}" />
 </svelte:head>
 
-<div id="mod-page">
+<StatPage>
 	<ModHeader {mod} />
 
 	<article id="description">
@@ -78,35 +79,15 @@
 			</div>
 		</article>
 	{/if}
-</div>
+</StatPage>
 
 <style>
-	#mod-page {
-		padding: clamp(1rem, 4vw, 4rem);
-		display: flex;
-		flex-direction: column;
-		gap: 2.5rem;
-
-		--icon-size: 176px;
-	}
-
-	article {
-		padding: 1.5rem;
-		border-radius: 1rem;
-		background: var(--tertiary-bg);
-		border: 1px solid rgba(132, 204, 22, 0.15);
-
-		h2 {
-			margin-bottom: 1rem;
-		}
-	}
-
 	#description {
 		padding-right: 1rem;
-		max-height: 40rem;
-		overflow: auto;
-
 		pre {
+			padding-right: 0.25rem;
+			overflow: auto;
+			max-height: 40rem;
 			text-wrap: auto;
 			font-size: 0.99rem;
 			line-height: 1.1;

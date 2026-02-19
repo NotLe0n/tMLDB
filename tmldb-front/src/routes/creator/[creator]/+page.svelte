@@ -1,10 +1,11 @@
 <script lang="ts">
 	import type { ModData } from "$lib";
-	import ModListCard from "$lib/ModListCard.svelte";
-	import LoadingSpinner from "$lib/LoadingSpinner.svelte";
+	import ModListCard from "$lib/components/ModListCard.svelte";
+	import LoadingSpinner from "$lib/components/LoadingSpinner.svelte";
 	import CreatorHistoryChart from "./CreatorHistoryChart.svelte";
-    import CreatorHeader from "./CreatorHeader.svelte";
-    import type { PageData } from './$types';
+	import CreatorHeader from "./CreatorHeader.svelte";
+	import type { PageData } from './$types';
+	import StatPage from "$lib/components/page-components/StatPage.svelte";
 
 	let { data }: { data: PageData } = $props();
 	const creator = $derived(data.creator);
@@ -30,7 +31,7 @@
 	<meta property="twitter:image" content="https://tml-card.le0n.dev/?steamid64={creator.steam_id}" />
 </svelte:head>
 
-<div id="creator-page">
+<StatPage>
 	<CreatorHeader {creator} />
 
 	<article id="mods-list">
@@ -43,40 +44,20 @@
 	</article>
 
 	{#await data.history}
-			<LoadingSpinner size=24 />
-		{:then creatorHistory}
-			{#if creatorHistory.dates.length > 0}
-				<article id="mod-history">
-					<h3>Daily change over time</h3>
-					<div>
-						<CreatorHistoryChart data={creatorHistory} modNameMap={getModNameMap(creator.mods)} />
-					</div>
-				</article>
-			{/if}
-		{/await}
-</div>
+		<LoadingSpinner size=24 />
+	{:then creatorHistory}
+		{#if creatorHistory.dates.length > 0}
+			<article id="mod-history">
+				<h3>Daily change over time</h3>
+				<div>
+					<CreatorHistoryChart data={creatorHistory} modNameMap={getModNameMap(creator.mods)} />
+				</div>
+			</article>
+		{/if}
+	{/await}
+</StatPage>
 
 <style>
-	#creator-page {
-		padding: clamp(1rem, 4vw, 4rem);
-		display: flex;
-		flex-direction: column;
-		gap: 2.5rem;
-
-		--avatar-size: 176px;
-	}
-
-	article {
-		padding: 1.5rem;
-		border-radius: 1rem;
-		background: var(--tertiary-bg);
-		border: 1px solid rgba(132, 204, 22, 0.15);
-
-		h3 {
-			margin-bottom: 1.5rem;
-		}
-	}
-
 	#mods-container {
 		display: flex;
 		flex-direction: column;

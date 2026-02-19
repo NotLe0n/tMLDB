@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { mdiMenuDown, mdiSortAscending, mdiSortDescending } from "@mdi/js";
-    import Icon from "./Icon.svelte";
+	import Icon from "./Icon.svelte";
 
 	type SortOptions = {
 		id: string;
