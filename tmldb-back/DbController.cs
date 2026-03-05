@@ -376,7 +376,7 @@ public class DbController : Controller
 			SELECT display_name as name, mod_id::text as id FROM mods
 			WHERE 
 				LOWER(display_name) LIKE '%' || LOWER(@query) || '%'
-				OR internal_name LIKE '%' || LOWER(@query) || '%'
+				OR LOWER(internal_name) LIKE '%' || LOWER(@query) || '%'
 			ORDER BY downloads_total DESC
 			LIMIT 50;
 			""", new { query });

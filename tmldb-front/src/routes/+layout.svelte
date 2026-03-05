@@ -88,8 +88,9 @@
 		--dropdown-display: flex;
 		--dropdown-opacity: 1;
 		--searchbar-border-radius: 0.5rem 0.5rem 0 0;
-		
-		&:not(:has(#search-bar:focus)):not(:has(.search-result-container:hover)), &:has(.empty) {
+
+		&:has(.empty), 
+		&:not(:has(#search-bar:focus, .search-result-container:is(:hover, :focus-within))) {
 			--dropdown-display: none;
 			--dropdown-opacity: 0;
 			--searchbar-border-radius: 0.5rem;
@@ -217,7 +218,7 @@
 		top: anchor(bottom);
 		left: anchor(left);
 
-		max-width: 300px;
+		width: 290px;
 		max-height: 40rem;
 		padding: .25rem;
 		border: solid 1px var(--primary);
@@ -231,7 +232,9 @@
 
 		a {
 			border-radius: .25rem;
-			padding: .75rem;
+			outline: none;
+			padding: .55rem;
+			border: 1px solid transparent;
 
 			&:hover {
 				background-color: var(--tertiary-hov);
@@ -239,6 +242,11 @@
 
 			&:last-child {
 				border-radius: .25rem .25rem .75rem .75rem;
+			}
+
+			&:focus {
+				background-color: var(--tertiary-hov);
+				border-color: var(--primary);
 			}
 		}
 
