@@ -24,8 +24,8 @@
 		display: flex;
 		align-items: center;
 		gap: 1rem;
-		border: 1px solid var(--primary);
-		background-color: var(--tertiary-bg);
+		border: 1px solid var(--green3);
+		background-color: var(--green3-bg);
 		border-radius: .75rem;
 		padding: 1rem;
 		transition: transform 0.2s, box-shadow 0.2s;
@@ -34,14 +34,14 @@
 		&:hover {
 			border-color: var(--highlight);
 			transform: translateY(-2px);
-			box-shadow: 0 4px 12px 0 rgb(from var(--primary) r g b / 0.3);
-			background-color: var(--tertiary-hov);
+			box-shadow: 0 4px 12px 0 rgb(from var(--green1) r g b / 0.3);
+			background-color: var(--green3-hov);
 		}
 	}
 
 	.creator-icon {
 		border-radius: 50%;
-		border: 2px solid var(--secondary);
+		border: 2px solid var(--highlight);
 	}
 
 	.creator-info {

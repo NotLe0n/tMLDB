@@ -56,15 +56,15 @@
 
 	label[for="controls-button"] {
 		display: flex;
-		background-color: var(--tertiary-bg);
-		border: 1px solid var(--secondary);
+		background-color: var(--green3-bg);
+		border: 1px solid var(--green2);
 		border-radius: .5rem;
 		padding: 5px 10px;
 		cursor: pointer;
 		transition: border-color .2s, background-color .2s;
 
 		&:hover {
-			background-color: var(--tertiary-hov);
+			background-color: var(--green3-hov);
 		}
 
 		&:has(+ input:checked) {
@@ -102,14 +102,14 @@
 	.search-bar {
 		min-width: 25ch;
 		outline: none;
-		background-color: var(--tertiary-bg);
-		border: 1px solid var(--secondary);
+		background-color: var(--green3-bg);
+		border: 1px solid var(--green2);
 		border-radius: 0.5rem;
 		padding: 0.5rem 1rem;
 		transition: border-color 0.3s, box-shadow 0.3s;
 
 		&:focus {
-			box-shadow: 0 0 2px 3px var(--tertiary-hov);
+			box-shadow: 0 0 2px 3px var(--green3-hov);
 			border-color: var(--highlight);
 		}
 
@@ -119,29 +119,29 @@
 	}
 
 	.search-button {
-		background-color: var(--tertiary-bg);
-		border: 1px solid var(--secondary);
+		background-color: var(--green3-bg);
+		border: 1px solid var(--green2);
 		border-radius: 0.5rem;
 		padding: 0.5rem 1rem;
 		transition: border-color .2s, background-color .2s;
 		cursor: pointer;
 
 		&:hover {
-			background-color: var(--tertiary-hov);
+			background-color: var(--green3-hov);
 		}
 	}
 
 	#reset-button {
 		display: flex;
-		background-color: var(--tertiary-bg);
-		border: 1px solid var(--secondary);
+		background-color: var(--green3-bg);
+		border: 1px solid var(--green2);
 		border-radius: .5rem;
 		padding: 5px 10px;
 		cursor: pointer;
 		transition: border-color .2s, background-color .2s;
 
 		&:hover {
-			background-color: var(--tertiary-hov);
+			background-color: var(--green3-hov);
 		}
 	}
 

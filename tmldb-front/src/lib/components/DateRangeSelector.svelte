@@ -149,18 +149,18 @@
 
 	.date-range-selector {
 		height: 1.5rem;
-		background-color: var(--tertiary-bg);
-		border: 2px solid var(--primary);
+		background-color: var(--green3-bg);
+		border: 1px solid var(--green2);
 		border-radius: 0.5rem;
 		cursor: pointer;
 		transition: background-color  0.3s;
 
 		&:hover {
-			background-color: var(--tertiary-hov);
+			background-color: var(--green3-hov);
 		}
 
 		& > option {
-			background-color: var(--tertiary);
+			background-color: var(--green3);
 		}
 	}
 
@@ -180,8 +180,8 @@
 		position: absolute;
 		width: 100%;
 		height: 1rem;
-		background-color: var(--tertiary-bg);
-		border: 1px solid color-mix(in srgb, var(--primary) 40%, transparent);
+		background-color: var(--green3-bg);
+		border: 1px solid var(--green3);
 		border-radius: 0.25rem;
 	}
 
@@ -189,7 +189,7 @@
 		position: absolute;
 		top: 0;
 		height: 100%;
-		background-color: var(--primary);
+		background-color: var(--green1);
 		opacity: 0.5;
 	}
 
@@ -198,8 +198,8 @@
 		transform: translateX(-50%);
 		width: 14px;
 		height: 1.5rem;
-		background-color: var(--tertiary);
-		border: 2px solid var(--primary);
+		background-color: var(--green3);
+		border: 2px solid var(--green1);
 		border-radius: 0.25rem;
 		cursor: ew-resize;
 		padding: 0;
@@ -223,8 +223,8 @@
 		position: absolute;
 		position-area: bottom;
 		top: 1.25rem;
-		background-color: var(--tertiary-bg);
-		border: 1px solid color-mix(in srgb, var(--primary) 50%, transparent);
+		background-color: var(--green3-bg);
+		border: 1px solid var(--green1);
 		border-radius: 4px;
 		padding: 2px 6px;
 		font-size: 0.7rem;

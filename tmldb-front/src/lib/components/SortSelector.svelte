@@ -73,15 +73,15 @@
 		display: flex;
 		align-items: center;
 		gap: 0.25rem;
-		background-color: var(--tertiary-bg);
-		border: 1px solid var(--secondary);
+		background-color: var(--green3-bg);
+		border: 1px solid var(--green2);
 		border-radius: .5rem;
 		padding: 5px 10px;
 		cursor: pointer;
 		transition: border-color .2s, background-color .2s;
 
 		&:hover {
-			background-color: var(--tertiary-hov);
+			background-color: var(--green3-hov);
 		}
 	}
 
@@ -94,10 +94,10 @@
 		flex-direction: column;
 		gap: 0.25rem;
 
-		border: 1px solid var(--secondary);
+		border: 1px solid var(--green2);
 		border-radius: .5rem;
 		padding: 0.25rem;
-		background-color: var(--tertiary-bg);
+		background-color: var(--green3-bg);
 		backdrop-filter: brightness(0.75) blur(10px);
 
 		&:popover-open {
@@ -117,11 +117,11 @@
 		transition: border-color .2s, background-color .2s;
 
 		&:hover {
-			background-color: var(--tertiary-hov);
+			background-color: var(--green3-hov);
 		}
 
 		&.selected {
-			background-color: var(--tertiary-hov);
+			background-color: var(--green3-hov);
 			border-color: var(--highlight);
 		}
 	}
@@ -132,15 +132,15 @@
 
 	label {
 		display: flex;
-		background-color: var(--tertiary-bg);
-		border: 1px solid var(--secondary);
+		background-color: var(--green3-bg);
+		border: 1px solid var(--green2);
 		border-radius: .5rem;
 		padding: 5px 10px;
 		cursor: pointer;
 		transition: border-color .2s, background-color .2s;
 
 		&:hover {
-			background-color: var(--tertiary-hov);
+			background-color: var(--green3-hov);
 		}
 	}
 </style>

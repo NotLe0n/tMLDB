@@ -112,13 +112,14 @@
 		width: 100%;
 		gap: 1rem;
 		padding: 1rem;
-		background-color: var(--tertiary-bg);
+		background-color: var(--green3-bg);
+		border: 1px solid var(--green3);
 		border-radius: 1rem;
 		transition: background-color 0.2s;
 		align-items: center;
 
 		&:hover {
-			background-color: var(--tertiary-hov);
+			background-color: var(--green3-hov);
 		}
 
 		@container (width < 1000px) {
@@ -171,7 +172,7 @@
 	}
 
 	.divider {
-		background-color: var(--tertiary);
+		background-color: var(--green3);
 		border-radius: 10px;
 		height: 100%;
 	}
@@ -252,10 +253,10 @@
 		border-radius: 20px;
 		margin-top: 5px;
 		background: linear-gradient(90deg,
-			var(--primary) 0%,
-			var(--primary) var(--score),
-			rgba(235, 38, 38, 1) var(--score),
-			rgba(235, 38, 38, 1) 100%
+			var(--green1) 0%,
+			var(--green1) var(--score),
+			var(--downvote-color) var(--score),
+			var(--downvote-color) 100%
 		);
 		grid-column: span 2;
 	}

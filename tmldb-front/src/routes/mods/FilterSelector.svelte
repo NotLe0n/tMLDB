@@ -116,15 +116,15 @@
 		display: flex;
 		align-items: center;
 		gap: 0.25rem;
-		background-color: var(--tertiary-bg);
-		border: 1px solid var(--secondary);
+		background-color: var(--green3-bg);
+		border: 1px solid var(--green2);
 		border-radius: .5rem;
 		padding: 7px 10px;
 		cursor: pointer;
 		transition: border-color .2s, background-color .2s, opacity .5s;
 
 		&:hover {
-			background-color: var(--tertiary-hov);
+			background-color: var(--green3-hov);
 		}
 
 		&:disabled {
@@ -134,7 +134,7 @@
 	}
 
 	button:disabled:hover {
-		background-color: var(--tertiary-bg);
+		background-color: var(--green3-bg);
 	}
 
 	#filter-dropdown {
@@ -149,10 +149,10 @@
 		flex-direction: column;
 		gap: 1rem;
 
-		border: 1px solid var(--secondary);
+		border: 1px solid var(--green2);
 		border-radius: .5rem;
 		padding: 0.5rem;
-		background-color: var(--tertiary-bg);
+		background-color: var(--green3-bg);
 		color: white;
 		backdrop-filter: brightness(0.75) blur(10px);
 
@@ -167,12 +167,12 @@
 
 	label {
 		padding: 0.25rem 0.5rem;
-		background-color: var(--tertiary-bg);
-		border: 1px solid var(--primary);
+		background-color: var(--green3-bg);
+		border: 1px solid var(--green3);
 		border-radius: 0.75rem;
 
 		&:hover {
-			background-color: var(--tertiary-hov);
+			background-color: var(--green3-hov);
 		}
 	}
 
@@ -212,10 +212,10 @@
 		top: calc(anchor(bottom) + 0.25rem);
 		left: anchor(left);
 
-		border: 1px solid var(--secondary);
+		border: 1px solid var(--green2);
 		border-radius: .5rem;
 		padding: 0.5rem;
-		background-color: var(--tertiary-bg);
+		background-color: var(--green3-bg);
 		color: white;
 		backdrop-filter: brightness(0.75) blur(10px);
 

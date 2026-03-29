@@ -115,13 +115,13 @@
 	}
 
 	.reference {
-		background-color: var(--tertiary-bg);
-		border-color: var(--primary);
+		background-color: var(--green3-bg);
+		border-color: var(--green1);
 		border-radius: 1rem;
 		padding: 0.5rem;
 
 		&:hover {
-			background-color: var(--tertiary-hov);
+			background-color: var(--green3-hov);
 		}
 	}
 

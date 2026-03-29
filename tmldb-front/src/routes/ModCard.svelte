@@ -39,8 +39,8 @@
 		place-items: center;
 		gap: 1rem;
 
-		background-color: var(--tertiary-bg);
-		border: 1px solid var(--primary);
+		background-color: var(--green3-bg);
+		border: 1px solid var(--green3);
 		border-radius: 0.75rem;
 		padding: 1rem;
 
@@ -50,8 +50,8 @@
 		&:hover {
 			border-color: var(--highlight);
 			transform: translateY(-4px);
-			box-shadow: 0 4px 12px 0 rgb(from var(--secondary) r g b / 0.3);
-			background-color: var(--tertiary-hov);
+			box-shadow: 0 4px 12px 0 rgb(from var(--green2) r g b / 0.3);
+			background-color: var(--green3-hov);
 		}
 	}
 

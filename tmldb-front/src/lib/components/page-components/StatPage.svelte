@@ -17,8 +17,8 @@
 			article {
 				padding: 1.5rem;
 				border-radius: 1rem;
-				background: var(--tertiary-bg);
-				border: 1px solid rgba(132, 204, 22, 0.15);
+				background: var(--green3-bg);
+				border: 1px solid var(--green3);
 			}
 
 			article h3 {

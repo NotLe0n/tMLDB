@@ -43,13 +43,14 @@
 		grid-template-rows: auto 1fr;
 		gap: 0.15rem;
 		padding: 1rem;
-		background-color: var(--tertiary-bg);
+		border: 1px solid var(--green3);
+		background-color: var(--green3-bg);
 		border-radius: 1rem;
 		transition: background-color 0.2s, border-color 0.2s;
 		container-type: inline-size;
 
 		&:hover {
-			background-color: var(--tertiary-hov);
+			background-color: var(--green3-hov);
 			border-color: var(--highlight);
 		}
 	}
@@ -58,7 +59,7 @@
 		width: 80px;
 		height: 80px;
 		border-radius: 1rem;
-		border: 2px solid var(--primary);
+		border: 2px solid var(--highlight);
 	}
 
 	.card-content {

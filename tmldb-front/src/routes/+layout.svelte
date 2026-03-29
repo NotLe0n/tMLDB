@@ -103,9 +103,9 @@
 		width: 100%;
 		height: var(--nav-height);
 		top: 0;
-		background: rgba(27, 141, 27, 0.15);
+		background: var(--green1-bg);
 		backdrop-filter: blur(10px);
-		border-bottom: 1px solid rgba(132, 204, 22, 0.2);
+		border-bottom: 1px solid var(--green3);
 		z-index: 1;
 		
 		display: flex;
@@ -175,14 +175,14 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		background-color: var(--tertiary-bg);
-		border: 1px solid var(--secondary);
+		background-color: var(--green3-bg);
+		border: 1px solid var(--green2);
 		border-radius: .5rem;
 		cursor: pointer;
 		transition: border-color .2s, background-color .2s;
 
 		&:hover {
-			background-color: var(--tertiary-hov);
+			background-color: var(--green3-hov);
 		}
 	}
 
@@ -194,13 +194,13 @@
 		font-size: 0.95rem;
 		padding: 0.5rem 1rem;
 
-		background-color: var(--tertiary-bg);
-		border: 1px solid var(--secondary);
+		background-color: var(--green3-bg);
+		border: 1px solid var(--green2);
 		border-radius: var(--searchbar-border-radius);
 		transition: border-color 0.3s ease, box-shadow 0.3s ease, border-radius 0.3s ease;
 
 		&:focus {
-			box-shadow: 0 0 3px 3px var(--tertiary-hov);
+			box-shadow: 0 0 3px 3px var(--green3-hov);
 			border-color: var(--highlight);
 		}
 
@@ -221,8 +221,8 @@
 		width: 290px;
 		max-height: 40rem;
 		padding: .25rem;
-		border: solid 1px var(--primary);
-		background-color: var(--tertiary-bg);
+		border: solid 1px var(--green1);
+		background-color: var(--green3-bg);
 		backdrop-filter: blur(10px);
 		border-radius: 0 0 1rem 1rem;
 		z-index: 2;
@@ -237,7 +237,7 @@
 			border: 1px solid transparent;
 
 			&:hover {
-				background-color: var(--tertiary-hov);
+				background-color: var(--green3-hov);
 			}
 
 			&:last-child {
@@ -245,8 +245,8 @@
 			}
 
 			&:focus {
-				background-color: var(--tertiary-hov);
-				border-color: var(--primary);
+				background-color: var(--green3-hov);
+				border-color: var(--green1);
 			}
 		}
 

@@ -3,7 +3,106 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link href="/base.css" rel="stylesheet" />
+		<style>
+			:root {
+				color: white;
+				--bg-color: #09161e;
+				--highlight: oklch(77% 0.2 130);
+
+				--green1: oklch(55% 0.2 150);
+				--green1-bg: rgb(from var(--green1) r g b / 0.2);
+				
+				--green2: oklch(77% 0.2 150);
+
+				--green3: oklch(40% 0.08 150);
+				--green3-bg: rgb(from var(--green3) r g b / 0.2);
+				--green3-hov: rgb(from var(--green3) r g b / 0.5);
+
+				--gradient-rot: 135deg;
+				--gradient: linear-gradient(var(--gradient-rot), var(--highlight), var(--green2));
+				--nav-height: 4rem;
+				--footer-height: 4rem;
+				--footer-display: flex;
+				--search-bar-color: rgb(255, 255, 255, 0.6);
+				scrollbar-color: oklch(77% 0.2 130 / 0.4) rgba(255, 255, 255, 0.05);
+				--downvote-color: oklch(55% 0.2 27.543);
+
+				@media (max-width: 768px) {
+					--nav-height: 8rem;
+				}
+			}
+
+			html, body, div, span, applet, object, iframe,
+			h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+			a, abbr, acronym, address, big, cite, code,
+			del, dfn, em, img, ins, kbd, q, s, samp,
+			small, strike, strong, sub, sup, tt, var,
+			b, u, i, center,
+			dl, dt, dd, ol, ul, li,
+			fieldset, form, label, legend,
+			table, caption, tbody, tfoot, thead, tr, th, td,
+			article, aside, canvas, details, embed, 
+			figure, figcaption, footer, header, hgroup, 
+			menu, nav, output, ruby, section, summary,
+			time, mark, audio, video {
+				margin: 0;
+				padding: 0;
+				border: 0;
+				font-size: 100%;
+				font: inherit;
+				vertical-align: baseline;
+			}
+			/* HTML5 display-role reset for older browsers */
+			article, aside, details, figcaption, figure, 
+			footer, header, hgroup, menu, nav, section {
+				display: block;
+			}
+			body {
+				line-height: 1;
+			}
+			ol, ul {
+				list-style: none;
+			}
+			blockquote, q {
+				quotes: none;
+			}
+			blockquote:before, blockquote:after,
+			q:before, q:after {
+				content: '';
+				content: none;
+			}
+			table {
+				border-collapse: collapse;
+				border-spacing: 0;
+			}
+
+			html, body {
+				background: var(--bg-color);
+				font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+				width: 100%;
+				min-height: 100%;
+				position: relative;
+			}
+
+			a, input, button, select {
+				color: white;
+			}
+
+			a {
+				text-decoration: none;
+			}
+
+			h1 { font-size: clamp(2.0rem, 8vw, 3.5rem) }
+			h2 { font-size: clamp(1.75rem, 6vw, 2.5rem) }
+			h3 { font-size: clamp(1.1rem, 4vw, 1.5rem) }
+			h4 { font-size: clamp(1rem, 3vw, 1.25rem) }
+			p { --max-font-size: 1rem; }
+			b { font-weight: bold; }
+
+			html:has(.date-range-slider.dragging) {
+				overscroll-behavior-x: none;
+			}
+		</style>
 		%sveltekit.head%
 	</head>
 	<body data-sveltekit-preload-data="hover">

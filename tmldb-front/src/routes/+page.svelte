@@ -150,8 +150,8 @@ section {
 
 #chart-container {
 	padding: 2rem;
-	background-color: rgba(31, 44, 31, 0.3);
-	border: 1px solid var(--primary);
+	background-color: var(--green3-bg);
+	border: 1px solid var(--green3);
 	border-radius: 1rem;
 	margin: 2rem auto;
 }

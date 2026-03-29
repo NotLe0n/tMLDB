@@ -11,7 +11,7 @@
 </script>
 
 <div class="stat-card" title="{label}: {formattedValue}">
-	<span class="stat-icon"><Icon path={icon} color="var(--secondary)" /></span>
+	<span class="stat-icon"><Icon path={icon} color="var(--green2)" /></span>
 	<div class="stat-content">
 		<span class="stat-label">{label}</span>
 		<strong class="stat-value">{formattedValue}</strong>

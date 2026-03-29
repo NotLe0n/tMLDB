@@ -78,8 +78,8 @@
 		grid-template-columns: 1fr 1fr;
 		gap: 2rem;
 		background: linear-gradient(var(--gradient-rot), 
-			rgb(from var(--primary) r g b / .4) 20%,
-			rgb(from var(--secondary) r g b / .2) 80%);
+			rgb(from var(--green1) r g b / .4) 20%,
+			rgb(from var(--green2) r g b / .2) 80%);
 		padding: clamp(1.5rem, 3vw, 2.5rem);
 		border-radius: 1.25rem;
 		border: 1px solid rgb(from var(--highlight) r g b / .3);
