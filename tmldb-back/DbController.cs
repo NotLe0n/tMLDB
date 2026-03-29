@@ -185,7 +185,8 @@ public class DbController : Controller
 			"""
 			SELECT
 			    mod_id as label,
-			    array_agg(downloads_total ORDER BY date) as data
+			    array_agg(downloads_total ORDER BY date) as data,
+			    array_agg(date ORDER BY date) as dates
 			FROM mod_history
 			WHERE author_id = @steamId
 			GROUP BY mod_id
@@ -193,6 +194,7 @@ public class DbController : Controller
 		
 		foreach (var data in lines) {
 			data.Data = Diff(data.Data);
+			data.Dates = data.Dates[1..];
 		}
 		
 		var dates = await conn.QueryFirstAsync<DateOnly[]>(

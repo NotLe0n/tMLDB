@@ -6,8 +6,12 @@
 	import CreatorHeader from "./CreatorHeader.svelte";
 	import type { PageData } from './$types';
 	import StatPage from "$lib/components/page-components/StatPage.svelte";
+	import DateRangeSelector from "../../../lib/components/DateRangeSelector.svelte";
 
 	let { data }: { data: PageData } = $props();
+	let beginDate = $state("")
+	let endDate = $state("")
+
 	const creator = $derived(data.creator);
 
 	function getModNameMap(mods: ModData[]) {
@@ -50,8 +54,9 @@
 			<article id="mod-history">
 				<h3>Daily change over time</h3>
 				<div>
-					<CreatorHistoryChart data={creatorHistory} modNameMap={getModNameMap(creator.mods)} />
+					<CreatorHistoryChart data={creatorHistory} modNameMap={getModNameMap(creator.mods)} {beginDate} {endDate} />
 				</div>
+				<DateRangeSelector dates={creatorHistory.dates} bind:beginDate bind:endDate></DateRangeSelector>
 			</article>
 		{/if}
 	{/await}

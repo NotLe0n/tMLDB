@@ -1,14 +1,16 @@
 <script lang="ts">
-	import { MS_TO_HRS, MS_TO_MIN, MS_TO_SEC, msToDuration, type ModHistoryData } from '$lib';
+	import { MS_TO_HRS, MS_TO_MIN, MS_TO_SEC, msToDuration, type ModHistoryData, type DateRange } from '$lib';
 	import Chart from 'chart.js/auto';
 	import type { Chart as ChartType } from 'chart.js/auto';
 	import annotationPlugin, { type AnnotationOptions } from 'chartjs-plugin-annotation';
 
 	Chart.register(annotationPlugin);
 
-	let { data }: { data: ModHistoryData } = $props();
+	let { data, beginDate, endDate }: { data: ModHistoryData, beginDate: string, endDate: string } = $props();
 	let chartInstance: ChartType | null = $state(null);
-	const startRange = $derived(new Date(data.dates[0]))
+
+	let startIndex = $derived(data.dates.indexOf(beginDate))
+	let endIndex = $derived(data.dates.indexOf(endDate))
 
 	function convertPlaytime(playtime: number[]): [number[], string] {
 		const min = Math.min(...playtime);
@@ -56,53 +58,75 @@
 		})
 	}
 
+	function getDatasets() {
+		return [
+			{
+				label: 'Downloads',
+				data: data.downloads.slice(startIndex, endIndex),
+				borderColor: palette.downloads,
+				backgroundColor: palette.downloads
+			},
+			{
+				label: 'Views',
+				data: data.views.slice(startIndex, endIndex),
+				borderColor: palette.views,
+				backgroundColor: palette.views
+			},
+			{
+				label: 'Favorites',
+				data: data.favorited.slice(startIndex, endIndex),
+				borderColor: palette.favorited,
+				backgroundColor: palette.favorited
+			},
+			{
+				label: 'Playtime',
+				data: convertedPlaytime[0].slice(startIndex, endIndex),
+				borderColor: palette.playtime,
+				backgroundColor: palette.playtime,
+			},
+			{
+				label: 'Upvotes',
+				data: data.votes_up.slice(startIndex, endIndex),
+				borderColor: palette.votesUp,
+				backgroundColor: palette.votesUp,
+				yAxisID: 'y1',
+				hidden: true
+			},
+			{
+				label: 'Downvotes',
+				data: data.votes_down.slice(startIndex, endIndex),
+				borderColor: palette.votesDown,
+				backgroundColor: palette.votesDown,
+				yAxisID: 'y1',
+				hidden: true
+			}
+		]
+	}
+
+	$effect(() => {
+		if (!chartInstance) return;
+
+		chartInstance.data.labels = data.dates.slice(startIndex, endIndex);
+		chartInstance.data.datasets[0].data = data.downloads.slice(startIndex, endIndex);
+		chartInstance.data.datasets[1].data = data.views.slice(startIndex, endIndex);
+		chartInstance.data.datasets[2].data = data.favorited.slice(startIndex, endIndex);
+		chartInstance.data.datasets[3].data = convertedPlaytime[0].slice(startIndex, endIndex);
+		chartInstance.data.datasets[4].data = data.votes_up.slice(startIndex, endIndex);
+		chartInstance.data.datasets[5].data = data.votes_down.slice(startIndex, endIndex);
+
+		(chartInstance.options.plugins as any).annotation.annotations = data.time_updated
+			.filter(t => t * 1000 >= new Date(data.dates[startIndex]).getTime() && (endIndex === undefined || t*1000 < new Date(data.dates[endIndex]).getTime()))
+			.map(getUpdateAnnotation);
+
+		chartInstance.update('none');
+	});
+
 	function chart(node: HTMLCanvasElement) {
 		chartInstance = new Chart(node, {
 			type: 'line',
 			data: {
-				labels: data.dates,
-				datasets: [
-					{
-						label: 'Downloads',
-						data: data.downloads,
-						borderColor: palette.downloads,
-						backgroundColor: palette.downloads
-					},
-					{
-						label: 'Views',
-						data: data.views,
-						borderColor: palette.views,
-						backgroundColor: palette.views
-					},
-					{
-						label: 'Favorites',
-						data: data.favorited,
-						borderColor: palette.favorited,
-						backgroundColor: palette.favorited
-					},
-					{
-						label: 'Playtime',
-						data: convertedPlaytime[0],
-						borderColor: palette.playtime,
-						backgroundColor: palette.playtime,
-					},
-					{
-						label: 'Upvotes',
-						data: data.votes_up,
-						borderColor: palette.votesUp,
-						backgroundColor: palette.votesUp,
-						yAxisID: 'y1',
-						hidden: true
-					},
-					{
-						label: 'Downvotes',
-						data: data.votes_down,
-						borderColor: palette.votesDown,
-						backgroundColor: palette.votesDown,
-						yAxisID: 'y1',
-						hidden: true
-					}
-				]
+				labels: data.dates.slice(startIndex, endIndex),
+				datasets: getDatasets()
 			},
 			options: {
 				responsive: true,
@@ -142,7 +166,7 @@
 					},
 					annotation: {
 						annotations: data.time_updated
-							.filter(t => t*1000 >= startRange.getTime())
+							.filter(t => t*1000 >= new Date(data.dates[startIndex]).getTime() && (endIndex === undefined || t*1000 < new Date(data.dates[endIndex]).getTime()))
 							.map(getUpdateAnnotation)
 					}
 				},

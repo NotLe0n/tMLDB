@@ -8,9 +8,12 @@
 	import ModHeader from './ModHeader.svelte';
 	import type { PageData } from './$types';
 	import StatPage from '$lib/components/page-components/StatPage.svelte';
+	import DateRangeSelector from '../../../lib/components/DateRangeSelector.svelte';
 
 	let { data }: { data: PageData } = $props();
 	const mod = $derived(data.mod);
+	let beginDate = $state("")
+	let endDate = $state("")
 
 	function descriptionToHTML(description: string) {
 		return bbobHTML(description, presetHTML5()).trim()
@@ -42,13 +45,14 @@
 
 	{#await data.history}
 		<LoadingSpinner size=24 />
-	{:then mod_history} 
+	{:then mod_history}
 		{#if mod_history.dates.length > 0}
 			<article id="mod-history">
 				<h2>Daily change over time</h2>
-				<div>
-					<ModHistoryChart data={mod_history} />
-				</div>
+
+				<div><ModHistoryChart data={mod_history} {beginDate} {endDate} /></div>
+				
+				<DateRangeSelector dates={mod_history.dates} bind:beginDate bind:endDate></DateRangeSelector>
 			</article>
 		{/if}
 	{/await}

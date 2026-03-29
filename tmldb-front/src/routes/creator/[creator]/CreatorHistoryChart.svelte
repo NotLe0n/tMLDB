@@ -3,8 +3,39 @@
 	import Chart from 'chart.js/auto';
 	import type { Chart as ChartType } from 'chart.js/auto';
 
-	let { data, modNameMap }: { data: AuthorHistoryData, modNameMap: Map<number, string> } = $props();
+	type CreatorHistoryChartProps = { data: AuthorHistoryData, modNameMap: Map<number, string>, beginDate: string, endDate: string }
+	let { data, modNameMap, beginDate, endDate }: CreatorHistoryChartProps = $props();
 	let chartInstance: ChartType | null = $state(null);
+
+	function getMin() {
+		let min = Number.MAX_VALUE;
+		for (const line of data.lines) {
+			if (line.data.length == 0) continue
+			min = Math.min(min, line.data.reduce((p, c) => Math.min(p, c)))
+		}
+		return min === Number.MAX_VALUE ? 0 : min
+	}
+
+	function alignLineData(line: AuthorHistoryData['lines'][number]): Array<number | null> {
+		const valueByDate = new Map<string, number>(line.dates.map((x, i) => [x, line.data[i]]));
+		return data.dates.map((date) => valueByDate.get(date) ?? null);
+	}
+
+	function getData() {
+		let beginIndex = data.dates.indexOf(beginDate)
+		let endIndex = data.dates.indexOf(endDate)
+		return {
+			labels: data.dates.slice(beginIndex, endIndex),
+			datasets: data.lines.map((x, i) => {
+				return {
+					label: modNameMap.get(x.label) || "<unkown mod>",
+					data: alignLineData(x).slice(beginIndex, endIndex),
+					borderColor: colorScheme[i % colorScheme.length],
+					backgroundColor: colorScheme[i % colorScheme.length]
+				}
+			}).filter(x => !x.data.every(x => x === null))
+		}
+	}
 	
 	const colorScheme = [
 		"#63b598", "#ce7d78", "#ea9e70", "#a48a9e", "#c6e1e8", "#648177", "#0d5ac1",
@@ -48,20 +79,17 @@
 		"#20f6ba", "#07d7f6", "#dce77a", "#77ecca"
 	]
 
+	$effect(() => {
+		if (!chartInstance) return;
+
+		chartInstance.data = getData()
+		chartInstance.update('none');
+	})
+
 	function chart(node: HTMLCanvasElement) {
 		chartInstance = new Chart(node, {
 			type: 'line',
-			data: {
-				labels: data.dates,
-				datasets: data.lines.map((x, i) => {
-					return {
-						label: modNameMap.get(x.label),
-						data: x.data,
-						borderColor: colorScheme[i % colorScheme.length],
-						backgroundColor: colorScheme[i % colorScheme.length]
-					}
-				})
-			},
+			data: getData(),
 			options: {
 				responsive: true,
 				maintainAspectRatio: false,
@@ -79,7 +107,13 @@
 				plugins: {
 					legend: {
 						labels: {
-							color: 'rgba(255, 255, 255, 0.8)'
+							color: 'rgba(255, 255, 255, 0.8)',
+							sort: (a, b, chart) => {
+								const aData = chart.datasets[a.datasetIndex!].data as number[];
+								const bData = chart.datasets[b.datasetIndex!].data as number[];
+
+								return bData.reduce((p, c) => p+c) - aData.reduce((p, c) => p+c);
+							}
 						}
 					}
 				},
@@ -103,6 +137,7 @@
 					y: {
 						type: 'linear',
 						display: true,
+						min: getMin(),
 						position: 'left',
 						title: {
 							display: true,

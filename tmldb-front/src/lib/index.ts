@@ -1,4 +1,6 @@
 // place files you want to import through the `$lib` alias in this folder.
+export const tmlapis = "https://tmlapis.le0n.dev/"
+
 export const MS_TO_YRS = 31556952000;
 export const MS_TO_MTH = 2629746000;
 export const MS_TO_DAY = 86400000;
@@ -137,6 +139,7 @@ export type AuthorHistoryData = {
 	lines: {
 		label: number;
 		data: number[];
+		dates: string[];
 	}[]
 }
 
@@ -156,4 +159,5 @@ export type SearchResult = {
 }
 
 
-export const tmlapis = "https://tmlapis.le0n.dev/"
+export const DATE_RANGES = ["Full", "Year", "4 Months", "Month", "2 Weeks", "Week"] as const;
+export type DateRange = typeof DATE_RANGES[number];

@@ -147,6 +147,7 @@ public sealed class CreatorHistoryLine
 {
 	public long Label { get; set; }
 	public int[] Data { get; set; } = [];
+	public DateOnly[] Dates { get; set; } = [];
 }
 
 public enum CreatorListOrder
