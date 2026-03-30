@@ -12,6 +12,10 @@
 	const pt = $derived(data.playtime.slice(startIndex, endIndex))
 	const vu = $derived(data.votes_up.slice(startIndex, endIndex))
 	const vd = $derived(data.votes_down.slice(startIndex, endIndex))
+
+	function formatNumberWithSign(value: number) {
+		return new Intl.NumberFormat('en-US', { notation: 'standard', 'signDisplay': "exceptZero" }).format(value)
+	}
 </script>
 <table>
 	<thead>
@@ -33,19 +37,20 @@
 					{formatNumber(dl[i])}
 				</td>
 				<td class={{neg: vs[i] < 0, pos: vs[i] > 0}}>
-					{formatNumber(vs[i])}
+					{formatNumberWithSign(vs[i])}
 				</td>
 				<td class={{neg: fv[i] < 0, pos: fv[i] > 0}}>
-					{formatNumber(fv[i])}
+					{formatNumberWithSign(fv[i])}
 				</td>
 				<td class={{neg: pt[i] < 0, pos: pt[i] > 0}}>
-					{formatDuration(pt[i])}
+					+{formatDuration(pt[i])}
 				</td>
 				<td class={{neg: vu[i] < 0, pos: vu[i] > 0}}>
-					{formatNumber(vu[i])}
+					{formatNumberWithSign(vu[i])}
 				</td>
-				<td class={{neg: vd[i] < 0, pos: vd[i] > 0}}>
-					{formatNumber(vd[i])}
+				<!-- reversed on purpose -->
+				<td class={{neg: vd[i] > 0, pos: vd[i] < 0}}>
+					{formatNumberWithSign(vd[i])}
 				</td>
 			</tr>
 		{/each}
@@ -76,9 +81,6 @@
 			padding: 0.5rem 0;
 
 			&.pos {
-				&::before {
-					content: "+";
-				}
 				color: var(--green2)
 			}
 			&.neg {

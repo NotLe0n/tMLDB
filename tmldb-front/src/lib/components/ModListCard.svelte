@@ -107,7 +107,7 @@
 
 	.modlist-card {
 		display: grid;
-		grid-template-columns: var(--icon-size) 1fr 2px 23rem;
+		grid-template-columns: var(--icon-size) 1fr 2px 25rem;
 		grid-template-rows: var(--icon-size);
 		width: 100%;
 		gap: 1rem;
@@ -210,7 +210,6 @@
 		display: grid;
 		grid-template-rows: 1fr 1fr;
 		align-items: center;
-		justify-content: space-evenly;
 	}
 
 	.non-vote {

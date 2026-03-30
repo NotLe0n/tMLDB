@@ -15,6 +15,7 @@ export function msToDuration(value: number) {
 		days: Math.floor(value / MS_TO_DAY),
 		hours: Math.floor(value / MS_TO_HRS),
 		minutes: Math.floor(value / MS_TO_MIN),
+		seconds: Math.floor(value / MS_TO_SEC),
 	};
 
 	return duration;
@@ -32,11 +33,13 @@ export function formatDate(value: number) {
 export function formatDuration(value: number) {
 	const duration = msToDuration(value)
 	
-	if (duration.years > 0) return duration.years + " years"
-	if (duration.months > 0) return duration.months + " months"
-	if (duration.days > 0) return duration.days + " days"
-	if (duration.hours > 0) return duration.hours + " hours"
-	return duration.minutes + " minutes"
+	if (duration.years > 0) return duration.years + " year" + (duration.years > 1 ? "s" : "")
+	if (duration.months > 0) return duration.months + " month" + (duration.months > 1 ? "s" : "")
+	if (duration.days > 0) return duration.days + " day" + (duration.days > 1 ? "s" : "")
+	if (duration.hours > 0) return duration.hours + " hour" + (duration.hours > 1 ? "s" : "")
+	if (duration.minutes > 0) return duration.minutes + " minute" + (duration.minutes > 1 ? "s" : "")
+	if (duration.seconds === 0) return "0 seconds"
+	return duration.seconds + " second" + (duration.seconds > 1 ? "s" : "")
 }
 
 export function formatNumber(value: number) {
