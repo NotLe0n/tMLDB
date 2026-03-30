@@ -39,6 +39,14 @@ export function formatDuration(value: number) {
 	return duration.minutes + " minutes"
 }
 
+export function formatNumber(value: number) {
+	return new Intl.NumberFormat('en-US', { notation: 'standard' }).format(value)
+}
+
+export function formatNumberShort(value: number) {
+	return new Intl.NumberFormat('en-US', { notation: 'compact' }).format(value)
+}
+
 export type ModHistoryData = {
 	dates: string[];
 	downloads: number[];
@@ -157,7 +165,6 @@ export type SearchResult = {
 	name: string,
 	id: string
 }
-
 
 export const DATE_RANGES = ["Full", "Year", "4 Months", "Month", "2 Weeks", "Week"] as const;
 export type DateRange = typeof DATE_RANGES[number];

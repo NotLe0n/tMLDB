@@ -1,25 +1,28 @@
 <script lang="ts">
+    import { formatNumber, formatNumberShort } from "$lib";
+
 	let { votes_up, votes_down, score } = $props();
 
 	const percentage = $derived((score * 100).toFixed(2));
-	const formatNumber = (value: number) =>
-		new Intl.NumberFormat('en-US', { notation: 'compact' }).format(value);
 </script>
 
 <div class="voting-card">
 	<div class="stat-content">
-		<span class="stat-label" title="Steam's rating may differ from the upvote/downvote ratio">Steam Rating</span>
+		<span class="stat-label">
+			Steam Rating 
+			<span class="info-icon" title="Steam's rating may differ from the upvote/downvote ratio">?</span>
+		</span>
 		<strong class="stat-value">{percentage}%</strong>
 	</div>
 
-	<div class="stat-content">
+	<div class="stat-content" title="{formatNumber(votes_up)} Upvotes">
 		<span class="stat-label">Upvotes</span>
-		<strong class="stat-value">{formatNumber(votes_up)}</strong>
+		<strong class="stat-value">{formatNumberShort(votes_up)}</strong>
 	</div>
 
-	<div class="stat-content">
+	<div class="stat-content" title="{formatNumber(votes_down)} Downvotes">
 		<span class="stat-label">Downvotes</span>
-		<strong class="stat-value">{formatNumber(votes_down)}</strong>
+		<strong class="stat-value">{formatNumberShort(votes_down)}</strong>
 	</div>
 </div>
 
@@ -55,5 +58,14 @@
 		font-size: 1.35rem;
 		color: rgba(255, 255, 255, 0.95);
 		font-weight: 700;
+	}
+
+	.info-icon {
+		border: 1px solid white;
+		border-radius: 50%;
+		margin-left: 5px;
+		padding-left: 5px;
+		padding-right: 4px;
+		text-align: center;
 	}
 </style>

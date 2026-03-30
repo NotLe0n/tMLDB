@@ -78,7 +78,6 @@
 
 		beginDate = dates.find(x => new Date(x) >= selectedDate) || dates[0]
 		endDate = dates[dates.length - 1]
-
 	}
 
 	let startPct = $derived((beginIndex / dates.length) * 100);
@@ -93,7 +92,7 @@
 />
 
 <div class="date-range-container">
-	<select class="date-range-selector" onchange={selectPreset}>
+	<select class="date-range-selector" name="date-range-selector" onchange={selectPreset}>
 		{#each DATE_RANGES as range}
 			<option value={range}>{range}</option>
 		{/each}

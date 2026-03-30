@@ -9,11 +9,14 @@
 	import type { PageData } from './$types';
 	import StatPage from '$lib/components/page-components/StatPage.svelte';
 	import DateRangeSelector from '../../../lib/components/DateRangeSelector.svelte';
+	import ModStatTable from './ModStatTable.svelte';
+	import ToggleChip from '$lib/components/ToggleChip.svelte';
 
 	let { data }: { data: PageData } = $props();
 	const mod = $derived(data.mod);
 	let beginDate = $state("")
 	let endDate = $state("")
+	let chartView = $state(true)
 
 	function descriptionToHTML(description: string) {
 		return bbobHTML(description, presetHTML5()).trim()
@@ -48,11 +51,18 @@
 	{:then mod_history}
 		{#if mod_history.dates.length > 0}
 			<article id="mod-history">
-				<h2>Daily change over time</h2>
-
-				<div><ModHistoryChart data={mod_history} {beginDate} {endDate} /></div>
+				<header>
+					<h2>Daily change over time</h2>
+					<ToggleChip bind:value={chartView} label1="Chart" label2="Table" />
+				</header>
+ 	
+				{#if chartView}
+					<div><ModHistoryChart data={mod_history} {beginDate} {endDate} /></div>
+				{:else}
+					<div id="table-container"><ModStatTable data={mod_history} {beginDate} {endDate} /></div>
+				{/if}
 				
-				<DateRangeSelector dates={mod_history.dates} bind:beginDate bind:endDate></DateRangeSelector>
+				<DateRangeSelector dates={mod_history.dates} bind:beginDate bind:endDate />
 			</article>
 		{/if}
 	{/await}
@@ -103,6 +113,12 @@
 		max-width: 50%;
 	}
 
+	#mod-history > header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
 	#cnr {
 		display: flex;
 		flex-direction: column;
@@ -129,5 +145,9 @@
 		display: flex;
 		flex-direction: column;
 		gap: 0.5rem;
+	}
+
+	#table-container {
+		overflow-x: auto;
 	}
 </style>
