@@ -4,6 +4,7 @@
 	import { mdiAccount, mdiPackageVariant } from '@mdi/js';
 	import ModSearch from '$lib/ModSearch.svelte';
 	import type { SearchResult } from '$lib';
+	import { page } from '$app/state';
 
 	let { children } = $props()
 
@@ -18,11 +19,10 @@
 	<div class="nav-left">
 		<span class="logo">tMLDB</span>
 		<nav>
-			<a href="/">Home</a>
-			<a href="/mods">Mods</a>
-			<a href="/creators">Creators</a>
-			<a href="/compare">Compare</a>
-			<a href="/tree" hidden>Tree</a>
+			<span><a href="/" class:current-site={page.url.pathname==="/"}>Home</a></span>
+			<span><a href="/mods" class:current-site={page.url.pathname==="/mods"}>Mods</a></span>
+			<span><a href="/creators" class:current-site={page.url.pathname==="/creators"}>Creators</a></span>
+			<span><a href="/compare" class:current-site={page.url.pathname==="/compare"}>Compare</a></span>
 		</nav>
 	</div>
 	<form id="search-form">
@@ -82,8 +82,11 @@
 			justify-content: center;
 			flex-direction: column;
 
-			.nav-left, nav {
+			.nav-left {
 				gap: 1rem;
+			}
+			nav > span {
+				padding: 0.5rem;
 			}
 		}
 	}
@@ -91,7 +94,7 @@
 	.nav-left {
 		display: flex;
 		align-items: center;
-		gap: 3rem;
+		gap: 2rem;
 	}
 
 	.logo {
@@ -106,23 +109,43 @@
 
 	nav {
 		display: flex;
-		gap: 2rem;
 	}
 
-	nav a {
+	nav > span {
+		padding: 0.5rem 1rem;
+		&:hover > a {
+			anchor-name: --hover-anchor;
+		}
+	}
+
+	nav:not(:has(span:hover)) a.current-site {
+		anchor-name: --hover-anchor;
+	}
+
+	nav > span > a {
 		color: rgb(from white r g b / 0.8);
 		text-decoration: none;
 		font-size: 0.95rem;
 		font-weight: 500;
 		transition: border-color 0.3s;
 		padding: 0.5rem 0;
-		border-bottom: 2px solid transparent;
 		margin-top: 2px;
 
 		&:hover {
 			color: var(--highlight);
-			border-bottom-color: var(--highlight);
 		}
+	}
+
+	nav::after {
+		position: absolute;
+		content: '';
+		height: 2px;
+		position-anchor: --hover-anchor;
+		left: anchor(left);
+		bottom: anchor(bottom);
+		right: anchor(right);
+		transition: inset 200ms;
+		background-color: var(--highlight);
 	}
 
 	#search-form {
