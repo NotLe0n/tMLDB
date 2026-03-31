@@ -3,30 +3,13 @@
 	import type { SearchResult } from '$lib';
 	import Icon from '$lib/components/Icon.svelte';
 	import { mdiAccount, mdiPackageVariant } from '@mdi/js';
+    import ModSearch from '$lib/ModSearch.svelte';
 
 	let { children } = $props()
 
-	let searchQuery = $state("")
-	let searchResults = $state<SearchResult[]>([])
-	let searchTimer = $state<number | null>(null)
 	let searchMod = $state(true)
 
-	function onKeySearch() {
-		if (searchTimer) clearTimeout(searchTimer)
-		searchTimer = setTimeout(search, 200)
-	}
-
-	async function search() {
-		let searchUrl;
-		if (searchMod) {
-			searchUrl = `/api/search_mod?query=${searchQuery}`
-		}
-		else {
-			searchUrl = `/api/search_creator?query=${searchQuery}`
-		}
-
-		searchResults = await (await fetch(searchUrl)).json()
-	}
+	
 </script>
 
 <svelte:head>
@@ -40,10 +23,11 @@
 			<a href="/">Home</a>
 			<a href="/mods">Mods</a>
 			<a href="/creators">Creators</a>
+			<a href="/compare">Compare</a>
 			<a href="/tree" hidden>Tree</a>
 		</nav>
 	</div>
-	<form onsubmit={search} id="search-form">
+	<form id="search-form">
 		<input id="search-type" type="checkbox" bind:checked={searchMod} >
 		<label for="search-type" title="Click to toggle mods/creators">
 			{#if searchMod}
@@ -53,20 +37,9 @@
 			{/if}
 		</label>
 
-		<input 
-			id="search-bar"
-			type="text" 
-			bind:value={searchQuery}
-			oninput={onKeySearch}
-			placeholder="Search {searchMod ? 'mods' : 'creators'}..."
-		>
+		<ModSearch {searchMod}></ModSearch>
 	</form>
 </header>
-<div class={["search-result-container", searchResults.length == 0 && "empty"]}>
-	{#each searchResults as res}
-		<a href="/{searchMod ? "mod" : "creator"}/{res.id}">{res.name}</a>
-	{/each}
-</div>	
 
 <main>
 	{@render children()}
@@ -84,19 +57,6 @@
 </footer>
 
 <style>
-	:root {
-		--dropdown-display: flex;
-		--dropdown-opacity: 1;
-		--searchbar-border-radius: 0.5rem 0.5rem 0 0;
-
-		&:has(.empty), 
-		&:not(:has(#search-bar:focus, .search-result-container:is(:hover, :focus-within))) {
-			--dropdown-display: none;
-			--dropdown-opacity: 0;
-			--searchbar-border-radius: 0.5rem;
-		}
-	}
-
 	header {
 		box-sizing: border-box;
 		position: fixed;
@@ -183,77 +143,6 @@
 
 		&:hover {
 			background-color: var(--green3-hov);
-		}
-	}
-
-	#search-bar {
-		appearance: none;
-		outline: none;
-
-		anchor-name: --search-input;
-		font-size: 0.95rem;
-		padding: 0.5rem 1rem;
-
-		background-color: var(--green3-bg);
-		border: 1px solid var(--green2);
-		border-radius: var(--searchbar-border-radius);
-		transition: border-color 0.3s ease, box-shadow 0.3s ease, border-radius 0.3s ease;
-
-		&:focus {
-			box-shadow: 0 0 3px 3px var(--green3-hov);
-			border-color: var(--highlight);
-		}
-
-		&::placeholder {
-			color: var(--search-bar-color);
-		}
-	}
-
-	.search-result-container {
-		display: var(--dropdown-display);
-		flex-direction: column;
-
-		position: fixed;
-		position-anchor: --search-input;
-		top: anchor(bottom);
-		left: anchor(left);
-
-		width: 290px;
-		max-height: 40rem;
-		padding: .25rem;
-		border: solid 1px var(--green1);
-		background-color: var(--green3-bg);
-		backdrop-filter: blur(10px);
-		border-radius: 0 0 1rem 1rem;
-		z-index: 2;
-		overflow-y: auto;
-		transition: opacity 0.3s ease, display 0.3s ease allow-discrete;
-		opacity: var(--dropdown-opacity);
-
-		a {
-			border-radius: .25rem;
-			outline: none;
-			padding: .55rem;
-			border: 1px solid transparent;
-
-			&:hover {
-				background-color: var(--green3-hov);
-			}
-
-			&:last-child {
-				border-radius: .25rem .25rem .75rem .75rem;
-			}
-
-			&:focus {
-				background-color: var(--green3-hov);
-				border-color: var(--green1);
-			}
-		}
-
-		@starting-style {
-			& {
-				opacity: 0;
-			}
 		}
 	}
 
