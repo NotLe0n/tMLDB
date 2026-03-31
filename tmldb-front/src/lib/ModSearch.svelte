@@ -1,11 +1,12 @@
 <script lang="ts">
     import type { SearchResult } from "$lib";
 
-	let { searchMod }: { searchMod: boolean } = $props()
+	let { searchMod, resultContent }: { searchMod: boolean, resultContent: any } = $props()
 	let searchQuery = $state("")
 	let searchResults = $state<SearchResult[]>([])
 	let searchTimer = $state<number | null>(null)
 	let resultContainer: HTMLDivElement
+	const uid = $props.id()
 
 	function onKeySearch() {
 		if (searchTimer) clearTimeout(searchTimer)
@@ -35,15 +36,14 @@
 	class="search-bar"
 	type="text" 
 	bind:value={searchQuery}
+	style="anchor-name: --mod-search-{uid};"
 	oninput={onKeySearch}
 	onfocusin={() => searchResults.length > 0 && resultContainer.showPopover()}
 	onfocusout={() => setTimeout(() => resultContainer.hidePopover(), 80)}
 	placeholder="Search {searchMod ? 'mods' : 'creators'}..."
 >
-<div class="search-result-container" popover="manual" bind:this={resultContainer}>
-	{#each searchResults as res}
-		<a href="/{searchMod ? "mod" : "creator"}/{res.id}">{res.name}</a>
-	{/each}
+<div class="search-result-container" popover="manual" bind:this={resultContainer} style="position-anchor: --mod-search-{uid};">
+	{@render resultContent(searchResults)}
 </div>
 
 <style>
@@ -51,7 +51,6 @@
 		appearance: none;
 		outline: none;
 
-		anchor-name: --search-input;
 		font-size: 0.95rem;
 		padding: 0.5rem 1rem;
 
@@ -78,7 +77,6 @@
 		flex-direction: column;
 
 		position: fixed;
-		position-anchor: --search-input;
 		top: anchor(bottom);
 		left: anchor(left);
 
@@ -106,25 +104,27 @@
 				}
 			}
 		}
+	}
 
-		& > a {
-			border-radius: .25rem;
-			outline: none;
-			padding: .55rem;
-			border: 1px solid transparent;
+	:global(.search-result-container > *) {
+		background-color: transparent;
+		text-align: start;
+		border-radius: .25rem;
+		outline: none;
+		padding: .55rem;
+		border: 1px solid transparent;
 
-			&:hover {
-				background-color: var(--green3-hov);
-			}
+		&:hover {
+			background-color: var(--green3-hov);
+		}
 
-			&:last-child {
-				border-radius: .25rem .25rem .75rem .75rem;
-			}
+		&:last-child {
+			border-radius: .25rem .25rem .75rem .75rem;
+		}
 
-			&:focus {
-				background-color: var(--green3-hov);
-				border-color: var(--green1);
-			}
+		&:focus {
+			background-color: var(--green3-hov);
+			border-color: var(--green1);
 		}
 	}
 </style>

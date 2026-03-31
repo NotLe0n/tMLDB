@@ -1,15 +1,13 @@
 <script lang="ts">
 	import favicon from '$lib/assets/favicon.svg';
-	import type { SearchResult } from '$lib';
 	import Icon from '$lib/components/Icon.svelte';
 	import { mdiAccount, mdiPackageVariant } from '@mdi/js';
-    import ModSearch from '$lib/ModSearch.svelte';
+	import ModSearch from '$lib/ModSearch.svelte';
+	import type { SearchResult } from '$lib';
 
 	let { children } = $props()
 
 	let searchMod = $state(true)
-
-	
 </script>
 
 <svelte:head>
@@ -37,7 +35,13 @@
 			{/if}
 		</label>
 
-		<ModSearch {searchMod}></ModSearch>
+		<ModSearch {searchMod}>
+			{#snippet resultContent(searchResults: SearchResult[])}
+				{#each searchResults as res}
+					<a href="/{searchMod ? "mod" : "creator"}/{res.id}">{res.name}</a>
+				{/each}
+			{/snippet}
+		</ModSearch>
 	</form>
 </header>
 
@@ -148,7 +152,7 @@
 
 	main {
 		padding-top: var(--nav-height);
-		min-height: calc(100vh - var(--nav-height) - var(--footer-height));
+		min-height: calc(100vh - var(--nav-height) - var(--footer-height) - 2rem);
 	}
 
 	footer {
