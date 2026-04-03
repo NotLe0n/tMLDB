@@ -148,15 +148,6 @@
 
 	.date-range-selector {
 		height: 1.5rem;
-		background-color: var(--green3-bg);
-		border: 1px solid var(--green2);
-		border-radius: 0.5rem;
-		cursor: pointer;
-		transition: background-color  0.3s;
-
-		&:hover {
-			background-color: var(--green3-hov);
-		}
 
 		& > option {
 			background-color: var(--green3);
@@ -204,7 +195,6 @@
 		padding: 0;
 		display: grid;
 		place-items: center;
-		transition: background-color 0.1s, border-color 0.1s;
 
 		/* grip lines */
 		&::before {

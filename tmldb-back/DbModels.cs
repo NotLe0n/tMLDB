@@ -133,7 +133,7 @@ public sealed class ModFiltersResponse
 {
 	public string[]? ModSides { get; set; }
 	public string[]? Tags { get; set; }
-	public string[]? TmlVersions { get; set; }
+	public string[]? ModVersions { get; set; }
 }
 
 

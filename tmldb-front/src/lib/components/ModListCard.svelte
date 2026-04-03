@@ -115,11 +115,12 @@
 		background-color: var(--green3-bg);
 		border: 1px solid var(--green3);
 		border-radius: 1rem;
-		transition: background-color 0.2s;
+		transition: background-color 0.2s, border-color;
 		align-items: center;
 
 		&:hover {
 			background-color: var(--green3-hov);
+			border-color: var(--highlight);
 		}
 
 		@container (width < 1000px) {

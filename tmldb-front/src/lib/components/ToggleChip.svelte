@@ -28,7 +28,6 @@
 			mix-blend-mode: difference;
 			border: none;
 			padding: 0 1rem;
-			cursor: pointer;
 		}
 
 		&:hover {

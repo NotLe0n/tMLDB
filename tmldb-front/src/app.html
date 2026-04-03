@@ -27,6 +27,8 @@
 				scrollbar-color: oklch(77% 0.2 130 / 0.4) rgba(255, 255, 255, 0.05);
 				--downvote-color: oklch(55% 0.2 27.543);
 
+				--controls-radius: 0.5rem;
+
 				@media (max-width: 768px) {
 					--nav-height: 8rem;
 				}
@@ -101,6 +103,30 @@
 
 			html:has(.date-range-slider.dragging) {
 				overscroll-behavior-x: none;
+			}
+
+			button, input, select {
+				background-color: var(--green3-bg);
+				border: 1px solid var(--green2);
+				border-radius: var(--controls-radius);
+				transition: background-color 0.2s, border-color 0.2s, opacity .5s;
+
+				&:hover:not(:disabled) {
+					background-color: var(--green3-hov);
+				}
+				
+				&:focus {
+					border-color: var(--highlight);
+				}
+
+				&:disabled {
+					opacity: 0.5;
+					cursor: not-allowed;
+				}
+			}
+
+			button, select {
+				cursor: pointer;
 			}
 		</style>
 		%sveltekit.head%

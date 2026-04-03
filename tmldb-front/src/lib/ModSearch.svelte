@@ -54,10 +54,7 @@
 		font-size: 0.95rem;
 		padding: 0.5rem 1rem;
 
-		background-color: var(--green3-bg);
-		border: 1px solid var(--green2);
-		border-radius: 0.5rem;
-		transition: border-color 0.3s ease, box-shadow 0.3s ease, border-radius 0.3s ease;
+		transition: box-shadow 0.3s ease, border-radius 0.3s ease;
 
 		&:focus {
 			box-shadow: 0 0 3px 3px var(--green3-hov);
@@ -109,17 +106,13 @@
 	:global(.search-result-container > *) {
 		background-color: transparent;
 		text-align: start;
+		border: 1px solid transparent;
 		border-radius: .25rem;
 		outline: none;
 		padding: .55rem;
-		border: 1px solid transparent;
 
 		&:hover {
 			background-color: var(--green3-hov);
-		}
-
-		&:last-child {
-			border-radius: .25rem .25rem .75rem .75rem;
 		}
 
 		&:focus {

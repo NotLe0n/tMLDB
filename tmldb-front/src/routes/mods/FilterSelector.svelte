@@ -2,12 +2,13 @@
 	import { mdiMenuDown } from "@mdi/js";
 	import Icon from "$lib/components/Icon.svelte";
 
-	let { modSides = $bindable([]), tags = $bindable([]), versions = $bindable([]), onapply } = $props()
+	type FilterSelectorProps = { modSides: string[], tags: string[], versions: string[], onapply: any}
+	let { modSides = $bindable([]), tags = $bindable([]), versions = $bindable([]), onapply }: FilterSelectorProps = $props()
 
 	type ModFiltersData = {
 		mod_sides: string[],
 		tags: string[],
-		tml_versions: string[]
+		mod_versions: string[]
 	}
 
 	const fetchFilters = async (): Promise<ModFiltersData> => {
@@ -16,17 +17,6 @@
 
 	let filtersPromise = $state(fetchFilters())
 
-	function getSelectedVersionsStr(versions: string[]) {
-		if (versions.length == 0) {
-			return 'Select versions'
-		}
-		if (versions.length < 3) {
-			return versions.join(", ")
-		}
-		return versions.slice(0, 2).join(", ") + " + " + (versions.length - 2)
-	}
-	let selectedVersionsStr = $derived(getSelectedVersionsStr(versions))
-
 	function resetSelection() {
 		modSides = []
 		tags = []
@@ -34,6 +24,10 @@
 	}
 
 	const isSomethingSelected = $derived(modSides.length > 0 || tags.length > 0 || versions.length > 0)
+
+	function getVersionMajor(v: string): number {
+		return Number.parseInt(v.replace("tModLoader v", "").split(".")[0])
+	}
 </script>
 
 <div id="filter-selector-container">
@@ -56,7 +50,7 @@
 							bind:group={modSides}
 							value={mod_side}
 						>
-						<label for="mod-side-filter-{i}" title={mod_side}>{mod_side}</label>
+						<label for="mod-side-filter-{i}" title={mod_side} class="tag">{mod_side}</label>
 					{/each}
 				</div>
 			</div>
@@ -70,27 +64,37 @@
 							bind:group={tags}
 							value={tag}
 						>
-						<label for="tag-filter-{i}" title={tag}>{tag}</label>
+						<label for="tag-filter-{i}" title={tag} class="tag">{tag}</label>
 					{/each}
 				</div>
 			</div>
 			<div id="version-filter-section">
 				<b>tModloader Version</b>
 				<button class="version-dropdown-toggle" popovertarget="version-dropdown">
-					{selectedVersionsStr}
+					<div class="selected-versions">
+						{#each versions.slice(0, 4) as version}
+							<div class="tag">{version.replace("tModLoader v", "")}</div>
+						{:else}
+							<span>Select versions</span>
+						{/each}
+						{#if versions.length > 4}
+							<span>+ {versions.length - 4}</span>
+						{/if}
+					</div>
+					
 					<Icon path={mdiMenuDown} size="16" />
 				</button>
 				
 				<div id="version-dropdown" popover>
 					<div class="filter-container">
-						{#each filters.tml_versions as version, i}
+						{#each filters.mod_versions.sort((a, b) => getVersionMajor(b) - getVersionMajor(a)) as version, i}
 							<input
 								type="checkbox"
 								id="version-filter-{i}"
 								bind:group={versions}
 								value={version}
 							>
-							<label for="version-filter-{i}" title={version}>{version}</label>
+							<label for="version-filter-{i}" title={version} class="tag">{version.replace("tModLoader v", "")}</label>
 						{/each}
 					</div>
 				</div>
@@ -116,25 +120,7 @@
 		display: flex;
 		align-items: center;
 		gap: 0.25rem;
-		background-color: var(--green3-bg);
-		border: 1px solid var(--green2);
-		border-radius: .5rem;
-		padding: 7px 10px;
-		cursor: pointer;
-		transition: border-color .2s, background-color .2s, opacity .5s;
-
-		&:hover {
-			background-color: var(--green3-hov);
-		}
-
-		&:disabled {
-			opacity: 0.5;
-			cursor: not-allowed;
-		}
-	}
-
-	button:disabled:hover {
-		background-color: var(--green3-bg);
+		padding: 6px 10px;
 	}
 
 	#filter-dropdown {
@@ -150,7 +136,7 @@
 		gap: 1rem;
 
 		border: 1px solid var(--green2);
-		border-radius: .5rem;
+		border-radius: 0.5rem;
 		padding: 0.5rem;
 		background-color: var(--green3-bg);
 		color: white;
@@ -165,18 +151,23 @@
 		display: none;
 	}
 
-	label {
+	.tag {
 		padding: 0.25rem 0.5rem;
-		background-color: var(--green3-bg);
-		border: 1px solid var(--green3);
-		border-radius: 0.75rem;
+		background-color: rgba(255, 255, 255, 0.12);
+		border: 1px solid rgba(255, 255, 255, 0.2);
+		border-radius: 0.25rem;
+	}
+
+	label.tag[for] {
+		cursor: pointer;
 
 		&:hover {
-			background-color: var(--green3-hov);
+			background-color: rgba(255, 255, 255, 0.2);
+			border-color: rgba(255, 255, 255, 0.25);
 		}
 	}
 
-	input[type="checkbox"]:checked + label {
+	input[type="checkbox"]:checked + label.tag {
 		border-color: var(--highlight);
 	}
 
@@ -200,6 +191,12 @@
 		font-size: 0.9rem;
 		justify-content: space-between;
 		width: 100%;
+	}
+
+	.selected-versions {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
 	}
 
 	#version-dropdown {

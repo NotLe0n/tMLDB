@@ -11,7 +11,7 @@ a {
 	color: var(--highlight);
 	border: 2px solid var(--highlight);
 	padding: 0.75rem 1.5rem;
-	border-radius: 0.5rem;
+	border-radius: var(--controls-radius);
 	font-size: 1rem;
 	font-weight: 600;
 	cursor: pointer;

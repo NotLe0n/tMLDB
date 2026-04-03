@@ -32,7 +32,7 @@
 		votesDown: 'rgb(239, 68, 68)'
 	};
 	
-	function getUpdateAnnotation(time: number): AnnotationOptions {
+	function getUpdateAnnotation(time: number, version: string): AnnotationOptions {
 		const date = new Date(time * 1000).toISOString().split('T')[0];
 		return {
 			type: 'line',
@@ -42,7 +42,7 @@
 			borderWidth: 1,
 			label: {
 				display: true,
-				content: 'Update',
+				content: `Update ${version}`,
 				position: 'end',
 				rotation: 90,
 				backgroundColor: 'transparent',
@@ -116,7 +116,7 @@
 
 		(chartInstance.options.plugins as any).annotation.annotations = data.time_updated
 			.filter(t => t * 1000 >= new Date(data.dates[startIndex]).getTime() && (endIndex === undefined || t*1000 < new Date(data.dates[endIndex]).getTime()))
-			.map(getUpdateAnnotation);
+			.map((v, i) => getUpdateAnnotation(v, data.version[i]));
 
 		chartInstance.update('none');
 	});
@@ -163,11 +163,6 @@
 								return `${label}: ${value?.toLocaleString()}`;
 							}
 						}
-					},
-					annotation: {
-						annotations: data.time_updated
-							.filter(t => t*1000 >= new Date(data.dates[startIndex]).getTime() && (endIndex === undefined || t*1000 < new Date(data.dates[endIndex]).getTime()))
-							.map(getUpdateAnnotation)
 					}
 				},
 				scales: {

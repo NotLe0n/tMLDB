@@ -27,7 +27,7 @@
 		padding-right: 2rem;
 		background: rgba(255, 255, 255, 0.08);
 		border: 1px solid rgba(255, 255, 255, 0.12);
-		border-radius: 0.85rem;
+		border-radius: 0.75rem;
 		backdrop-filter: blur(10px);
 		flex: 1;
 	}

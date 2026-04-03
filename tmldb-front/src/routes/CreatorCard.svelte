@@ -26,15 +26,13 @@
 		gap: 1rem;
 		border: 1px solid var(--green3);
 		background-color: var(--green3-bg);
-		border-radius: .75rem;
+		border-radius: 0.75rem;
 		padding: 1rem;
-		transition: transform 0.2s, box-shadow 0.2s;
+		transition: border-color 0.2s, background-color 0.2s;
 		cursor: pointer;
 
 		&:hover {
 			border-color: var(--highlight);
-			transform: translateY(-2px);
-			box-shadow: 0 4px 12px 0 rgb(from var(--green1) r g b / 0.3);
 			background-color: var(--green3-hov);
 		}
 	}

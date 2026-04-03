@@ -73,16 +73,7 @@
 		display: flex;
 		align-items: center;
 		gap: 0.25rem;
-		background-color: var(--green3-bg);
-		border: 1px solid var(--green2);
-		border-radius: .5rem;
 		padding: 5px 10px;
-		cursor: pointer;
-		transition: border-color .2s, background-color .2s;
-
-		&:hover {
-			background-color: var(--green3-hov);
-		}
 	}
 
 	#sort-dropdown {
@@ -113,7 +104,6 @@
 		border: 1px solid transparent;
 		border-radius: .25rem;
 		padding: 8px 12px;
-		cursor: pointer;
 		transition: border-color .2s, background-color .2s;
 
 		&:hover {
@@ -134,7 +124,7 @@
 		display: flex;
 		background-color: var(--green3-bg);
 		border: 1px solid var(--green2);
-		border-radius: .5rem;
+		border-radius: var(--controls-radius);
 		padding: 5px 10px;
 		cursor: pointer;
 		transition: border-color .2s, background-color .2s;

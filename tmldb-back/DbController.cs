@@ -157,7 +157,7 @@ public class DbController : Controller
 			    array_agg(votes_up) as votes_up, 
 			    array_agg(votes_down) as votes_down,
 			    array_agg(DISTINCT time_updated) as time_updated,
-			    array_agg(DISTINCT version) as version
+			    array_agg(version) as version
 			FROM mod_history
 			WHERE mod_id = @modId
 			""", new { modId });
@@ -267,7 +267,7 @@ public class DbController : Controller
 				SELECT 1
 				FROM mod_versions mv
 				WHERE (mv.mod_id = m.mod_id
-					AND mv.tmodloader_version = ANY(@versionFilters::text[]))
+					AND mv.mod_version = ANY(@versionFilters::text[]))
 			))
 			AND (@search = '' OR display_name LIKE '%' || @search || '%')
 			AND (NOT @shouldFilterZeroScore OR score != 0)
@@ -287,7 +287,7 @@ public class DbController : Controller
 			SELECT 
 			    array_agg(DISTINCT modside) as mod_sides,
 			    array_agg(DISTINCT mod_tags.display_name) as tags,
-			    array_agg(DISTINCT tmodloader_version ORDER BY tmodloader_version DESC) as tml_versions
+			    array_agg(DISTINCT mod_version ORDER BY mod_version DESC) as mod_versions
 			FROM mods JOIN mod_tags USING (mod_id) JOIN mod_versions USING (mod_id)
 			""");
 	}

@@ -164,7 +164,7 @@
 		justify-content: center;
 		background-color: var(--green3-bg);
 		border: 1px solid var(--green2);
-		border-radius: .5rem;
+		border-radius: var(--controls-radius);
 		cursor: pointer;
 		transition: border-color .2s, background-color .2s;
 
