@@ -6,9 +6,9 @@
 
 <style>
 	img {
-		filter: drop-shadow(2px 0 0 var(--highlight)) 
-			drop-shadow(0 2px 0 var(--highlight))
-			drop-shadow(-2px 0 0 var(--highlight)) 
-			drop-shadow(0 -2px 0 var(--highlight));
+		filter: drop-shadow(2px 0 0 var(--icon-border-color))
+			drop-shadow(0 2px 0 var(--icon-border-color))
+			drop-shadow(-2px 0 0 var(--icon-border-color))
+			drop-shadow(0 -2px 0 var(--icon-border-color));
 	}
 </style>

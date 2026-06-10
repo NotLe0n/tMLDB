@@ -99,19 +99,19 @@
 <ListPage onsubmit={updateModList} bind:searchQuery={searchQuery} resetControls={resetParams}>
 	{#snippet controls()}
 		<div>
-			<SortSelector 
+			<SortSelector
 				sortOptions={sortOptions}
-				bind:selectedIdx={sortSelection} 
-				bind:sortDesc={sortDesc} 
-				onchange={updateModList} 
+				bind:selectedIdx={sortSelection}
+				bind:sortDesc={sortDesc}
+				onchange={updateModList}
 			/>
 		</div>
 		<div>
-			<FilterSelector 
+			<FilterSelector
 				bind:modSides={modSideFilter}
 				bind:tags={tagsFilter}
 				bind:versions={versionsFilter}
-				onapply={updateModList} 
+				onapply={updateModList}
 			/>
 		</div>
 	{/snippet}

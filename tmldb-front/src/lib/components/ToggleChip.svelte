@@ -1,11 +1,12 @@
 <script lang="ts">
 	type ToggleChipProps = { value: boolean,label1: string, label2: string }
-	let { value = $bindable(), label1, label2 }: ToggleChipProps = $props() 
+	let { value = $bindable(), label1, label2 }: ToggleChipProps = $props()
 </script>
 
-<div class="toggle-chip" class:pos2={!value}>
-	<button onclick={() => value = true} name="chip-pos1">{label1}</button>
-	<button onclick={() => value = false} name="chip-pos2">{label2}</button>
+<div class="toggle-chip panel" >
+	<div class:pos2={!value} class="indicator panel-medium"></div>
+	<button onclick={() => value = true} name="chip-pos1" class:selected={value}>{label1}</button>
+	<button onclick={() => value = false} name="chip-pos2" class:selected={!value}>{label2}</button>
 </div>
 
 <style>
@@ -13,40 +14,45 @@
 		position: relative;
 		height: 1.75rem;
 		width: 8rem;
-		
+
 		display: flex;
 		justify-content: space-between;
-		border-radius: 1rem;
-		border: 1px solid var(--green3);
-		background-color: var(--green3-bg);
 		transition: background-color 0.3s;
 
-		& > button {
-			appearance: none;
-			background-color: transparent;
-			color: var(--highlight);
-			mix-blend-mode: difference;
-			border: none;
-			padding: 0 1rem;
+		&:not(:has(.selected:hover)):hover {
+			background-color: var(--panel-col2);
+		}
+	}
+
+	.toggle-chip > button {
+		appearance: none;
+		background-color: transparent;
+		border: none;
+		padding: 0 1rem;
+		transition: 0.5s color ease;
+
+		&::after {
+			display: none;
 		}
 
-		&:hover {
-			background-color: var(--green3-hov);
+		&.selected {
+			color: var(--yellow)
 		}
+	}
 
-		&::before {
-			content: '';
-			position: absolute;
-			left: 0;
-			width: 50%;
-			height: 100%;
-			background-color: var(--highlight);
-			transition: left 0.2s ease-in-out;
-			border-radius: 1rem;
-		}
 
-		&.pos2::before {
-			left: 50%;
-		}
+
+	.indicator {
+		position: absolute;
+		left: -2px;
+		top: -2px;
+		width: 50%;
+		height: 100%;
+		background-color: var(--panel-col3);
+		transition: left 0.2s ease-in-out;
+	}
+
+	.pos2 {
+		left: 50%;
 	}
 </style>

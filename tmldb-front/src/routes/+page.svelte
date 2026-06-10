@@ -53,12 +53,12 @@
 			</div>
 		{/await}
 
-		<div id="chart-container">
+		<div id="chart-container" class="panel">
 			<h3>Mod count over time</h3>
 			<div id="chart-wrapper">
 				{#await getModHistogram()}
 					<LoadingSpinner size=24 />
-				{:then mod_histogram} 
+				{:then mod_histogram}
 					<ModsHistogram title="Weekly mod count" data={{
 						labels: [...mod_histogram.dates],
 						data: [...mod_histogram.mods]
@@ -76,10 +76,10 @@
 		<div id="top-mods">
 			{#await getTopMods()}
 				<LoadingSpinner size=16 />
-			{:then top_mods} 
+			{:then top_mods}
 				{#each top_mods as mod}
 					<ModCard {mod} />
-				{/each}   
+				{/each}
 			{/await}
 		</div>
 	</section>
@@ -92,9 +92,9 @@
 		<div id="top-creators">
 			{#await getTopCreators()}
 				<LoadingSpinner size=16 />
-			{:then top_creators} 
+			{:then top_creators}
 				{#each top_creators as creator}
-					<CreatorCard 
+					<CreatorCard
 						id={creator.author_id}
 						name={creator.author_name}
 						modCount={creator.mod_count}
@@ -103,7 +103,7 @@
 					/>
 				{/each}
 			{/await}
-			
+
 		</div>
 	</section>
 </div>
@@ -128,10 +128,9 @@ section {
 	width: 100%;
 
 	h1 {
-		margin-bottom: 0.5rem;
-		background: var(--gradient);
-		background-clip: text;
-		color: transparent;
+		font-family: "Andy";
+		color: var(--yellow);
+		-webkit-text-stroke: 0.04em black;
 	}
 
 	.tagline {
@@ -150,9 +149,6 @@ section {
 
 #chart-container {
 	padding: 2rem;
-	background-color: var(--green3-bg);
-	border: 1px solid var(--green3);
-	border-radius: 1rem;
 	margin: 2rem auto;
 }
 

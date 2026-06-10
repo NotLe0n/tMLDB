@@ -18,10 +18,12 @@
 
 </script>
 
-<header>
+<header class="panel">
 	{#if creator}
 		<div id="header-left" style="--avatar-size: {avatarSize}px">
-			<img id="creator-avatar" src={creator.steam_avatar} alt={creator.steam_name} width={avatarSize} height={avatarSize} />
+			<div class="panel--wrapper">
+				<img class="panel" id="creator-avatar" src={creator.steam_avatar} alt={creator.steam_name} width={avatarSize} height={avatarSize} />
+			</div>
 			<div id="header-body">
 				<div id="creator-name">
 					<h1>{creator.steam_name}</h1>
@@ -59,13 +61,7 @@
 		justify-content: center;
 		align-items: center;
 		gap: 2rem 8rem;
-		background: linear-gradient(var(--gradient-rot), 
-			rgb(from var(--green1) r g b / .4) 20%,
-			rgb(from var(--green2) r g b / .2) 80%);
 		padding: clamp(1.5rem, 3vw, 2.5rem);
-		border-radius: 1.25rem;
-		border: 1px solid rgb(from var(--highlight) r g b / .3);
-		box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
 	}
 
 	#header-left {
@@ -75,13 +71,12 @@
 		align-items: center;
 	}
 
-	#creator-avatar {
-		border-radius: 0.75rem;
-		border: 2px solid var(--highlight);
-		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+	#header-left > .panel--wrapper {
+		--panel-border: var(--icon-border-color);
 	}
 
 	#creator-name {
+		font-family: "Andy";
 		display: flex;
 		align-items: baseline;
 		gap: 1rem;
@@ -101,6 +96,10 @@
 		color: rgba(255, 255, 255, 0.7);
 		font-size: 1.1rem;
 		text-wrap: pretty;
+
+		& > :not(:first-child) {
+			font-family: "Andy";
+		}
 	}
 
 	#stat-grid {

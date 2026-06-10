@@ -10,12 +10,12 @@
 	import LoadingSpinner from '$lib/components/LoadingSpinner.svelte';
 
 	const { mod }: { mod: ModData | undefined } = $props()
-	
+
 	const modIconSize = 176
 
 </script>
 
-<header>
+<header class="panel">
 	{#if mod}
 		<div id="header-left" style="--icon-size: {modIconSize}px">
 			<div id="mod-icon">
@@ -40,7 +40,7 @@
 					<span>{mod.num_versions} versions</span>
 				</div>
 			</div>
-			
+
 			<div id="mod-homepage">
 				{#if mod.homepage}
 					<LinkButton link={mod.homepage} title="Homepage" />
@@ -77,13 +77,7 @@
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 		gap: 2rem;
-		background: linear-gradient(var(--gradient-rot), 
-			rgb(from var(--green1) r g b / .4) 20%,
-			rgb(from var(--green2) r g b / .2) 80%);
 		padding: clamp(1.5rem, 3vw, 2.5rem);
-		border-radius: 1.25rem;
-		border: 1px solid rgb(from var(--highlight) r g b / .3);
-		box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
 	}
 
 	#header-left {
@@ -99,6 +93,10 @@
 		display: flex;
 		flex-direction: column;
 		gap: 0.75rem;
+
+		> h1 {
+			font-family: "Andy";
+		}
 	}
 
 	#mod-internals {
@@ -116,6 +114,7 @@
 	}
 
 	#creator-link {
+		font-family: "Andy";
 		text-decoration: none;
 		color: rgba(255, 255, 255, 0.85);
 		transition: color 0.2s ease;
@@ -166,7 +165,7 @@
 		header {
 			grid-template-columns: 1fr;
 		}
-		
+
 		#stat-grid {
 			grid-template-columns: repeat(3, 1fr);
 		}
@@ -182,7 +181,7 @@
 				align-self: center;
 			}
 		}
-		
+
 		#stat-grid {
 			grid-template-columns: repeat(2, 1fr);
 		}

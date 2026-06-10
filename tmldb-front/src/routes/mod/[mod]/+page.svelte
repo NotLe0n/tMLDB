@@ -42,7 +42,7 @@
 <StatPage>
 	<ModHeader {mod} />
 
-	<article id="description">
+	<article id="description" class="panel">
 		<pre>{@html descriptionToHTML(mod.description ?? "")}</pre>
 	</article>
 
@@ -50,31 +50,31 @@
 		<LoadingSpinner size=24 />
 	{:then mod_history}
 		{#if mod_history.dates.length > 0}
-			<article id="mod-history">
+			<article id="mod-history" class="panel">
 				<header>
 					<h2>Daily change over time</h2>
 					<ToggleChip bind:value={chartView} label1="Chart" label2="Table" />
 				</header>
- 	
+
 				{#if chartView}
 					<div><ModHistoryChart data={mod_history} {beginDate} {endDate} /></div>
 				{:else}
 					<div id="table-container"><ModStatTable data={mod_history} {beginDate} {endDate} /></div>
 				{/if}
-				
+
 				<DateRangeSelector dates={mod_history.dates} bind:beginDate bind:endDate />
 			</article>
 		{/if}
 	{/await}
 
 	{#if mod.children || mod.mod_references != ''}
-		<article id="cnr">
+		<article id="cnr" class="panel">
 			<h2>Children and References</h2>
 
 			<h3>References</h3>
 			<div id="references">
 				{#each mod.mod_references.split(", ") as ref}
-					<a href={ref} class="reference">{ref}</a>
+					<a href={ref} class="reference panel">{ref}</a>
 				{:else}
 					<p>No References</p>
 				{/each}
@@ -83,7 +83,7 @@
 			<div id="children">
 				{#await data.children }
 					<LoadingSpinner size=24 />
-				{:then children} 
+				{:then children}
 					{#each children as child }
 						<ModListCard mod={child} />
 					{:else}
@@ -131,13 +131,11 @@
 	}
 
 	.reference {
-		background-color: var(--green3-bg);
-		border-color: var(--green1);
-		border-radius: 1rem;
+		background-color: var(--panel-col2);
 		padding: 0.5rem;
 
 		&:hover {
-			background-color: var(--green3-hov);
+			--panel-border: var(--yellow);
 		}
 	}
 

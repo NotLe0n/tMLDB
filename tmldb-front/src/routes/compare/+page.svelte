@@ -1,11 +1,11 @@
 <script lang="ts">
-    import { goto } from "$app/navigation";
+	import { goto } from "$app/navigation";
 	import type { ModData, SearchResult } from "$lib";
-    import LoadingSpinner from "$lib/components/LoadingSpinner.svelte";
+	import LoadingSpinner from "$lib/components/LoadingSpinner.svelte";
 	import ModSearch from "$lib/ModSearch.svelte";
-    import { onMount } from "svelte";
-    import ModComparison from "./ModComparison.svelte";
-    import { page } from "$app/state";
+	import { onMount } from "svelte";
+	import ModComparison from "./ModComparison.svelte";
+	import { page } from "$app/state";
 
 	let mod1: Promise<ModData> | null = $state(null)
 	let mod2: Promise<ModData> | null = $state(null)
@@ -20,7 +20,7 @@
 		if (mod1Param !== null && mod1Param !== "") {
 			mod1 = fetchModInfo(mod1Param)
 		}
-		
+
 		const mod2Param = searchParams.get("mod2");
 		if (mod2Param !== null && mod2Param !== "") {
 			mod2 = fetchModInfo(mod2Param)
@@ -45,7 +45,7 @@
 		{#if mod1}
 			{#await mod1}
 				<LoadingSpinner size=24></LoadingSpinner>
-			{:then mod} 
+			{:then mod}
 				<ModComparison {mod} />
 			{/await}
 		{:else}
@@ -69,7 +69,7 @@
 		{#if mod2}
 			{#await mod2}
 				<LoadingSpinner size=24></LoadingSpinner>
-			{:then mod} 
+			{:then mod}
 				<ModComparison {mod} />
 			{/await}
 		{:else}
@@ -94,7 +94,7 @@
 }
 
 .divider {
-	background-color: var(--green1);
+	background-color: black;
 	border-radius: 1rem;
 }
 </style>

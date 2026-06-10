@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { formatDate, formatDuration, formatNumber, type ModData } from "$lib";
+	import { formatDate, formatDuration, formatNumber, type ModData } from "$lib";
 
-	const { mod }: { mod: ModData } = $props() 
+	const { mod }: { mod: ModData } = $props()
 </script>
 
 <div class="comparsion">
@@ -46,6 +46,4 @@
 			font-weight: bold;
 		}
 	}
-
-
 </style>

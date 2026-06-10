@@ -8,7 +8,7 @@
 
 	const descriptionHTML = $derived(
 		bbobHTML(
-			mod.description.substring(0, 440).replace(/^(\[h1|\[url|\[img).*$/gm, "").trim(), 
+			mod.description.substring(0, 440).replace(/^(\[h1|\[url|\[img).*$/gm, "").trim(),
 			presetHTML5(), {
 				stripTags: true
 			}
@@ -17,7 +17,7 @@
 </script>
 
 <a href="/mod/{mod.internal_name}">
-	<div class="mod-card">
+	<div class="mod-card panel hover-highlight">
 		<ModIcon src={mod.icon} name={mod.display_name} size="176px" />
 		<div class="mod-card-content">
 			<h3 class="mod-name">{mod.display_name}</h3>
@@ -39,18 +39,9 @@
 		place-items: center;
 		gap: 1rem;
 
-		background-color: var(--green3-bg);
-		border: 1px solid var(--green3);
-		border-radius: 0.75rem;
+		background-color: var(--panel-col2);
 		padding: 1rem;
-
-		transition: border-color 0.2s, background-color 0.2s;
 		cursor: pointer;
-
-		&:hover {
-			border-color: var(--highlight);
-			background-color: var(--green3-hov);
-		}
 	}
 
 	:global(.mod-card-description h2) {
@@ -67,8 +58,7 @@
 
 	.mod-name {
 		margin: 0;
-		font-size: 1.2rem;
-		color: var(--highlight);
+		font-family: "Andy";
 	}
 
 	.mod-card-description {

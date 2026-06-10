@@ -5,7 +5,7 @@
 
 	type DateRangeSelectorProps = { dates: string[], beginDate: string, endDate: string }
 	let { dates, beginDate = $bindable(), endDate = $bindable() }: DateRangeSelectorProps = $props();
-	
+
 	if (beginDate === "") {
 		// svelte-ignore state_referenced_locally
 		beginDate = dates[0];
@@ -92,16 +92,18 @@
 />
 
 <div class="date-range-container">
-	<select class="date-range-selector" name="date-range-selector" onchange={selectPreset}>
-		{#each DATE_RANGES as range}
-			<option value={range}>{range}</option>
-		{/each}
-	</select>
+	<div class="panel-small--wrapper">
+		<select class="date-range-selector" name="date-range-selector" onchange={selectPreset}>
+			{#each DATE_RANGES as range}
+				<option value={range}>{range}</option>
+			{/each}
+		</select>
+	</div>
 
 	<div bind:this={dateSelectorElm} class="date-range-slider" class:dragging={dragging !== 0}>
-		<div class="track">
-			<div 
-				class="track-fill" 
+		<div class="track panel-small">
+			<div
+				class="track-fill"
 				style="left: {startPct}%; width: {endPct - startPct}%">
 			</div>
 		</div>
@@ -134,8 +136,8 @@
 			tabindex={0}
 		></button>
 
-		<span class="handle-label label-begin">{beginDate}</span>
-		<span class="handle-label label-end">{endDate}</span>
+		<span class="handle-label label-begin panel-small">{beginDate}</span>
+		<span class="handle-label label-end panel-small">{endDate}</span>
 	</div>
 </div>
 
@@ -146,11 +148,15 @@
 		gap: 1rem;
 	}
 
+	.date-range-container > .panel-small--wrapper:has(> :hover) {
+		--panel-border: var(--yellow);
+	}
+
 	.date-range-selector {
 		height: 1.5rem;
 
 		& > option {
-			background-color: var(--green3);
+			background-color: var(--panel-col);
 		}
 	}
 
@@ -170,16 +176,13 @@
 		position: absolute;
 		width: 100%;
 		height: 1rem;
-		background-color: var(--green3-bg);
-		border: 1px solid var(--green3);
-		border-radius: 0.25rem;
 	}
 
 	.track-fill {
 		position: absolute;
 		top: 0;
 		height: 100%;
-		background-color: var(--green1);
+		background-color: var(--panel-col3);
 		opacity: 0.5;
 	}
 
@@ -188,9 +191,7 @@
 		transform: translateX(-50%);
 		width: 14px;
 		height: 1.5rem;
-		background-color: var(--green3);
-		border: 2px solid var(--green1);
-		border-radius: 0.25rem;
+		background-color: var(--panel-col);
 		cursor: ew-resize;
 		padding: 0;
 		display: grid;
@@ -211,10 +212,8 @@
 	.handle-label {
 		position: absolute;
 		position-area: bottom;
-		top: 1.25rem;
-		background-color: var(--green3-bg);
-		border: 1px solid var(--green1);
-		border-radius: 4px;
+		top: 0.25rem;
+		background-color: var(--panel-bg);
 		padding: 2px 6px;
 		font-size: 0.7rem;
 	}

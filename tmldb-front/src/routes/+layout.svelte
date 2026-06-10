@@ -27,7 +27,7 @@
 	</div>
 	<form id="search-form">
 		<input id="search-type" type="checkbox" bind:checked={searchMod} >
-		<label for="search-type" title="Click to toggle mods/creators">
+		<label for="search-type" class="panel-small" title="Click to toggle mods/creators">
 			{#if searchMod}
 				<Icon path={mdiPackageVariant} />
 			{:else}
@@ -67,17 +67,17 @@
 		width: 100%;
 		height: var(--nav-height);
 		top: 0;
-		background: var(--green1-bg);
+		background: #234c8169;
 		backdrop-filter: blur(10px);
-		border-bottom: 1px solid var(--green3);
+		border-bottom: 1px solid var(--divider2);
 		z-index: 1;
-		
+
 		display: flex;
 		padding: 0 2rem;
 		align-items: center;
 		justify-content: space-between;
 		gap: 1rem 4rem;
-	
+
 		@media (max-width: 768px) {
 			justify-content: center;
 			flex-direction: column;
@@ -162,14 +162,11 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		background-color: var(--green3-bg);
-		border: 1px solid var(--green2);
-		border-radius: var(--controls-radius);
+		width: 2rem;
 		cursor: pointer;
-		transition: border-color .2s, background-color .2s;
 
 		&:hover {
-			background-color: var(--green3-hov);
+			--panel-border: var(--yellow);
 		}
 	}
 

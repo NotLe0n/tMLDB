@@ -3,7 +3,7 @@
 
 	interface OnDetectCallback { (): Promise<void> }
 	type ScrollDetectorProps = { loading: boolean, onDetect: OnDetectCallback }
-	
+
 	let { loading = $bindable(), onDetect } : ScrollDetectorProps = $props()
 
 	let scrollDetector: Element;

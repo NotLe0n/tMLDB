@@ -19,16 +19,18 @@
 	<header>
 		<div id="controls">
 			<form {onsubmit}>
-				<input
-					type="text"
-					name="search"
-					placeholder="Filter by name..." 
-					bind:value={searchQuery}
-					class="search-bar"
-				/>
+				<div class="panel-small--wrapper">
+					<input
+						type="text"
+						name="search"
+						placeholder="Filter by name..."
+						bind:value={searchQuery}
+						class="search-bar"
+					/>
+				</div>
 				<button type="submit" class="search-button">Filter</button>
 			</form>
-			<label for="controls-button" title="more options"><Icon path={mdiCog} /></label>
+			<label for="controls-button" title="more options" class="panel-small"><Icon path={mdiCog} /></label>
 			<input type="checkbox" id="controls-button" />
 			<div class="controls-box">
 				{@render controls()}
@@ -56,19 +58,16 @@
 
 	label[for="controls-button"] {
 		display: flex;
-		background-color: var(--green3-bg);
-		border: 1px solid var(--green2);
-		border-radius: var(--controls-radius);
+		background-color: var(--panel-bg);
 		padding: 5px 10px;
 		cursor: pointer;
-		transition: border-color .2s, background-color .2s;
 
 		&:hover {
-			background-color: var(--green3-hov);
+			border-color: var(--yellow);
 		}
 
 		&:has(+ input:checked) {
-			border-color: var(--highlight);
+			border-color: var(--yellow);
 		}
 
 		@media (min-width: 768px) {
@@ -80,7 +79,6 @@
 		display: flex;
 		flex-wrap: wrap;
 		gap: 0.5rem 1rem;
-		align-items: center;
 		justify-content: center;
 	}
 
@@ -97,6 +95,12 @@
 		grid-template-columns: 1fr min-content;
 		gap: 0.5rem;
 		flex: 1;
+	}
+
+	.panel-small--wrapper {
+		width: auto;
+		height: 100%;
+		display: grid;
 	}
 
 	.search-bar {

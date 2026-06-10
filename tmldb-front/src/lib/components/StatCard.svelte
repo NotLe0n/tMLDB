@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { formatNumber, formatNumberShort } from '$lib';
+	import { formatNumber, formatNumberShort } from '$lib';
 	import Icon from './Icon.svelte';
 
 	let { label, value, icon } = $props()
@@ -8,7 +8,7 @@
 	const formattedValueShort = $derived(Number.isInteger(value) ? formatNumberShort(value) : value)
 </script>
 
-<div class="stat-card" title="{label}: {formattedValue}">
+<div class="stat-card panel" title="{label}: {formattedValue}">
 	<span class="stat-icon"><Icon path={icon} color="var(--green2)" /></span>
 	<div class="stat-content">
 		<span class="stat-label">{label}</span>
@@ -25,9 +25,6 @@
 		gap: 0.75rem;
 		padding: 1rem;
 		padding-right: 2rem;
-		background: rgba(255, 255, 255, 0.08);
-		border: 1px solid rgba(255, 255, 255, 0.12);
-		border-radius: 0.75rem;
 		backdrop-filter: blur(10px);
 		flex: 1;
 	}

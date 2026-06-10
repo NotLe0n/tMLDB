@@ -17,7 +17,7 @@
 
 	let { sortOptions, selectedIdx = $bindable(), sortDesc = $bindable(), onchange }: SortSelectorProps = $props()
 	const sortOrderTitle = $derived(sortDesc ? "Order: Descending" : "Order: Ascending")
-	
+
 	function selectOption(index: number) {
 		selectedIdx = index
 		onchange?.()
@@ -26,16 +26,16 @@
 
 <div id="sort-selector-container">
 	<p>Sort by</p>
-	<button 
-		class="dropdown-toggle" 
+	<button
+		class="dropdown-toggle"
 		popovertarget="sort-dropdown"
 		title={"Sort by " + sortOptions[selectedIdx].title}
 	>
 		<Icon path={sortOptions[selectedIdx].path} />
 		<Icon path={mdiMenuDown} size="20" />
 	</button>
-	
-	<div id="sort-dropdown" popover>
+
+	<div id="sort-dropdown" class="panel" popover>
 		{#each sortOptions as option, i}
 			<button
 				class="dropdown-item"
@@ -52,7 +52,7 @@
 	</div>
 
 	<input type="checkbox" id="sort-order" name="sort-order" bind:checked={sortDesc} {onchange}>
-	<label for="sort-order" title={sortOrderTitle}>
+	<label for="sort-order" title={sortOrderTitle} class="panel-small">
 		{#if sortDesc}
 			<Icon path={mdiSortAscending} />
 		{:else}
@@ -85,10 +85,9 @@
 		flex-direction: column;
 		gap: 0.25rem;
 
-		border: 1px solid var(--green2);
-		border-radius: .5rem;
-		padding: 0.25rem;
-		background-color: var(--green3-bg);
+		padding: 0.5rem;
+		background-color: var(--panel-bg);
+		overflow: visible; /* fixes .panel scrollbar issue */
 		backdrop-filter: brightness(0.75) blur(10px);
 
 		&:popover-open {
@@ -100,19 +99,11 @@
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
-		background-color: transparent;
-		border: 1px solid transparent;
-		border-radius: .25rem;
 		padding: 8px 12px;
-		transition: border-color .2s, background-color .2s;
-
-		&:hover {
-			background-color: var(--green3-hov);
-		}
 
 		&.selected {
-			background-color: var(--green3-hov);
-			border-color: var(--highlight);
+			--panel-border: var(--yellow);
+			background-color: var(--panel-col2);
 		}
 	}
 
@@ -122,15 +113,12 @@
 
 	label {
 		display: flex;
-		background-color: var(--green3-bg);
-		border: 1px solid var(--green2);
-		border-radius: var(--controls-radius);
+		background-color: var(--panel-bg);
 		padding: 5px 10px;
 		cursor: pointer;
-		transition: border-color .2s, background-color .2s;
 
 		&:hover {
-			background-color: var(--green3-hov);
+			--panel-border: var(--yellow);
 		}
 	}
 </style>

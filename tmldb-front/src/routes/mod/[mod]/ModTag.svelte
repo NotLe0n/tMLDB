@@ -9,9 +9,9 @@
 </script>
 
 {#if sides.includes(tag.tag)}
-	<span title={tag.tag} class="mod-side">Mod Side: {tag.display_name}</span>
+	<span title={tag.tag} class="mod-side panel-small">Mod Side: {tag.display_name}</span>
 {:else}
-	<span title={tag.tag}>{tag.display_name}</span>
+	<span title={tag.tag} class="panel-small">{tag.display_name}</span>
 {/if}
 
 <style>
@@ -19,8 +19,6 @@
 		padding: 0.25rem 0.33rem;
 		border-radius: 0.25rem;
 		font-size: 0.75rem;
-		background: rgba(255, 255, 255, 0.12);
-		border: 1px solid rgba(255, 255, 255, 0.2);
 		order: 1;
 	}
 

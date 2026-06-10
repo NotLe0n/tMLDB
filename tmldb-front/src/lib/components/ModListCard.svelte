@@ -7,15 +7,15 @@
 	import Icon from "./Icon.svelte";
 
 	const { mod }: { mod: ModListData | ModData } = $props()
-	
+
 	// Handle vote data differences between ModData and ModListData
 	const score = $derived('score' in mod ? mod.score : mod.vote_data?.score ?? 0)
 	const votesUp = $derived('votes_up' in mod ? mod.votes_up : mod.vote_data?.votes_up ?? 0)
 	const votesDown = $derived('votes_down' in mod ? mod.votes_down : mod.vote_data?.votes_down ?? 0)
-	
+
 	const descriptionHTML = $derived(
 		bbobHTML(
-			mod.description?.substring(0, 800).replace(/^(\[h1|\[url|\[img).*$/gm, "").trim() ?? "", 
+			mod.description?.substring(0, 800).replace(/^(\[h1|\[url|\[img).*$/gm, "").trim() ?? "",
 			presetHTML5(), {
 				stripTags: true
 			}
@@ -36,7 +36,7 @@
 </script>
 
 <a href={`/mod/${mod.mod_id}`} class="link-container" style="--icon-size: {iconSize}px">
-	<div class="modlist-card">
+	<div class="modlist-card panel hover-highlight">
 		<div class="mod-icon">
 			<ModIcon src={mod.workshop_icon_url} name={mod.display_name} size={iconSize} />
 		</div>
@@ -89,9 +89,9 @@
 					<Icon path={mdiThumbDown} size=16 />
 					<span class="stat-value">{votesDown.toLocaleString()}</span>
 				</div>
-				<div 
-					class="rating-bar" 
-					style="--score: {voteRatio}%" 
+				<div
+					class="rating-bar"
+					style="--score: {voteRatio}%"
 					title="Vote Ratio: {voteRatio.toFixed(2)}%"
 				></div>
 			</div>
@@ -107,21 +107,14 @@
 
 	.modlist-card {
 		display: grid;
-		grid-template-columns: var(--icon-size) 1fr 2px 25rem;
+		grid-template-columns: var(--icon-size) 1fr 4px 25rem;
 		grid-template-rows: var(--icon-size);
 		width: 100%;
 		gap: 1rem;
+		background-color: var(--panel-col2);
 		padding: 1rem;
-		background-color: var(--green3-bg);
-		border: 1px solid var(--green3);
-		border-radius: 1rem;
 		transition: background-color 0.2s, border-color;
 		align-items: center;
-
-		&:hover {
-			background-color: var(--green3-hov);
-			border-color: var(--highlight);
-		}
 
 		@container (width < 1000px) {
 			grid-template-columns: var(--icon-size) auto;
@@ -130,7 +123,7 @@
 			.numbers {
 				grid-template-columns: 25rem minmax(10rem, 22rem);
 				grid-template-rows: auto;
-				
+
 				gap: 0.5rem 4rem;
 				align-items: center;
 				justify-content: space-between;
@@ -173,8 +166,8 @@
 	}
 
 	.divider {
-		background-color: var(--green3);
-		border-radius: 10px;
+		background-color: var(--divider2);
+		border-right: 2px solid var(--divider1);
 		height: 100%;
 	}
 
@@ -190,16 +183,17 @@
 		display: flex;
 		gap: 0.25rem 1rem;
 		align-items: baseline;
+		font-family: "Andy";
 
 		small {
-			color: rgb(from white r g b / 60%)
+			color: rgb(from white r g b / 60%);
 		}
 	}
 
 	.description {
 		font-size: 0.9rem;
 		line-height: 1.4;
-		
+
 		background: linear-gradient(to bottom, white 10%, transparent 100%);
 		color: transparent;
 		background-clip: text;
@@ -237,7 +231,7 @@
 	}
 
 	.time-stat span:last-of-type, .stat-value {
-		color: var(--highlight);
+		color: var(--yellow);
 		font-weight: 600;
 	}
 
@@ -253,8 +247,8 @@
 		border-radius: 20px;
 		margin-top: 5px;
 		background: linear-gradient(90deg,
-			var(--green1) 0%,
-			var(--green1) var(--score),
+			var(--upvote-color) 0%,
+			var(--upvote-color) var(--score),
 			var(--downvote-color) var(--score),
 			var(--downvote-color) 100%
 		);

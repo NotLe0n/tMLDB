@@ -1,15 +1,15 @@
 <script lang="ts">
-    import { formatNumber, formatNumberShort } from "$lib";
+	import { formatNumber, formatNumberShort } from "$lib";
 
 	let { votes_up, votes_down, score } = $props();
 
 	const percentage = $derived((score * 100).toFixed(2));
 </script>
 
-<div class="voting-card">
+<div class="voting-card panel">
 	<div class="stat-content">
 		<span class="stat-label">
-			Steam Rating 
+			Steam Rating
 			<span class="info-icon" title="Steam's rating may differ from the upvote/downvote ratio">?</span>
 		</span>
 		<strong class="stat-value">{percentage}%</strong>
@@ -32,8 +32,6 @@
 		flex-wrap: wrap;
 		gap: 1rem;
 		padding: 1rem;
-		background: rgba(255, 255, 255, 0.08);
-		border: 1px solid rgba(255, 255, 255, 0.12);
 		border-radius: 0.75rem;
 		backdrop-filter: blur(10px);
 		justify-content: space-evenly;

@@ -22,14 +22,27 @@
 					maintainAspectRatio: false,
 					datasets: {
 						line: {
-							borderWidth: 1,
+							borderWidth: 2,
 							pointStyle: false,
 							tension: .2
 						}
 					},
+					plugins: {
+						legend: {
+							labels: {
+								color: 'rgba(255, 255, 255)'
+							}
+						}
+					},
 					scales: {
+						y: {
+							ticks: {
+								color: 'rgb(255, 255, 255)'
+							}
+						},
 						x: {
 							ticks: {
+								color: 'rgb(255, 255, 255)',
 								callback: function(value) {
 									const label = this.getLabelForValue(value as number);
 									if (!label) return '';
@@ -47,7 +60,8 @@
 					datasets: [
 						{
 							label: title,
-							data: data.data
+							data: data.data,
+							borderColor: 'oklch(77% 0.2 150)',
 						}
 					]
 				}

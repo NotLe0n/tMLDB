@@ -7,10 +7,12 @@
 </script>
 
 <a href={`/creator/${creator.author_id}`}>
-	<div class="creator-list-card" id={creator.author_name}>
+	<div class="creator-list-card panel" id={creator.author_name}>
 		<h3>{creator.author_name}</h3>
 		<div class="card-content">
-			<img src={creator.avatar} alt={creator.author_name}>
+			<div class="panel--wrapper">
+				<img class="panel" src={creator.avatar} alt={creator.author_name}>
+			</div>
 			<div class="stats-grid">
 				<div class="stat-item" title="Mod Count">
 					<Icon path={mdiPackageVariant} size=18 />
@@ -43,23 +45,22 @@
 		grid-template-rows: auto 1fr;
 		gap: 0.15rem;
 		padding: 1rem;
-		border: 1px solid var(--green3);
-		background-color: var(--green3-bg);
-		border-radius: 1rem;
-		transition: background-color 0.2s, border-color 0.2s;
+		background-color: var(--panel-col2);
 		container-type: inline-size;
 
 		&:hover {
-			background-color: var(--green3-hov);
-			border-color: var(--highlight);
+			--panel-border: var(--yellow);
 		}
+	}
+
+	.card-content > .panel--wrapper {
+		--panel-border: var(--icon-border-color);
 	}
 
 	img {
 		width: 80px;
 		height: 80px;
-		border-radius: 1rem;
-		border: 2px solid var(--highlight);
+		border-color: var(--icon-border-color);
 	}
 
 	.card-content {
@@ -70,6 +71,7 @@
 	}
 
 	h3 {
+		font-family: "Andy";
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;

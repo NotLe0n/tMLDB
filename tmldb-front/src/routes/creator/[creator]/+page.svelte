@@ -38,7 +38,7 @@
 <StatPage>
 	<CreatorHeader {creator} />
 
-	<article id="mods-list">
+	<article id="mods-list" class="panel">
 		<h3>Mods by {creator.steam_name}</h3>
 		<div id="mods-container">
 			{#each creator.mods as mod}
@@ -51,7 +51,7 @@
 		<LoadingSpinner size=24 />
 	{:then creatorHistory}
 		{#if creatorHistory.dates.length > 0}
-			<article id="mod-history">
+			<article id="mod-history" class="panel">
 				<h3>Daily change over time</h3>
 				<div>
 					<CreatorHistoryChart data={creatorHistory} modNameMap={getModNameMap(creator.mods)} {beginDate} {endDate} />

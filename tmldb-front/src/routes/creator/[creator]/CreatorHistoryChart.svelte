@@ -36,7 +36,7 @@
 			}).filter(x => !x.data.every(x => x === null))
 		}
 	}
-	
+
 	const colorScheme = [
 		"#63b598", "#ce7d78", "#ea9e70", "#a48a9e", "#c6e1e8", "#648177", "#0d5ac1",
 		"#f205e6", "#1c0365", "#14a9ad", "#4ca2f9", "#a4e43f", "#d298e2", "#6119d0",
@@ -93,7 +93,7 @@
 			options: {
 				responsive: true,
 				maintainAspectRatio: false,
-				interaction: { 
+				interaction: {
 					intersect: false
 				},
 				datasets: {

@@ -8,7 +8,7 @@
 	type ModFiltersData = {
 		mod_sides: string[],
 		tags: string[],
-		mod_versions: string[]
+		tml_versions: string[]
 	}
 
 	const fetchFilters = async (): Promise<ModFiltersData> => {
@@ -25,8 +25,15 @@
 
 	const isSomethingSelected = $derived(modSides.length > 0 || tags.length > 0 || versions.length > 0)
 
+	let versionDropdown: HTMLDivElement | undefined = $state()
+	let versionInputText = $state("")
+
 	function getVersionMajor(v: string): number {
 		return Number.parseInt(v.replace("tModLoader v", "").split(".")[0])
+	}
+
+	function normVersion(v: string): string {
+		return v.replace("tModLoader v", "")
 	}
 </script>
 
@@ -35,8 +42,8 @@
 	<button class="dropdown-toggle" popovertarget="filter-dropdown">
 		<Icon path={mdiMenuDown} size="20" />
 	</button>
-	
-	<div id="filter-dropdown" popover>
+
+	<div id="filter-dropdown" class="panel" popover>
 		{#await filtersPromise}
 			<p>Loading Filters</p>
 		{:then filters}
@@ -44,13 +51,13 @@
 				<b>Mod Side</b>
 				<div class="filter-container">
 					{#each filters.mod_sides as mod_side, i}
-						<input 
-							type="checkbox" 
+						<input
+							type="checkbox"
 							id="mod-side-filter-{i}"
 							bind:group={modSides}
 							value={mod_side}
 						>
-						<label for="mod-side-filter-{i}" title={mod_side} class="tag">{mod_side}</label>
+						<label for="mod-side-filter-{i}" title={mod_side} class="tag panel-small hover-highlight">{mod_side}</label>
 					{/each}
 				</div>
 			</div>
@@ -64,39 +71,48 @@
 							bind:group={tags}
 							value={tag}
 						>
-						<label for="tag-filter-{i}" title={tag} class="tag">{tag}</label>
+						<label for="tag-filter-{i}" title={tag} class="tag panel-small hover-highlight">{tag}</label>
 					{/each}
 				</div>
 			</div>
-			<div id="version-filter-section">
+			<div>
 				<b>tModloader Version</b>
-				<button class="version-dropdown-toggle" popovertarget="version-dropdown">
-					<div class="selected-versions">
-						{#each versions.slice(0, 4) as version}
-							<div class="tag">{version.replace("tModLoader v", "")}</div>
-						{:else}
-							<span>Select versions</span>
-						{/each}
-						{#if versions.length > 4}
-							<span>+ {versions.length - 4}</span>
-						{/if}
-					</div>
-					
-					<Icon path={mdiMenuDown} size="16" />
-				</button>
-				
-				<div id="version-dropdown" popover>
-					<div class="filter-container">
-						{#each filters.mod_versions.sort((a, b) => getVersionMajor(b) - getVersionMajor(a)) as version, i}
-							<input
-								type="checkbox"
-								id="version-filter-{i}"
-								bind:group={versions}
-								value={version}
+				<div id="version-filter-section">
+					<div id="version-select-header">
+						<p>Selected versions:</p>
+						<div class="panel-small--wrapper">
+							<input type="text" placeholder="enter version"
+								id="version-input"
+								bind:value={versionInputText}
+								onfocus={() => versionDropdown?.showPopover() }
+								onfocusout={() => setTimeout(() => versionDropdown?.hidePopover(), 80) }
 							>
-							<label for="version-filter-{i}" title={version} class="tag">{version.replace("tModLoader v", "")}</label>
+						</div>
+					</div>
+					<div class="selected-versions">
+						{#each versions as version}
+							<div class="tag panel-small hover-highlight">{normVersion(version)}</div>
+						{:else}
+							<span>No versions selected</span>
 						{/each}
 					</div>
+				</div>
+			</div>
+
+			<div id="version-dropdown" class="panel" popover="manual" bind:this={versionDropdown} >
+				<div class="filter-container">
+					{#each filters.tml_versions
+						.filter(x => x.startsWith(normVersion(versionInputText)))
+						.sort((a, b) => getVersionMajor(b) - getVersionMajor(a))
+					as version, i}
+						<input
+							type="checkbox"
+							id="version-filter-{i}"
+							bind:group={versions}
+							value={version}
+						>
+						<label for="version-filter-{i}" title={version} class="tag panel-small hover-highlight">{normVersion(version)}</label>
+					{/each}
 				</div>
 			</div>
 			<div id="filter-buttons">
@@ -125,6 +141,7 @@
 
 	#filter-dropdown {
 		max-width: 35rem;
+		overflow: visible; /* fixes .panel scrollbar issue */
 
 		position: absolute;
 		position-anchor: --filter-dropdown-anchor;
@@ -135,10 +152,8 @@
 		flex-direction: column;
 		gap: 1rem;
 
-		border: 1px solid var(--green2);
-		border-radius: 0.5rem;
 		padding: 0.5rem;
-		background-color: var(--green3-bg);
+		background-color: var(--panel-bg);
 		color: white;
 		backdrop-filter: brightness(0.75) blur(10px);
 
@@ -153,18 +168,11 @@
 
 	.tag {
 		padding: 0.25rem 0.5rem;
-		background-color: rgba(255, 255, 255, 0.12);
-		border: 1px solid rgba(255, 255, 255, 0.2);
-		border-radius: 0.25rem;
+		background-color: var(--panel-col2);
 	}
 
 	label.tag[for] {
 		cursor: pointer;
-
-		&:hover {
-			background-color: rgba(255, 255, 255, 0.2);
-			border-color: rgba(255, 255, 255, 0.25);
-		}
 	}
 
 	input[type="checkbox"]:checked + label.tag {
@@ -179,10 +187,22 @@
 		overflow: auto;
 	}
 
+	#version-select-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
 	#version-filter-section {
 		display: flex;
 		flex-direction: column;
 		gap: 0.5rem;
+		padding: 0 .5rem;
+	}
+
+	#version-input {
+		padding: 0.5rem;
+		width: 30ch;
 		anchor-name: --version-dropdown-anchor;
 	}
 
@@ -200,24 +220,24 @@
 	}
 
 	#version-dropdown {
-		max-width: 30rem;
-		max-height: 20rem;
-		overflow-y: auto;
+		overflow: visible;
 
 		position: absolute;
 		position-anchor: --version-dropdown-anchor;
 		top: calc(anchor(bottom) + 0.25rem);
 		left: anchor(left);
 
-		border: 1px solid var(--green2);
-		border-radius: .5rem;
 		padding: 0.5rem;
-		background-color: var(--green3-bg);
 		color: white;
 		backdrop-filter: brightness(0.75) blur(10px);
 
 		&:popover-open {
 			display: block;
+		}
+
+		& > .filter-container {
+			max-height: 20rem;
+			max-width: 20rem;
 		}
 	}
 

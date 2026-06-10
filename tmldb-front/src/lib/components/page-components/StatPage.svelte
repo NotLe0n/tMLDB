@@ -16,9 +16,7 @@
 		:global {
 			article {
 				padding: 1.5rem;
-				border-radius: 1rem;
-				background: var(--green3-bg);
-				border: 1px solid var(--green3);
+				background: var(--panel-bg);
 			}
 
 			article h3 {
@@ -27,5 +25,5 @@
 		}
 	}
 
-	
+
 </style>

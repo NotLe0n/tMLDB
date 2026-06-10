@@ -2,7 +2,7 @@
     import { formatDuration, formatNumber, type ModHistoryData } from "$lib";
 
 	const { data, beginDate, endDate }: { data: ModHistoryData, beginDate: string, endDate: string } = $props();
-	
+
 	const startIndex = $derived(data.dates.indexOf(beginDate))
 	const endIndex = $derived(data.dates.indexOf(endDate))
 
@@ -66,7 +66,7 @@
 	}
 
 	thead {
-		background-color: var(--green3);
+		background-color: var(--panel-col3);
 		font-weight: bold;
 
 		& > tr > td {
@@ -75,16 +75,17 @@
 	}
 
 	tbody > tr {
-		border-top: 1px solid var(--green3);
+		background-color: var(--panel-col);
+		border-top: 1px solid var(--panel-col3);
 
 		& > td {
 			padding: 0.5rem 0;
 
 			&.pos {
-				color: var(--green2)
+				color: oklch(from var(--upvote-color) calc(l + 0.3) c h);
 			}
 			&.neg {
-				color: var(--downvote-color)
+				color: var(--downvote-color);
 			}
 		}
 	}

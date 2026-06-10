@@ -3,8 +3,10 @@
 </script>
 
 <a href="/creator/{id}">
-	<div class="creator-card">
-		<img class="creator-icon" src={avatar} alt={name} width="60px" height="60px">
+	<div class="creator-card panel hover-highlight">
+		<div class="panel--wrapper">
+			<img class="panel creator-icon" src={avatar} alt={name} width="60px" height="60px">
+		</div>
 		<div class="creator-info">
 			<h3 class="creator-name">{name}</h3>
 			<div class="creator-stats">
@@ -24,22 +26,14 @@
 		display: flex;
 		align-items: center;
 		gap: 1rem;
-		border: 1px solid var(--green3);
-		background-color: var(--green3-bg);
+		background-color: var(--panel-col2);
 		border-radius: 0.75rem;
 		padding: 1rem;
-		transition: border-color 0.2s, background-color 0.2s;
 		cursor: pointer;
-
-		&:hover {
-			border-color: var(--highlight);
-			background-color: var(--green3-hov);
-		}
 	}
 
-	.creator-icon {
-		border-radius: 50%;
-		border: 2px solid var(--highlight);
+	.creator-card > .panel--wrapper {
+		--panel-border: var(--icon-border-color);
 	}
 
 	.creator-info {
@@ -55,7 +49,7 @@
 		text-overflow: ellipsis;
 		padding-bottom: 0.15rem;
 		margin: 0;
-		font-size: 1.1rem;
+		font-family: Andy;
 	}
 
 	.creator-stats {
