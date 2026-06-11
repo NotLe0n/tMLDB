@@ -5,13 +5,15 @@
 	import ModSocialsList from './ModSocialsList.svelte'
 	import StatCard from '$lib/components/StatCard.svelte'
 	import VotingCard from './VotingCard.svelte'
-	import { mdiDownload, mdiHeart, mdiClockOutline, mdiEye } from '@mdi/js'
+	import { mdiDownload, mdiHeart, mdiClockOutline, mdiEye, mdiChevronDown } from '@mdi/js'
 	import { formatDate, formatDuration, type ModData } from '$lib'
 	import LoadingSpinner from '$lib/components/LoadingSpinner.svelte';
+    import Icon from '$lib/components/Icon.svelte';
 
 	const { mod }: { mod: ModData | undefined } = $props()
 
 	const modIconSize = 176
+	let showMoreInfo = $state(false)
 
 </script>
 
@@ -23,15 +25,24 @@
 			</div>
 
 			<div id="header-body">
-				<h1>{mod.display_name}</h1>
-				<div id="creator">
-					<a id="creator-link" href="/creator/{mod.author_id}">by {mod.author}</a>
-					<ModSocialsList socials={mod.socials} mod_id={mod.mod_id} />
+				<div id="mod-core">
+					<div id="mod-name">
+						<h1>{mod.display_name}</h1>
+						<button onclick={() => showMoreInfo = !showMoreInfo} title="show more information">
+							<Icon path={mdiChevronDown} size={16} />
+						</button>
+					</div>
+					<div id="creator">
+						<a id="creator-link" href="/creator/{mod.author_id}">by {mod.author}</a>
+						<ModSocialsList socials={mod.socials} mod_id={mod.mod_id} />
+					</div>
 				</div>
-				<div id="mod-internals">
-					<span>MOD ID: {mod.mod_id}</span>
-					<span>INTERNAL NAME: {mod.internal_name}</span>
-				</div>
+				{#if showMoreInfo}
+					<div id="mod-internals">
+						<span>Mod ID: {mod.mod_id}</span>
+						<span>Internal name: {mod.internal_name}</span>
+					</div>
+				{/if}
 				<div id="mod-meta">
 					<span>Created {formatDate(mod.time_created)}</span>
 					<span class="dot">•</span>
@@ -75,7 +86,7 @@
 <style>
 	header {
 		display: grid;
-		grid-template-columns: 1fr 1fr;
+		grid-template-columns: 6fr 5fr;
 		gap: 2rem;
 		padding: clamp(1.5rem, 3vw, 2.5rem);
 	}
@@ -92,19 +103,25 @@
 	#header-body {
 		display: flex;
 		flex-direction: column;
-		gap: 0.75rem;
+		gap: 0.5rem;
+	}
 
-		> h1 {
+	#mod-name {
+		display: flex;
+		gap: 1rem;
+		align-items: center;
+		& > h1 {
 			font-family: "Andy";
+		}
+		& > button {
+			top: -4px;
 		}
 	}
 
 	#mod-internals {
 		display: flex;
 		gap: 2rem;
-		letter-spacing: 0.2em;
-		font-size: 0.7rem;
-		color: rgba(255, 255, 255, 0.6);
+		color: rgba(255, 255, 255, 0.7);
 	}
 
 	#creator {
@@ -180,6 +197,10 @@
 			#mod-icon {
 				align-self: center;
 			}
+		}
+
+		#mod-name, #creator, #mod-meta, #mod-internals {
+			justify-content: center;
 		}
 
 		#stat-grid {

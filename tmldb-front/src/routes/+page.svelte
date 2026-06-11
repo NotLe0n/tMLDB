@@ -59,7 +59,7 @@
 				{#await getModHistogram()}
 					<LoadingSpinner size=24 />
 				{:then mod_histogram}
-					<ModsHistogram title="Weekly mod count" data={{
+					<ModsHistogram title="Weekly new mods" data={{
 						labels: [...mod_histogram.dates],
 						data: [...mod_histogram.mods]
 					}} />

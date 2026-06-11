@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { goto } from "$app/navigation";
+	import { afterNavigate, goto } from "$app/navigation";
 	import type { ModData, SearchResult } from "$lib";
 	import LoadingSpinner from "$lib/components/LoadingSpinner.svelte";
 	import ModSearch from "$lib/ModSearch.svelte";
@@ -14,7 +14,7 @@
 		return await (await fetch(`/api/mod_info/${id}`)).json();
 	}
 
-	onMount(() => {
+	function resetModData() {
 		const searchParams = page.url.searchParams
 		const mod1Param = searchParams.get("mod1");
 		if (mod1Param !== null && mod1Param !== "") {
@@ -25,6 +25,10 @@
 		if (mod2Param !== null && mod2Param !== "") {
 			mod2 = fetchModInfo(mod2Param)
 		}
+	}
+
+	onMount(() => {
+		resetModData()
 	})
 </script>
 
@@ -52,7 +56,6 @@
 			<p class="select-msg">Select mod to compare</p>
 		{/if}
 	</div>
-	<div class="divider"></div>
 	<div>
 		<ModSearch searchMod={true}>
 			{#snippet resultContent(searchResults: SearchResult[])}
@@ -83,7 +86,7 @@
 	padding: 1rem clamp(1rem, 3vw, 4rem) 0;
 	display: grid;
 	height: calc(100vh - var(--nav-height) - var(--footer-height) - 3rem);
-	grid-template-columns: 1fr 2px 1fr;
+	grid-template-columns: 1fr 1fr;
 	gap: 3rem;
 }
 
@@ -93,9 +96,11 @@
 	gap: 1rem;
 }
 
-.divider {
-	background-color: black;
-	border-radius: 1rem;
+button {
+	clip-path: none;
+	&::after {
+		display: none;
+	}
 }
 
 .select-msg {
