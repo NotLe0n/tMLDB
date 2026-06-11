@@ -70,7 +70,8 @@
 <div class="search-result-container panel"
 	popover="manual"
 	bind:this={resultContainer}
-	style="position-anchor: --mod-search-{uid};">
+	style="position-anchor: --mod-search-{uid};"
+	onfocusout={() => closeResultContainer()}>
 	<div class="search-results-scroll">
 		{@render resultContent(searchResults)}
 	</div>
