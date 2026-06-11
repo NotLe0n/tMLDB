@@ -9,6 +9,6 @@
 <style>
 	:global(a>.mdi-icon:hover path) {
 		transition: fill .25s;
-		fill: var(--highlight) !important;
+		fill: var(--yellow) !important;
 	}
 </style>

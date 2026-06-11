@@ -5,6 +5,7 @@
 	let searchQuery = $state("")
 	let searchResults = $state<SearchResult[]>([])
 	let searchTimer = $state<number | null>(null)
+	let focusTimer = $state<number | null>(null)
 	let resultContainer: HTMLDivElement
 	const uid = $props.id()
 
@@ -30,6 +31,22 @@
 			resultContainer.hidePopover()
 		}
 	}
+
+	function openResultContainer() {
+		if (searchResults.length > 0) {
+			resultContainer?.showPopover()
+		}
+	}
+
+	function closeResultContainer() {
+		if (focusTimer) clearTimeout(focusTimer)
+		focusTimer = setTimeout(() => {
+			console.log(document.activeElement, resultContainer, resultContainer.contains(document.activeElement))
+			if (!resultContainer.contains(document.activeElement)) {
+				resultContainer?.hidePopover()
+			}
+		}, 100)
+	}
 </script>
 
 <div class="panel-small--wrapper">
@@ -39,8 +56,8 @@
 		bind:value={searchQuery}
 		style="anchor-name: --mod-search-{uid};"
 		oninput={onKeySearch}
-		onfocusin={() => searchResults.length > 0 && resultContainer.showPopover()}
-		onfocusout={() => setTimeout(() => resultContainer.hidePopover(), 80)}
+		onfocusin={() => openResultContainer()}
+		onfocusout={() => closeResultContainer()}
 		placeholder="Search {searchMod ? 'mods' : 'creators'}..."
 	>
 </div>
@@ -101,15 +118,22 @@
 		overflow-y: auto;
 	}
 
-	:global(.search-result-container .search-results-scroll > *) {
+	:global(.search-result-container > .search-results-scroll > *) {
 		text-align: start;
 		border-radius: .5rem;
 		outline: none;
+		border: 1px solid transparent;
 		padding: .55rem;
 
 		&:hover {
 			color: var(--yellow);
 			background-color: var(--panel-col2);
+		}
+
+		&:focus {
+			color: var(--yellow);
+			background-color: var(--panel-col2);
+			border: 1px solid var(--yellow);
 		}
 	}
 </style>

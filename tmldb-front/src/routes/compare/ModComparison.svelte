@@ -4,7 +4,7 @@
 	const { mod }: { mod: ModData } = $props()
 </script>
 
-<div class="comparsion">
+<div class="comparsion panel">
 	<span>Display Name</span>
 	<span>{mod.display_name}</span>
 	<span>Internal Name</span>
