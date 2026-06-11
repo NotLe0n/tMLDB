@@ -132,7 +132,7 @@
 		margin-top: 2px;
 
 		&:hover {
-			color: var(--highlight);
+			color: var(--yellow);
 		}
 	}
 
@@ -145,7 +145,7 @@
 		bottom: anchor(bottom);
 		right: anchor(right);
 		transition: inset 200ms;
-		background-color: var(--highlight);
+		background-color: var(--yellow);
 	}
 
 	#search-form {

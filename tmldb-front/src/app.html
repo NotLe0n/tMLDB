@@ -11,41 +11,33 @@
 
 			:root {
 				color: white;
-				--bg-color: oklch(77% 0.12 155.04);
-				--highlight: oklch(77% 0.2 130);
-
-				--upvote-color: oklch(55% 0.2 150);
-
-				--green2: oklch(77% 0.2 150);
-
-				--green3: oklch(40% 0.08 150);
-				--green3-bg: rgb(from var(--green3) r g b / 0.2);
-				--green3-hov: rgb(from var(--green3) r g b / 0.5);
+				--bg-color: #4448f4;
 
 				--panel-col: rgb(63, 82, 151);
-				--panel-border: black;
+				--panel-col2: rgb(51 70 134);
+				--panel-col3: rgb(43 56 101);
 				--panel-bg: rgb(from var(--panel-col) r g b / 0.7);
 
-				--panel-col2: #334686;
-
-				--panel-col3: #2B3865;
-
 				--yellow: rgb(255, 231, 69);
-				--icon-border-color: #878bc2;
+				--green1: oklch(77% 0.2 130);
+				--green2: oklch(77% 0.2 150);
+				--upvote-color: oklch(55% 0.2 150);
+				--downvote-color: oklch(55% 0.2 27.543);
+
+				--search-bar-color: rgb(255, 255, 255, 0.6);
+				--icon-border-color: rgb(135 139 194);
+				--panel-border: black;
+				scrollbar-color: var(--panel-col3) var(--panel-col);
 
 				--divider1: rgb(38, 38, 38, 38);
-				--divider2: #384989;
+				--divider2: rgb(56 73 137);
 
 				--gradient-rot: 135deg;
-				--gradient: linear-gradient(var(--gradient-rot), var(--highlight), var(--green2));
+				--gradient: linear-gradient(var(--gradient-rot), var(--green1), var(--green2));
+
 				--nav-height: 4rem;
 				--footer-height: 4rem;
 				--footer-display: flex;
-				--search-bar-color: rgb(255, 255, 255, 0.6);
-				scrollbar-color: var(--panel-col3) var(--panel-col);
-				--downvote-color: oklch(55% 0.2 27.543);
-
-				--controls-radius: 0.5rem;
 
 				@media (max-width: 768px) {
 					--nav-height: 8rem;

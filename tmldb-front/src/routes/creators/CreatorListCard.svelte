@@ -99,9 +99,8 @@
 		}
 	}
 
-
 	.stat-value {
 		font-weight: 600;
-		color: var(--highlight);
+		color: var(--yellow);
 	}
 </style>
