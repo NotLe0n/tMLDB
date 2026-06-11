@@ -1,12 +1,13 @@
 <script lang="ts">
 	import type { SearchResult } from "$lib";
+	import { afterNavigate } from "$app/navigation";
 
 	let { searchMod, resultContent }: { searchMod: boolean, resultContent: any } = $props()
 	let searchQuery = $state("")
 	let searchResults = $state<SearchResult[]>([])
 	let searchTimer = $state<number | null>(null)
 	let focusTimer = $state<number | null>(null)
-	let resultContainer: HTMLDivElement
+	let resultContainer: HTMLDivElement | null
 	const uid = $props.id()
 
 	function onKeySearch() {
@@ -25,10 +26,10 @@
 
 		searchResults = await (await fetch(searchUrl)).json()
 		if (searchResults.length > 0) {
-			resultContainer.showPopover()
+			resultContainer?.showPopover()
 		}
 		else {
-			resultContainer.hidePopover()
+			resultContainer?.hidePopover()
 		}
 	}
 
@@ -41,12 +42,17 @@
 	function closeResultContainer() {
 		if (focusTimer) clearTimeout(focusTimer)
 		focusTimer = setTimeout(() => {
-			console.log(document.activeElement, resultContainer, resultContainer.contains(document.activeElement))
-			if (!resultContainer.contains(document.activeElement)) {
+			if (!resultContainer?.contains(document.activeElement)) {
 				resultContainer?.hidePopover()
 			}
-		}, 100)
+		}, 50)
 	}
+
+	afterNavigate(() => {
+		searchQuery = ""
+		searchResults = []
+		resultContainer?.hidePopover()
+	})
 </script>
 
 <div class="panel-small--wrapper">

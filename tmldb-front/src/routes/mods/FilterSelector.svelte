@@ -27,6 +27,7 @@
 
 	let versionDropdown: HTMLDivElement | undefined = $state()
 	let versionInputText = $state("")
+	let focusTimer = $state<number | null>(null)
 
 	function getVersionMajor(v: string): number {
 		return Number.parseInt(v.replace("tModLoader v", "").split(".")[0])
@@ -34,6 +35,15 @@
 
 	function normVersion(v: string): string {
 		return v.replace("tModLoader v", "")
+	}
+
+	function closePopup() {
+		if (focusTimer) clearTimeout(focusTimer)
+		focusTimer = setTimeout(() => {
+			if (!versionDropdown?.contains(document.activeElement)) {
+				versionDropdown?.hidePopover()
+			}
+		}, 50)
 	}
 </script>
 
@@ -85,13 +95,15 @@
 								id="version-input"
 								bind:value={versionInputText}
 								onfocus={() => versionDropdown?.showPopover() }
-								onfocusout={() => setTimeout(() => versionDropdown?.hidePopover(), 80) }
+								onfocusout={() => closePopup() }
 							>
 						</div>
 					</div>
 					<div class="selected-versions">
 						{#each versions as version}
-							<div class="tag panel-small hover-highlight">{normVersion(version)}</div>
+							<button class="tag" onclick={() => versions = versions.filter(v => v != version)}>
+								{normVersion(version)}
+							</button>
 						{:else}
 							<span>No versions selected</span>
 						{/each}
@@ -99,19 +111,16 @@
 				</div>
 			</div>
 
-			<div id="version-dropdown" class="panel" popover="manual" bind:this={versionDropdown} >
+			<div id="version-dropdown" class="panel" popover="manual" bind:this={versionDropdown} onfocusout={() => closePopup()}>
 				<div class="filter-container">
 					{#each filters.tml_versions
-						.filter(x => x.startsWith(normVersion(versionInputText)))
+						.filter(v => v.startsWith(normVersion(versionInputText)))
+						.filter(v => !versions.includes(v))
 						.sort((a, b) => getVersionMajor(b) - getVersionMajor(a))
 					as version, i}
-						<input
-							type="checkbox"
-							id="version-filter-{i}"
-							bind:group={versions}
-							value={version}
-						>
-						<label for="version-filter-{i}" title={version} class="tag panel-small hover-highlight">{normVersion(version)}</label>
+						<button title="{version}" class="tag" onclick={() => versions.push(version)}>
+							{normVersion(version)}
+						</button>
 					{/each}
 				</div>
 			</div>
@@ -176,7 +185,7 @@
 	}
 
 	input[type="checkbox"]:checked + label.tag {
-		border-color: var(--highlight);
+		--panel-border: var(--yellow);
 	}
 
 	.filter-container {
@@ -206,17 +215,12 @@
 		anchor-name: --version-dropdown-anchor;
 	}
 
-	.version-dropdown-toggle {
-		padding: 0.5rem;
-		font-size: 0.9rem;
-		justify-content: space-between;
-		width: 100%;
-	}
-
 	.selected-versions {
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
+		overflow-x: auto;
+		overflow-y: hidden;
 	}
 
 	#version-dropdown {
@@ -229,7 +233,6 @@
 
 		padding: 0.5rem;
 		color: white;
-		backdrop-filter: brightness(0.75) blur(10px);
 
 		&:popover-open {
 			display: block;

@@ -15,7 +15,7 @@
 	function convertPlaytime(playtime: number[]): [number[], string] {
 		const min = Math.min(...playtime);
 		const minDur = msToDuration(min);
-		
+
 		if (minDur.hours > 0) return [playtime.map(x => x / MS_TO_HRS), "hours"]
 		if (minDur.minutes > 0) return [playtime.map(x => x / MS_TO_MIN), "minutes"]
 
@@ -31,7 +31,7 @@
 		votesUp: 'rgb(34, 197, 94)',
 		votesDown: 'rgb(239, 68, 68)'
 	};
-	
+
 	function getUpdateAnnotation(time: number, version: string): AnnotationOptions {
 		const date = new Date(time * 1000).toISOString().split('T')[0];
 		return {
@@ -42,7 +42,7 @@
 			borderWidth: 1,
 			label: {
 				display: true,
-				content: `Update ${version}`,
+				content: `Update ${version ? "on " + version : ""}`,
 				position: 'end',
 				rotation: 90,
 				backgroundColor: 'transparent',
@@ -131,8 +131,8 @@
 			options: {
 				responsive: true,
 				maintainAspectRatio: false,
-				interaction: { 
-					intersect: false, 
+				interaction: {
+					intersect: false,
 					mode: 'index'
 				},
 				datasets: {
@@ -154,12 +154,12 @@
 							label: function(context) {
 								const label = context.dataset.label || '';
 								const value = context.parsed.y;
-								
+
 								// Format playtime as human-readable duration
 								if (context.datasetIndex === 3) { // playtime is at index 3
 									return `${label}: ${value?.toFixed(2)} ${convertedPlaytime[1]}`;
 								}
-								
+
 								return `${label}: ${value?.toLocaleString()}`;
 							}
 						}

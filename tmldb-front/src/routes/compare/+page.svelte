@@ -49,7 +49,7 @@
 				<ModComparison {mod} />
 			{/await}
 		{:else}
-			<p>Select mod to compare</p>
+			<p class="select-msg">Select mod to compare</p>
 		{/if}
 	</div>
 	<div class="divider"></div>
@@ -73,7 +73,7 @@
 				<ModComparison {mod} />
 			{/await}
 		{:else}
-			<p>Select mod to compare</p>
+			<p class="select-msg">Select mod to compare</p>
 		{/if}
 	</div>
 </div>
@@ -96,5 +96,9 @@
 .divider {
 	background-color: black;
 	border-radius: 1rem;
+}
+
+.select-msg {
+	text-align: center;
 }
 </style>
