@@ -97,6 +97,7 @@
 }
 
 button {
+	background-color: unset;
 	clip-path: none;
 	&::after {
 		display: none;
