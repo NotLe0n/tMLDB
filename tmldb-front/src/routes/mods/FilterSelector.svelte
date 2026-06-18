@@ -8,7 +8,7 @@
 	type ModFiltersData = {
 		mod_sides: string[],
 		tags: string[],
-		tml_versions: string[]
+		mod_versions: string[]
 	}
 
 	const fetchFilters = async (): Promise<ModFiltersData> => {
@@ -113,7 +113,7 @@
 
 			<div id="version-dropdown" class="panel" popover="manual" bind:this={versionDropdown} onfocusout={() => closePopup()}>
 				<div class="filter-container">
-					{#each filters.tml_versions
+					{#each filters.mod_versions
 						.filter(v => v.startsWith(normVersion(versionInputText)))
 						.filter(v => !versions.includes(v))
 						.sort((a, b) => getVersionMajor(b) - getVersionMajor(a))
