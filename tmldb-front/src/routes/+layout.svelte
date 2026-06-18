@@ -92,7 +92,7 @@
 
 	.nav-left {
 		display: flex;
-		align-items: center;
+		align-items: flex-end;
 		gap: 2rem;
 	}
 
@@ -111,7 +111,7 @@
 	}
 
 	nav > span {
-		padding: 0.5rem 1rem;
+		font-family: 'Andy';
 	}
 
 	nav:not(:has(a:hover)) a.current-site {
@@ -121,11 +121,8 @@
 	nav > span > a {
 		color: rgb(from white r g b / 0.8);
 		text-decoration: none;
-		font-size: 0.95rem;
-		font-weight: 500;
-		transition: border-color 0.3s;
-		padding: 0.5rem 0;
-		margin-top: 2px;
+		font-size: 1.15rem;
+		padding: 0 1rem;
 
 		&:hover {
 			color: var(--yellow);
