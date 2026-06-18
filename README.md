@@ -3,16 +3,18 @@ tMLDB is a site which tracks and displays information about Terraria mods.
 - See the subscriber count, views and other statistics over time for any mod
 - Search and find mod creators to see all their mods and aggregated statistics
 - View a searchable, sortable list of all mods with filters for tags and versions
+- Compare the stats of mods with eachother
 
 # Gallery
 
 |  |  |
 |--|--|
-|<img width="1920" height="959" alt="image" src="https://github.com/user-attachments/assets/c41bec85-d4c7-433d-a61c-82f690c7f6b2" />|<img width="1920" height="959" alt="image" src="https://github.com/user-attachments/assets/c9013178-c908-4f0b-8a32-64b2a1c81ef3" />|
-|<img width="1920" height="959" alt="image" src="https://github.com/user-attachments/assets/e7073648-633a-46de-8903-ed0a08109805" />|<img width="1920" height="959" alt="image" src="https://github.com/user-attachments/assets/ed9783bf-c73c-4eae-8d47-a2f15366a231" />|
-|<img width="1920" height="959" alt="image" src="https://github.com/user-attachments/assets/0275a657-ff6d-4750-b3b5-c7b06ef236d0" />|<img width="1920" height="959" alt="image" src="https://github.com/user-attachments/assets/65858831-2df0-4248-807c-23e6dbdae630" />|
-|<img width="1920" height="959" alt="image" src="https://github.com/user-attachments/assets/d7359d2d-d07d-4d3b-8d72-0f9b7e4b6d98" />|
+|<img width="1920" height="959" alt="homepage" src="https://github.com/user-attachments/assets/11cac363-325a-4ed8-b95c-3adb5d3b22ad" />|<img width="1920" height="959" alt="mod view" src="https://github.com/user-attachments/assets/7dcadd43-2859-41d0-a84c-cdfdad6ca24f" />|
+|<img width="1920" height="959" alt="mod graph" src="https://github.com/user-attachments/assets/7d87739d-7796-4bd6-a689-9f114361e491" />|<img width="1920" height="959" alt="mod list" src="https://github.com/user-attachments/assets/4930587d-c699-4b50-8da1-8daf99497a74" />|
+|<img width="1920" height="959" alt="creator list" src="https://github.com/user-attachments/assets/23118965-7907-415b-b1a5-fe0365735e77" />|<img width="1920" height="959" alt="creator" src="https://github.com/user-attachments/assets/74a35ffe-917f-449d-85e6-dbef2b865678" />|
+|<img width="1920" height="959" alt="creator graph" src="https://github.com/user-attachments/assets/c6ab8b7d-7f30-4e6f-bf16-1e76a4666e0b" />|<img width="1920" height="959" alt="compare mods" src="https://github.com/user-attachments/assets/38f7f719-5179-444c-b130-4f7927f1a842" />|
 |  |  |
+
 
 # Stack
 - Frontend: Svelte / SvelteKit
@@ -21,5 +23,5 @@ tMLDB is a site which tracks and displays information about Terraria mods.
 
 # Data source
 The data for this site is sourced from two locations. 
-Up-to-date data is fetched from [tMLAPIs](https://github.com/NotLe0n/tMLAPIs) (SteamAPI) for the `/mod` and `/creator` pages. 
+Up-to-date data is fetched from [tMLAPIs](https://github.com/NotLe0n/tMLAPIs) (SteamAPI) for the `/mod`, `/creator` and `compare` pages. 
 Historical data and mod list data is queried from the Database. The Historical data is updated daily, while the mod list is updated hourly.
