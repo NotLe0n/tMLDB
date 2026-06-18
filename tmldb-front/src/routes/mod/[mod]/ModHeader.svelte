@@ -5,7 +5,7 @@
 	import ModSocialsList from './ModSocialsList.svelte'
 	import StatCard from '$lib/components/StatCard.svelte'
 	import VotingCard from './VotingCard.svelte'
-	import { mdiDownload, mdiHeart, mdiClockOutline, mdiEye, mdiChevronDown } from '@mdi/js'
+	import { mdiDownload, mdiHeart, mdiClockOutline, mdiEye, mdiChevronDown, mdiChevronUp } from '@mdi/js'
 	import { formatDate, formatDuration, type ModData } from '$lib'
 	import LoadingSpinner from '$lib/components/LoadingSpinner.svelte';
     import Icon from '$lib/components/Icon.svelte';
@@ -28,21 +28,23 @@
 				<div id="mod-core">
 					<div id="mod-name">
 						<h1>{mod.display_name}</h1>
-						<button onclick={() => showMoreInfo = !showMoreInfo} title="show more information">
-							<Icon path={mdiChevronDown} size={16} />
+						<button onclick={() => showMoreInfo = !showMoreInfo} title="show more information" id="more-info-btn" popovertarget="more-info-popup">
+							{#if !showMoreInfo}
+								<Icon path={mdiChevronDown} size={16} />
+							{:else}
+								<Icon path={mdiChevronUp} size={16} />
+							{/if}
 						</button>
+						<div id="more-info-popup" class="panel" popover>
+							<span>Mod ID: {mod.mod_id}</span>
+							<span>Internal name: {mod.internal_name}</span>
+						</div>
 					</div>
 					<div id="creator">
 						<a id="creator-link" href="/creator/{mod.author_id}">by {mod.author}</a>
 						<ModSocialsList socials={mod.socials} mod_id={mod.mod_id} />
 					</div>
 				</div>
-				{#if showMoreInfo}
-					<div id="mod-internals">
-						<span>Mod ID: {mod.mod_id}</span>
-						<span>Internal name: {mod.internal_name}</span>
-					</div>
-				{/if}
 				<div id="mod-meta">
 					<span>Created {formatDate(mod.time_created)}</span>
 					<span class="dot">•</span>
@@ -104,6 +106,7 @@
 		display: flex;
 		flex-direction: column;
 		gap: 0.5rem;
+		align-self: self-start;
 	}
 
 	#mod-name {
@@ -113,15 +116,24 @@
 		& > h1 {
 			font-family: "Andy";
 		}
-		& > button {
-			top: -4px;
-		}
 	}
 
-	#mod-internals {
-		display: flex;
-		gap: 2rem;
-		color: rgba(255, 255, 255, 0.7);
+	#more-info-btn {
+		top: -4px;
+		display: grid;
+		anchor-name: --more-info-anchor;
+	}
+
+	#more-info-popup {
+		overflow: visible;
+		padding: 0.5rem;
+		top: calc(anchor(bottom) + 2px);
+		left: anchor(left);
+		position-anchor: --more-info-anchor;
+
+		&:popover-open {
+			display: grid;
+		}
 	}
 
 	#creator {
@@ -199,7 +211,7 @@
 			}
 		}
 
-		#mod-name, #creator, #mod-meta, #mod-internals {
+		#mod-name, #creator, #mod-meta {
 			justify-content: center;
 		}
 

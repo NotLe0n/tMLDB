@@ -78,7 +78,7 @@
 		justify-content: space-between;
 		gap: 1rem 4rem;
 
-		@media (max-width: 768px) {
+		@media (max-width: 815px) {
 			justify-content: center;
 			flex-direction: column;
 
@@ -113,13 +113,10 @@
 
 	nav > span {
 		padding: 0.5rem 1rem;
-		&:hover > a {
-			anchor-name: --hover-anchor;
-		}
 	}
 
-	nav:not(:has(span:hover)) a.current-site {
-		anchor-name: --hover-anchor;
+	nav:not(:has(a:hover)) a.current-site {
+		color: var(--yellow)
 	}
 
 	nav > span > a {
@@ -134,18 +131,6 @@
 		&:hover {
 			color: var(--yellow);
 		}
-	}
-
-	nav::after {
-		position: absolute;
-		content: '';
-		height: 2px;
-		position-anchor: --hover-anchor;
-		left: anchor(left);
-		bottom: anchor(bottom);
-		right: anchor(right);
-		transition: inset 200ms;
-		background-color: var(--yellow);
 	}
 
 	#search-form {

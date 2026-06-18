@@ -9,7 +9,7 @@
 			    src: url('/Andy-Bold-RU.ttf') format('truetype');
 			}
 
-			:root {
+			:root, [popover] {
 				color: white;
 				--bg-color: #4448f4;
 
@@ -24,7 +24,6 @@
 				--upvote-color: oklch(55% 0.2 150);
 				--downvote-color: oklch(55% 0.2 27.543);
 
-				--search-bar-color: rgb(255, 255, 255, 0.6);
 				--icon-border-color: rgb(135 139 194);
 				--panel-border: black;
 				scrollbar-color: var(--panel-col3) var(--panel-col);
@@ -39,7 +38,7 @@
 				--footer-height: 4rem;
 				--footer-display: flex;
 
-				@media (max-width: 768px) {
+				@media (max-width: 815px) {
 					--nav-height: 8rem;
 				}
 			}
@@ -498,7 +497,6 @@
 			html, body {
 				background: url('/Forest_background_9.webp') top left / cover no-repeat, var(--bg-color);
 				font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-				/*font-family: 'Andy-Bold-RU', sans-serif;*/
 				width: 100%;
 				min-height: 100%;
 				position: relative;
@@ -527,6 +525,7 @@
 			}
 
 			button, input, select {
+				font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 				background-color: var(--panel-bg);
 				transition: opacity .5s;
 
