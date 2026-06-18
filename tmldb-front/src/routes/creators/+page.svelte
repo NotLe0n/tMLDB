@@ -39,7 +39,6 @@
 	})
 
 	async function updateCreatorList() {
-
 		const params = new URLSearchParams()
 		if (searchQuery != DEFAULT_SEARCH) params.set("search", searchQuery)
 		if (sortSelection != DEFAULT_SORT) params.set("sort", sortSelection.toString())
@@ -72,13 +71,13 @@
 	<meta name="description" content="View a list of all Terraria modders">
 </svelte:head>
 
-<ListPage onsubmit={updateCreatorList} resetControls={resetParams}>
+<ListPage onsubmit={updateCreatorList} bind:searchQuery={searchQuery} resetControls={resetParams}>
 	{#snippet controls()}
-		<SortSelector 
+		<SortSelector
 			sortOptions={sortOptions}
-			bind:selectedIdx={sortSelection} 
-			bind:sortDesc={sortDesc} 
-			onchange={updateCreatorList} 
+			bind:selectedIdx={sortSelection}
+			bind:sortDesc={sortDesc}
+			onchange={updateCreatorList}
 		/>
 	{/snippet}
 
