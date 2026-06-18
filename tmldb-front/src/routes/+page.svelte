@@ -54,7 +54,7 @@
 		{/await}
 
 		<div id="chart-container" class="panel">
-			<h3>Mod count over time</h3>
+			<h2>Mod count over time</h2>
 			<div id="chart-wrapper">
 				{#await getModHistogram()}
 					<LoadingSpinner size=24 />
