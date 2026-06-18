@@ -51,14 +51,13 @@
 		{/each}
 	</div>
 
-	<input type="checkbox" id="sort-order" name="sort-order" bind:checked={sortDesc} {onchange}>
-	<label for="sort-order" title={sortOrderTitle} class="panel-small">
+	<button title={sortOrderTitle} onclick={() => {sortDesc = !sortDesc; onchange?.()} }>
 		{#if sortDesc}
 			<Icon path={mdiSortAscending} />
 		{:else}
 			<Icon path={mdiSortDescending} />
 		{/if}
-	</label>
+	</button>
 </div>
 
 <style>
@@ -107,18 +106,8 @@
 		}
 	}
 
-	input[type='checkbox'] {
-		display: none;
-	}
-
-	label {
+	button {
 		display: flex;
-		background-color: var(--panel-bg);
 		padding: 5px 10px;
-		cursor: pointer;
-
-		&:hover {
-			--panel-border: var(--yellow);
-		}
 	}
 </style>

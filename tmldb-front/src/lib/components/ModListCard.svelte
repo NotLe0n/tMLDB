@@ -100,6 +100,14 @@
 </a>
 
 <style>
+	a {
+		outline: none;
+	}
+
+	a:focus > .modlist-card {
+		--panel-border: var(--yellow);
+	}
+
 	.link-container {
 		container-type: inline-size;
 		display: flex;

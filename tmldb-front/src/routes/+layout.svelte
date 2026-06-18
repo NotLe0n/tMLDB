@@ -26,14 +26,13 @@
 		</nav>
 	</div>
 	<form id="search-form">
-		<input id="search-type" type="checkbox" bind:checked={searchMod} >
-		<label for="search-type" class="panel-small" title="Click to toggle mods/creators">
+		<button id="search-type" onclick={() => searchMod = !searchMod}>
 			{#if searchMod}
 				<Icon path={mdiPackageVariant} />
 			{:else}
 				<Icon path={mdiAccount} />
 			{/if}
-		</label>
+		</button>
 
 		<ModSearch {searchMod}>
 			{#snippet resultContent(searchResults: SearchResult[])}
@@ -143,16 +142,11 @@
 		display: none;
 	}
 
-	label[for="search-type"] {
+	#search-type {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: 2rem;
-		cursor: pointer;
-
-		&:hover {
-			--panel-border: var(--yellow);
-		}
+		padding: 0.25rem;
 	}
 
 	main {

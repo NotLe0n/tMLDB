@@ -40,6 +40,14 @@
 </a>
 
 <style>
+	a {
+		outline: none;
+	}
+
+	a:focus > .creator-list-card {
+		--panel-border: var(--yellow);
+	}
+
 	.creator-list-card {
 		display: grid;
 		grid-template-rows: auto 1fr;

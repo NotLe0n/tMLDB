@@ -86,7 +86,6 @@
 	.search-bar {
 		appearance: none;
 		outline: none;
-		font-size: 0.95rem;
 		padding: 0.5rem 1rem;
 	}
 
