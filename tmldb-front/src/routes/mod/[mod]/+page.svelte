@@ -100,6 +100,7 @@
 		padding-right: 1rem;
 		pre {
 			padding-right: 0.25rem;
+			padding-bottom: 0.25rem;
 			overflow: auto;
 			max-height: 40rem;
 			text-wrap: auto;
