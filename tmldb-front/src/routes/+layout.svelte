@@ -84,9 +84,6 @@
 			.nav-left {
 				gap: 1rem;
 			}
-			nav > span {
-				padding: 0.5rem;
-			}
 		}
 	}
 
@@ -104,10 +101,19 @@
 		font-size: 1.5rem;
 		text-decoration: none;
 		transition: transform 0.2s;
+
+		@media (max-width: 500px) {
+			display: none;
+		}
 	}
 
 	nav {
 		display: flex;
+
+		@media (max-width: 500px) {
+			justify-content: center;
+			flex-wrap: wrap;
+		}
 	}
 
 	nav > span {
@@ -122,10 +128,14 @@
 		color: rgb(from white r g b / 0.8);
 		text-decoration: none;
 		font-size: 1.15rem;
-		padding: 0 1rem;
+		padding: 0.25rem 1rem;
 
 		&:hover {
 			color: var(--yellow);
+		}
+
+		@media (max-width: 500px) {
+			padding: 0.25rem 0.5rem;
 		}
 	}
 
