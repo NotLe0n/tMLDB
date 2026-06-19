@@ -45,9 +45,9 @@
 
 <style>
 	#list-container {
-		display: grid;
+		display: flex;
+		flex-direction: column;
 		height: calc(100vh - var(--nav-height) - 1rem);
-		grid-template-rows: auto 1fr;
 		gap: .5rem;
 		padding: 1rem clamp(1rem, 3vw, 4rem) 0;
 	}

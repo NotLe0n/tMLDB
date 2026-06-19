@@ -120,6 +120,10 @@
 		<div id="modlist">
 			{#each modList as mod}
 				<ModListCard {mod} />
+			{:else}
+				{#if !loading}
+					<p>No mods found</p>
+				{/if}
 			{/each}
 			<ScrollDetector bind:loading={loading} onDetect={onScrollDetect} />
 		</div>

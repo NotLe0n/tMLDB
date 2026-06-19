@@ -181,7 +181,7 @@ public class DbController : Controller
 	{
 		await using var conn = await Program.OpenConnection();
 		
-		var lines = await conn.QueryAsync<CreatorHistoryLine>(
+		var lines = (await conn.QueryAsync<CreatorHistoryLine>(
 			"""
 			SELECT
 			    mod_id as label,
@@ -190,7 +190,7 @@ public class DbController : Controller
 			FROM mod_history
 			WHERE author_id = @steamId
 			GROUP BY mod_id
-			""", new { steamId });
+			""", new { steamId })).ToArray();
 		
 		foreach (var data in lines) {
 			data.Data = Diff(data.Data);
@@ -240,7 +240,7 @@ public class DbController : Controller
 		await using var conn = await Program.OpenConnection();
 		return await conn.QueryAsync<ModListResponse>(
 			$"""
-			SELECT 
+			SELECT
 				mod_id,
 				display_name,
 				author,
@@ -336,21 +336,25 @@ public class DbController : Controller
 		string sortOrder = desc ? "DESC" : "ASC";
 		
 		await using var conn = await Program.OpenConnection();
-		var creatorListResponse = await conn.QueryAsync<CreatorListResponse>(
+		var creatorListResponse = (await conn.QueryAsync<CreatorListResponse>(
 			$"""
-			SELECT
-			    author_id::text,
-			    mode() WITHIN GROUP ( ORDER BY author ) as author_name,
-			    COUNT(mod_id) as mod_count,
-			    SUM(downloads_total) as downloads,
-			    SUM(views) as views,
-			    SUM(favorited) as favorites
-			FROM mods
-			WHERE (@search = '' OR author LIKE '%' || @search || '%')
-			GROUP BY author_id
-			ORDER BY {orderByColumn} {sortOrder}
-			LIMIT @PageSize OFFSET @offset
-			""", new { PageSize, offset, @search });
+			 SELECT
+			     author_id::text,
+			     mode() WITHIN GROUP ( ORDER BY author ) as author_name,
+			     COUNT(mod_id) as mod_count,
+			     SUM(downloads_total) as downloads,
+			     SUM(views) as views,
+			     SUM(favorited) as favorites
+			 FROM mods
+			 WHERE (@search = '' OR author LIKE '%' || @search || '%')
+			 GROUP BY author_id
+			 ORDER BY {orderByColumn} {sortOrder}
+			 LIMIT @PageSize OFFSET @offset
+			 """, new { PageSize, offset, @search })).ToArray();
+
+		if (creatorListResponse.Length == 0) {
+			return creatorListResponse;
+		}
 		
 		string ids = string.Join("&steamids=", creatorListResponse.Select(x => x.AuthorId));
 		string requestUrl = $"{Program.TmlapisUrl}/1.4/get_steam_avatar?steamids={ids}";

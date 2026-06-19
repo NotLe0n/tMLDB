@@ -85,6 +85,10 @@
 		<div id="creators-list">
 			{#each creatorList as creator}
 				<CreatorListCard {creator} />
+			{:else}
+				{#if !loading}
+					<p>No creators found</p>
+				{/if}
 			{/each}
 			<ScrollDetector bind:loading onDetect={onScrollDetect} />
 		</div>
