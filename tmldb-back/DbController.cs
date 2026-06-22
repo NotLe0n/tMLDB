@@ -77,13 +77,15 @@ public class DbController : Controller
 		var res = await conn.QueryAsync<TopCreatorsResponse>(
 			"""
 			SELECT 
-				SUM(downloads_total) as downloads,
-				COUNT(mod_id) as mod_count,
-				author_id::text,
-				mode() WITHIN GROUP ( ORDER BY author ) as author_name
-			FROM mods 
-			GROUP BY author_id
-			ORDER BY SUM(downloads_total)
+				SUM(a.total_downloads) as downloads,
+				COUNT(am.mod_id) as mod_count,
+				a.author_id::text,
+				mode() WITHIN GROUP ( ORDER BY m.author ) as author_name
+			FROM authors a
+			JOIN author_mods am USING (author_id)
+			JOIN mods m ON m.mod_id = am.mod_id
+			GROUP BY a.author_id
+			ORDER BY a.total_downloads
 			DESC LIMIT 12
 			""");
 
