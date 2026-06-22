@@ -319,52 +319,51 @@ public class DbController : Controller
 		int page,
 		[FromQuery] bool desc,
 		[FromQuery] CreatorListOrder sort = CreatorListOrder.DownloadsTotal,
-		[FromQuery] string search = "") 
+		[FromQuery] string search = "")
 	{
 		const int PageSize = 100;
 		int offset = page * PageSize;
-		
+
 		string orderByColumn = sort switch
 		{
-			CreatorListOrder.ModCount       => "COUNT(mod_id)",
-			CreatorListOrder.DownloadsTotal => "SUM(downloads_total)",
-			CreatorListOrder.Favorited      => "SUM(favorited)",
-			CreatorListOrder.Views          => "SUM(views)",
-			_ => "SUM(downloads_total)"
+			CreatorListOrder.ModCount       => "mod_count",
+			CreatorListOrder.DownloadsTotal => "a.total_downloads",
+			CreatorListOrder.Favorited      => "a.total_favorited",
+			CreatorListOrder.Views          => "a.total_views",
+			_ => "a.total_downloads"
 		};
-		
+
 		string sortOrder = desc ? "DESC" : "ASC";
-		
+
 		await using var conn = await Program.OpenConnection();
 		var creatorListResponse = (await conn.QueryAsync<CreatorListResponse>(
 			$"""
 			 SELECT
-			     author_id::text,
-			     mode() WITHIN GROUP ( ORDER BY author ) as author_name,
-			     COUNT(mod_id) as mod_count,
-			     SUM(downloads_total) as downloads,
-			     SUM(views) as views,
-			     SUM(favorited) as favorites
-			 FROM mods
-			 WHERE (@search = '' OR author LIKE '%' || @search || '%')
-			 GROUP BY author_id
+			     a.author_id::text,
+			     mode() WITHIN GROUP (ORDER BY m.author) AS author_name,
+			     COUNT(am.mod_id)                        AS mod_count,
+			     a.total_downloads                        AS downloads,
+			     a.total_views                            AS views,
+			     a.total_favorited                        AS favorites
+			 FROM authors a
+			 JOIN author_mods am USING (author_id)
+			 JOIN mods m ON m.mod_id = am.mod_id
+			 WHERE (@search = '' OR array_to_string(a.author_names, ' ') ILIKE '%' || @search || '%')
+			 GROUP BY a.author_id
 			 ORDER BY {orderByColumn} {sortOrder}
 			 LIMIT @PageSize OFFSET @offset
-			 """, new { PageSize, offset, @search })).ToArray();
+			 """, new { PageSize, offset, search })).ToArray();
 
-		if (creatorListResponse.Length == 0) {
+		if (creatorListResponse.Length == 0)
 			return creatorListResponse;
-		}
-		
-		string ids = string.Join("&steamids=", creatorListResponse.Select(x => x.AuthorId));
-		string requestUrl = $"{Program.TmlapisUrl}/1.4/get_steam_avatar?steamids={ids}";
-		
+
 		using var client = new HttpClient();
-		var avatars = await client.GetFromJsonAsync<Dictionary<string, string>>(requestUrl);
-		
-		foreach (var creator in creatorListResponse) {
+		string ids = string.Join("&steamids=", creatorListResponse.Select(x => x.AuthorId));
+		var avatars = await client.GetFromJsonAsync<Dictionary<string, string>>(
+			$"{Program.TmlapisUrl}/1.4/get_steam_avatar?steamids={ids}");
+
+		foreach (var creator in creatorListResponse)
 			creator.Avatar = avatars?[creator.AuthorId];
-		}
 
 		return creatorListResponse;
 	}
