@@ -23,10 +23,10 @@ public class Program
 		if (connectionString == null) {
 			throw new Exception("Connection string not found");
 		}
-		
+
 		dataSource = NpgsqlDataSource.Create(connectionString);
 		Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
-		
+
 		// Add services to the container.
 		builder.Services.AddAuthorization();
 		builder.Services.AddControllers().AddJsonOptions(opts =>

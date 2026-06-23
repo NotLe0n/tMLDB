@@ -20,7 +20,7 @@ public class DbController : Controller
 
 		return await conn.QueryFirstAsync<GlobalStatsResponse>(
 			"""
-			SELECT 
+			SELECT
 			    COUNT(mod_id) as mods,
 			    SUM(downloads_total) as downloads,
 			    SUM(views) as views,
@@ -61,8 +61,8 @@ public class DbController : Controller
 
 		return await conn.QueryAsync<TopModsResponse>(
 			"""
-			SELECT 
-				display_name, internal_name, description, workshop_icon_url as icon 
+			SELECT
+				display_name, internal_name, description, workshop_icon_url as icon
 			FROM mods
 			ORDER BY downloads_total DESC
 			LIMIT 12
@@ -76,7 +76,7 @@ public class DbController : Controller
 
 		var res = await conn.QueryAsync<TopCreatorsResponse>(
 			"""
-			SELECT 
+			SELECT
 				SUM(a.total_downloads) as downloads,
 				COUNT(am.mod_id) as mod_count,
 				a.author_id::text,
@@ -91,39 +91,39 @@ public class DbController : Controller
 
 		var topCreatorsResponses = res as TopCreatorsResponse[] ?? res.ToArray();
 		string ids = string.Join("&steamids=", topCreatorsResponses.Select(x => x.AuthorId));
-		string requestUrl = $"{Program.TmlapisUrl}/1.4/get_steam_avatar?steamids={ids}"; 
-		
+		string requestUrl = $"{Program.TmlapisUrl}/1.4/get_steam_avatar?steamids={ids}";
+
 		using var client = new HttpClient();
 		var avatars = await client.GetFromJsonAsync<Dictionary<string, string>>(requestUrl);
-		
+
 		foreach (var topCreatorsResponse in topCreatorsResponses) {
 			topCreatorsResponse.Avatar = avatars?[topCreatorsResponse.AuthorId];
 		}
 
 		return topCreatorsResponses;
 	}
-	
+
 	[HttpGet("mod_info/{modId:long}")]
 	public async Task<object?> GetModInfo(long modId)
 	{
 		using var client = new HttpClient();
 		return await client.GetFromJsonAsync<object>($"{Program.TmlapisUrl}/1.4/mod/{modId}");
 	}
-	
+
 	[HttpGet("mod_info/{modName}")]
 	public async Task<object?> GetModInfo(string modName)
 	{
 		using var client = new HttpClient();
 		return await client.GetFromJsonAsync<object>($"{Program.TmlapisUrl}/1.4/mod/{modName}");
 	}
-	
+
 	[HttpGet("creator_info/{steamId:long}")]
 	public async Task<object?> GetCreatorInfo(long steamId)
 	{
 		using var client = new HttpClient();
 		return await client.GetFromJsonAsync<object>($"{Program.TmlapisUrl}/1.4/author/{steamId}");
 	}
-	
+
 	[HttpGet("creator_info/{steamName}")]
 	public async Task<object?> GetCreatorInfo(string steamName)
 	{
@@ -143,7 +143,7 @@ public class DbController : Controller
 
 		return d[1..];
 	}
-	
+
 	[HttpGet("mod_history/{modId:long}")]
 	public async Task<ModHistoryResponse> GetModHistory(long modId)
 	{
@@ -154,9 +154,9 @@ public class DbController : Controller
 				array_agg(date) as dates,
 			    array_agg(downloads_total) as downloads,
 			    array_agg(views) as views,
-			    array_agg(favorited) as favorited, 
-			    array_agg(playtime) as playtime, 
-			    array_agg(votes_up) as votes_up, 
+			    array_agg(favorited) as favorited,
+			    array_agg(playtime) as playtime,
+			    array_agg(votes_up) as votes_up,
 			    array_agg(votes_down) as votes_down,
 			    array_agg(DISTINCT time_updated) as time_updated,
 			    array_agg(version) as version
@@ -167,7 +167,7 @@ public class DbController : Controller
 		if (res.Dates.Length == 0) {
 			return new ModHistoryResponse();
 		}
-		
+
 		res.Dates = res.Dates[1..];
 		res.Downloads = Diff(res.Downloads);
 		res.Views = Diff(res.Views);
@@ -182,7 +182,7 @@ public class DbController : Controller
 	public async Task<CreatorHistoryResponse> GetCreatorHistory(long steamId)
 	{
 		await using var conn = await Program.OpenConnection();
-		
+
 		var lines = (await conn.QueryAsync<CreatorHistoryLine>(
 			"""
 			SELECT
@@ -193,12 +193,12 @@ public class DbController : Controller
 			WHERE author_id = @steamId
 			GROUP BY mod_id
 			""", new { steamId })).ToArray();
-		
+
 		foreach (var data in lines) {
 			data.Data = Diff(data.Data);
 			data.Dates = data.Dates[1..];
 		}
-		
+
 		var dates = await conn.QueryFirstAsync<DateOnly[]>(
 			"""
 			SELECT
@@ -206,16 +206,16 @@ public class DbController : Controller
 			FROM mod_history
 			WHERE author_id = @steamId
 			""", new { steamId });
-		
+
 		return new CreatorHistoryResponse {
 			Dates = dates[1..],
 			Lines = lines
 		};
 	}
-	
+
 	[HttpGet("mod_list/{page:int}")]
 	public async Task<IEnumerable<ModListResponse>> GetModList(
-		int page, 
+		int page,
 		[FromQuery] bool desc,
 		[FromQuery] ModListOrder sort = ModListOrder.DownloadsTotal,
 		[FromQuery] string[]? modSideFilters = null,
@@ -225,7 +225,7 @@ public class DbController : Controller
 	{
 		const int PageSize = 50;
 		int offset = page * PageSize;
-		
+
 		string orderByColumn = sort switch
 		{
 			ModListOrder.DownloadsTotal => "downloads_total",
@@ -238,7 +238,7 @@ public class DbController : Controller
 		};
 		string sortOrder = desc ? "DESC" : "ASC";
 		bool shouldFilterZeroScore = sort == ModListOrder.Score && !desc;
-		
+
 		await using var conn = await Program.OpenConnection();
 		return await conn.QueryAsync<ModListResponse>(
 			$"""
@@ -246,12 +246,12 @@ public class DbController : Controller
 				mod_id,
 				display_name,
 				author,
-				description, 
-				downloads_total, 
-				views, 
-				favorited, 
+				description,
+				downloads_total,
+				views,
+				favorited,
 				score,
-				votes_up, 
+				votes_up,
 				votes_down,
 				playtime,
 				workshop_icon_url,
@@ -286,7 +286,7 @@ public class DbController : Controller
 		await using var conn = await Program.OpenConnection();
 		return await conn.QueryFirstAsync<ModFiltersResponse>(
 			"""
-			SELECT 
+			SELECT
 			    array_agg(DISTINCT modside) as mod_sides,
 			    array_agg(DISTINCT mod_tags.display_name) as tags,
 			    array_agg(DISTINCT mod_version ORDER BY mod_version DESC) as mod_versions
@@ -300,9 +300,9 @@ public class DbController : Controller
 		await using var conn = await Program.OpenConnection();
 		var res = await conn.QueryAsync<string>(
 			"""
-			SELECT DISTINCT author FROM mods 
+			SELECT DISTINCT author FROM mods
 			WHERE author_id = @steamId
-			""", 
+			""",
 			new { steamId });
 
 		// filter names containing previous occurrences
@@ -376,12 +376,12 @@ public class DbController : Controller
 		if (query is null || query.Length <= 1) {
 			return [];
 		}
-		
+
 		await using var conn = await Program.OpenConnection();
 		return conn.Query<SearchResult>(
 			"""
 			SELECT display_name as name, mod_id::text as id FROM mods
-			WHERE 
+			WHERE
 				LOWER(display_name) LIKE '%' || LOWER(@query) || '%'
 				OR LOWER(internal_name) LIKE '%' || LOWER(@query) || '%'
 			ORDER BY downloads_total DESC
@@ -395,12 +395,12 @@ public class DbController : Controller
 		if (query is null || query.Length <= 1) {
 			return [];
 		}
-		
+
 		await using var conn = await Program.OpenConnection();
 		return conn.Query<SearchResult>(
 			"""
 			SELECT author as name, author_id::text as id FROM mods
-			WHERE 
+			WHERE
 				LOWER(author) LIKE '%' || LOWER(@query) || '%'
 			GROUP BY author, author_id
 			ORDER BY SUM(downloads_total) DESC
