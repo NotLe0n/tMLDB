@@ -5,10 +5,16 @@
 	import ModSearch from '$lib/ModSearch.svelte';
 	import type { SearchResult } from '$lib';
 	import { page } from '$app/state';
+    import { goto } from '$app/navigation';
 
 	let { children } = $props()
 
 	let searchMod = $state(true)
+
+	function onSearch(res: SearchResult[]) {
+		if (res.length <= 0) return;
+		goto(`/${searchMod ? "mod" : "creator"}/${res[0].id}`);
+	}
 </script>
 
 <svelte:head>
@@ -25,7 +31,7 @@
 			<span><a href="/compare" class:current-site={page.url.pathname==="/compare"}>Compare</a></span>
 		</nav>
 	</div>
-	<form id="search-form">
+	<div id="search-form">
 		<button id="search-type" onclick={() => searchMod = !searchMod}>
 			{#if searchMod}
 				<Icon path={mdiPackageVariant} />
@@ -34,14 +40,14 @@
 			{/if}
 		</button>
 
-		<ModSearch {searchMod}>
+		<ModSearch {searchMod} onSubmit={onSearch}>
 			{#snippet resultContent(searchResults: SearchResult[])}
 				{#each searchResults as res}
 					<a href="/{searchMod ? "mod" : "creator"}/{res.id}">{res.name}</a>
 				{/each}
 			{/snippet}
 		</ModSearch>
-	</form>
+	</div>
 </header>
 
 <main>

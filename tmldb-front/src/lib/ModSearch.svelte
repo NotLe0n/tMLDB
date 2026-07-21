@@ -2,7 +2,7 @@
 	import type { SearchResult } from "$lib";
 	import { afterNavigate } from "$app/navigation";
 
-	let { searchMod, resultContent }: { searchMod: boolean, resultContent: any } = $props()
+	let { searchMod, resultContent, onSubmit }: { searchMod: boolean, resultContent: any, onSubmit: any } = $props()
 	let searchQuery = $state("")
 	let searchResults = $state<SearchResult[]>([])
 	let searchTimer = $state<number | null>(null)
@@ -13,6 +13,14 @@
 	function onKeySearch() {
 		if (searchTimer) clearTimeout(searchTimer)
 		searchTimer = setTimeout(search, 200)
+	}
+
+	function onEnter(evt: KeyboardEvent) {
+		if (evt.key === "Enter") {
+			onSubmit?.(searchResults)
+			if (searchTimer) clearTimeout(searchTimer)
+			return
+		}
 	}
 
 	async function search() {
@@ -62,6 +70,7 @@
 		bind:value={searchQuery}
 		style="anchor-name: --mod-search-{uid};"
 		oninput={onKeySearch}
+		onkeydown={onEnter}
 		onfocusin={() => openResultContainer()}
 		onfocusout={() => closeResultContainer()}
 		placeholder="Search {searchMod ? 'mods' : 'creators'}..."
