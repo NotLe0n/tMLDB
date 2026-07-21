@@ -384,6 +384,7 @@ public class DbController : Controller
 			WHERE
 				LOWER(display_name) LIKE '%' || LOWER(@query) || '%'
 				OR LOWER(internal_name) LIKE '%' || LOWER(@query) || '%'
+				OR mod_id::text = @query
 			ORDER BY downloads_total DESC
 			LIMIT 50;
 			""", new { query });
@@ -402,6 +403,7 @@ public class DbController : Controller
 			SELECT author as name, author_id::text as id FROM mods
 			WHERE
 				LOWER(author) LIKE '%' || LOWER(@query) || '%'
+				OR author_id::text = @query
 			GROUP BY author, author_id
 			ORDER BY SUM(downloads_total) DESC
 			LIMIT 50;
