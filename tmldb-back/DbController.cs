@@ -77,7 +77,7 @@ public class DbController : Controller
 		var res = await conn.QueryAsync<TopCreatorsResponse>(
 			"""
 			SELECT
-				SUM(a.total_downloads) as downloads,
+				a.total_downloads as downloads,
 				COUNT(am.mod_id) as mod_count,
 				a.author_id::text,
 				mode() WITHIN GROUP ( ORDER BY m.author ) as author_name
