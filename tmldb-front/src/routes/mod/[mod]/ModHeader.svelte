@@ -6,7 +6,7 @@
 	import StatCard from '$lib/components/StatCard.svelte'
 	import VotingCard from './VotingCard.svelte'
 	import { mdiDownload, mdiHeart, mdiClockOutline, mdiEye, mdiChevronDown, mdiChevronUp } from '@mdi/js'
-	import { formatDate, formatDuration, type ModData } from '$lib'
+	import { formatDate, formatDuration, formatBytes, type ModData } from '$lib'
 	import LoadingSpinner from '$lib/components/LoadingSpinner.svelte';
     import Icon from '$lib/components/Icon.svelte';
 
@@ -36,8 +36,9 @@
 							{/if}
 						</button>
 						<div id="more-info-popup" class="panel" popover>
-							<span>Mod ID: {mod.mod_id}</span>
-							<span>Internal name: {mod.internal_name}</span>
+							<span><b>Mod ID</b>: {mod.mod_id}</span>
+							<span><b>Internal name</b>: {mod.internal_name}</span>
+							<span><b>File size</b>: {formatBytes(Number.parseInt(mod.file_size))}</span>
 						</div>
 					</div>
 					<div id="creator">
@@ -71,7 +72,7 @@
 	<div id="header-right">
 		<div id="stat-grid">
 			{#if mod}
-				<StatCard label="Downloads" value={mod.downloads_total} icon={mdiDownload} />
+				<StatCard label="Subscriptions" value={mod.subscriptions_total} icon={mdiDownload} />
 				<StatCard label="Favorites" value={mod.favorited} icon={mdiHeart} />
 				<StatCard label="Views" value={mod.views} icon={mdiEye} />
 				<StatCard label="Combined Playtime" value={formatDuration(Number.parseInt(mod.playtime))} icon={mdiClockOutline } />

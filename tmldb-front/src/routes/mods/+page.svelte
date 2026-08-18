@@ -37,12 +37,12 @@
 	})
 
 	const sortOptions = [
-		{id: "download",     path: mdiDownload,     title: "Downloads"},
-		{id: "favorites",    path: mdiStar,         title: "Favorites"},
-		{id: "views",        path: mdiEye,          title: "Views"},
-		{id: "score",        path: mdiThumbsUpDown, title: "Score"},
-		{id: "time-created", path: mdiClockPlus,    title: "Time Created"},
-		{id: "time-updated", path: mdiClockEdit,    title: "Time Updated"}
+		{id: "subscriptions", path: mdiDownload,     title: "Subscriptions"},
+		{id: "favorites",     path: mdiStar,         title: "Favorites"},
+		{id: "views",         path: mdiEye,          title: "Views"},
+		{id: "score",         path: mdiThumbsUpDown, title: "Score"},
+		{id: "time-created",  path: mdiClockPlus,    title: "Time Created"},
+		{id: "time-updated",  path: mdiClockEdit,    title: "Time Updated"}
 	]
 
 	const fetchMods = async (): Promise<ModListData[]> => {

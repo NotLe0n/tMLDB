@@ -19,9 +19,13 @@ public class Program
 	{
 		var builder = WebApplication.CreateBuilder(args);
 
+		if (TmlapisUrl == null) {
+			throw new Exception("tMLAPIs URL ('TMLAPIS_URL') was not found");
+		}
+
 		string? connectionString = Environment.GetEnvironmentVariable("DB_CONN");
 		if (connectionString == null) {
-			throw new Exception("Connection string not found");
+			throw new Exception("Connection string ('DB_CONN') not found");
 		}
 
 		dataSource = NpgsqlDataSource.Create(connectionString);

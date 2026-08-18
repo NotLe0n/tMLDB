@@ -59,11 +59,11 @@
 		<span class="no-diff">{v(mod2, mod2?.internal_name)}</span>
 
 		<div class="mod1-cell">
-			<span class="label">Downloads</span>
-			<span>{mod1 ? formatNumber(mod1.downloads_total) : ''}</span>
+			<span class="label">Subscriptions</span>
+			<span>{mod1 ? formatNumber(mod1.subscriptions_total) : ''}</span>
 		</div>
-		{@render diff(percDiff(mod1?.downloads_total, mod2?.downloads_total))}
-		<span>{mod2 ? formatNumber(mod2.downloads_total) : ''}</span>
+		{@render diff(percDiff(mod1?.subscriptions_total, mod2?.subscriptions_total))}
+		<span>{mod2 ? formatNumber(mod2.subscriptions_total) : ''}</span>
 
 		<div class="mod1-cell">
 			<span class="label">Favorites</span>

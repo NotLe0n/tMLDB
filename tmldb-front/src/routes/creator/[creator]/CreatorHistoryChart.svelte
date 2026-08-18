@@ -141,7 +141,7 @@
 						position: 'left',
 						title: {
 							display: true,
-							text: 'Downloads',
+							text: 'Subscriptions',
 							color: 'rgba(255, 255, 255, 0.7)'
 						},
 						ticks: {

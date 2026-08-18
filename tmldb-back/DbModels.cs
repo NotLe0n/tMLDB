@@ -11,7 +11,7 @@ namespace tmldb_back;
 public sealed class GlobalStatsResponse
 {
 	public long Mods { get; init; }
-	public long Downloads { get; init; }
+	public long Subscriptions { get; init; }
 	public long Views { get; init; }
 	public long Creators { get; init; }
 }
@@ -35,7 +35,7 @@ public sealed class TopModsResponse
 [Table("TopCreatorsResponse")]
 public sealed class TopCreatorsResponse
 {
-	public int Downloads { get; init; }
+	public int Subscriptions { get; init; }
 	public int ModCount { get; init; }
 	public string AuthorId { get; init; }
 	public string AuthorName { get; init; } = null!;
@@ -57,10 +57,13 @@ public sealed class ModResponse
 	public long TimeUpdated { get; set; }
 	public string? WorkshopIconUrl { get; set; }
 	public string? Description { get; set; }
-	public int DownloadsTotal { get; set; }
+	public int SubscriptionsTotal { get; set; }
+	public int Subscriptions { get; set; }
+	public int FavoritedTotal { get; set; }
 	public int Favorited { get; set; }
 	public int Followers { get; set; }
 	public long Views { get; set; }
+	public int Sessions { get; set; }
 	public string? Playtime { get; set; }
 	public int NumComments { get; set; }
 	public double Score { get; set; }
@@ -72,6 +75,7 @@ public sealed class ModResponse
 	public string? Reddit { get; set; }
 	public string? Facebook { get; set; }
 	public string? Sketchfab { get; set; }
+	public string FileSize { get; set; }
 }
 
 public sealed class ModVersion
@@ -91,9 +95,10 @@ public sealed class ModChild
 public sealed class ModHistoryResponse
 {
 	public DateOnly[] Dates { get; set; } = [];
-	public int[] Downloads { get; set; } = [];
+	public int[] Subscriptions { get; set; } = [];
 	public long[] Views { get; set; } = [];
 	public int[] Favorited { get; set; } = [];
+	public int[] Sessions { get; set; } = [];
 	public long[] Playtime { get; set; } = [];
 	public int[] VotesUp { get; set; } = [];
 	public int[] VotesDown { get; set; } = [];
@@ -103,7 +108,7 @@ public sealed class ModHistoryResponse
 
 public enum ModListOrder
 {
-	DownloadsTotal,
+	Subscriptions,
 	Views,
 	Favorited,
 	Score,
@@ -117,13 +122,17 @@ public sealed class ModListResponse
 	public string? DisplayName { get; set; }
 	public string? Author { get; set; }
 	public string Description { get; set; }
-	public int DownloadsTotal { get; set; }
+	public int SubscriptionsTotal { get; set; }
+	public int Subscriptions { get; set; }
+	public int FavoritedTotal { get; set; }
+	public int Sessions { get; set; }
 	public int Favorited { get; set; }
 	public long Views { get; set; }
 	public double Score { get; set; }
 	public int VotesUp { get; set; }
 	public int VotesDown { get; set; }
 	public string Playtime { get; set; }
+	public string FileSize { get; set; }
 	public string? WorkshopIconUrl { get; set; }
 	public long TimeUpdated { get; set; }
 	public long TimeCreated { get; set; }
@@ -153,7 +162,7 @@ public sealed class CreatorHistoryLine
 public enum CreatorListOrder
 {
 	ModCount,
-	DownloadsTotal,
+	Subscriptions,
 	Views,
 	Favorited
 }
@@ -163,7 +172,7 @@ public sealed class CreatorListResponse
 	public string AuthorId { get; set; } = null!;
 	public string AuthorName { get; set; } = null!;
 	public long ModCount { get; set; }
-	public long Downloads { get; set; }
+	public long Subscriptions { get; set; }
 	public long Views { get; set; }
 	public long Favorites { get; set; }
 	public string? Avatar { get; set; }

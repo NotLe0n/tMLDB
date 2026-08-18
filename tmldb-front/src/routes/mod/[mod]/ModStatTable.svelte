@@ -6,7 +6,7 @@
 	const startIndex = $derived(data.dates.indexOf(beginDate))
 	const endIndex = $derived(data.dates.indexOf(endDate))
 
-	const dl = $derived(data.downloads.slice(startIndex, endIndex))
+	const dl = $derived(data.subscriptions.slice(startIndex, endIndex))
 	const vs = $derived(data.views.slice(startIndex, endIndex))
 	const fv = $derived(data.favorited.slice(startIndex, endIndex))
 	const pt = $derived(data.playtime.slice(startIndex, endIndex))
@@ -21,7 +21,7 @@
 	<thead>
 		<tr>
 			<td>Date</td>
-			<td>Downloads</td>
+			<td>Subscriptions</td>
 			<td>Views</td>
 			<td>Favorites</td>
 			<td>Playtime</td>

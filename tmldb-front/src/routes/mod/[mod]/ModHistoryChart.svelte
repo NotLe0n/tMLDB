@@ -24,7 +24,7 @@
 	const convertedPlaytime = $derived(convertPlaytime(data.playtime))
 
 	const palette = {
-		downloads: 'rgb(132, 204, 22)',
+		subscriptions: 'rgb(255, 235, 59)',
 		views: 'rgb(59, 130, 246)',
 		favorited: 'rgb(251, 146, 60)',
 		playtime: 'rgb(168, 85, 247)',
@@ -61,10 +61,10 @@
 	function getDatasets() {
 		return [
 			{
-				label: 'Downloads',
-				data: data.downloads.slice(startIndex, endIndex),
-				borderColor: palette.downloads,
-				backgroundColor: palette.downloads
+				label: 'Subscriptions',
+				data: data.subscriptions.slice(startIndex, endIndex),
+				borderColor: palette.subscriptions,
+				backgroundColor: palette.subscriptions
 			},
 			{
 				label: 'Views',
@@ -107,7 +107,7 @@
 		if (!chartInstance) return;
 
 		chartInstance.data.labels = data.dates.slice(startIndex, endIndex);
-		chartInstance.data.datasets[0].data = data.downloads.slice(startIndex, endIndex);
+		chartInstance.data.datasets[0].data = data.subscriptions.slice(startIndex, endIndex);
 		chartInstance.data.datasets[1].data = data.views.slice(startIndex, endIndex);
 		chartInstance.data.datasets[2].data = data.favorited.slice(startIndex, endIndex);
 		chartInstance.data.datasets[3].data = convertedPlaytime[0].slice(startIndex, endIndex);
@@ -185,7 +185,7 @@
 						position: 'left',
 						title: {
 							display: true,
-							text: 'Downloads / Views / Favorites / Playtime',
+							text: 'Subscriptions / Views / Favorites / Playtime',
 							color: 'rgba(255, 255, 255, 0.7)'
 						},
 						ticks: {

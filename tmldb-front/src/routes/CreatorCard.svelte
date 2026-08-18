@@ -1,5 +1,5 @@
 <script>
-	let {id, name, modCount, totalDownloads, avatar} = $props();
+	let {id, name, modCount, totalSubscriptions, avatar} = $props();
 </script>
 
 <a href="/creator/{id}">
@@ -11,10 +11,10 @@
 			<h3 class="creator-name">{name}</h3>
 			<div class="creator-stats">
 				<span>{modCount} {modCount == 1 ? "mod" : "mods"}</span>
-				<span>{totalDownloads?.toLocaleString("en", {
+				<span>{totalSubscriptions?.toLocaleString("en", {
 					notation: "compact",
 					compactDisplay: "short"
-				}) ?? "unknown"} downloads</span>
+				}) ?? "unknown"} subscriptions</span>
 			</div>
 		</div>
 	</div>

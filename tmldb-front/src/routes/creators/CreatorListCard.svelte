@@ -19,10 +19,10 @@
 					<span class="stat-label">Mods</span>
 					<span class="stat-value">{creator.mod_count.toLocaleString()}</span>
 				</div>
-				<div class="stat-item" title="Total Downloads">
+				<div class="stat-item" title="Total Subscriptions">
 					<Icon path={mdiDownload} size=18 viewBox='5 0 15 19' />
-					<span class="stat-label">Downloads</span>
-					<span class="stat-value">{creator.downloads.toLocaleString()}</span>
+					<span class="stat-label">Subscriptions</span>
+					<span class="stat-value">{creator.subscriptions.toLocaleString()}</span>
 				</div>
 				<div class="stat-item" title="Total Favorites">
 					<Icon path={mdiStar} size=18 />

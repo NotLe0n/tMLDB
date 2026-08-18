@@ -22,7 +22,7 @@ public class DbController : Controller
 			"""
 			SELECT
 			    COUNT(mod_id) as mods,
-			    SUM(downloads_total) as downloads,
+			    SUM(subscriptions_total) as subscriptions,
 			    SUM(views) as views,
 			    COUNT(DISTINCT author_id) as creators
 			from mods
@@ -64,7 +64,7 @@ public class DbController : Controller
 			SELECT
 				display_name, internal_name, description, workshop_icon_url as icon
 			FROM mods
-			ORDER BY downloads_total DESC
+			ORDER BY subscriptions_total DESC
 			LIMIT 12
 			""");
 	}
@@ -77,7 +77,7 @@ public class DbController : Controller
 		var res = await conn.QueryAsync<TopCreatorsResponse>(
 			"""
 			SELECT
-				a.total_downloads as downloads,
+				a.total_subscriptions as subscriptions,
 				COUNT(am.mod_id) as mod_count,
 				a.author_id::text,
 				mode() WITHIN GROUP ( ORDER BY m.author ) as author_name
@@ -85,7 +85,7 @@ public class DbController : Controller
 			JOIN author_mods am USING (author_id)
 			JOIN mods m ON m.mod_id = am.mod_id
 			GROUP BY a.author_id
-			ORDER BY a.total_downloads
+			ORDER BY a.total_subscriptions
 			DESC LIMIT 12
 			""");
 
@@ -152,7 +152,8 @@ public class DbController : Controller
 			"""
 			SELECT
 				array_agg(date) as dates,
-			    array_agg(downloads_total) as downloads,
+			    array_agg(subscriptions) as subscriptions,
+			    array_agg(sessions) as sessions,
 			    array_agg(views) as views,
 			    array_agg(favorited) as favorited,
 			    array_agg(playtime) as playtime,
@@ -169,7 +170,8 @@ public class DbController : Controller
 		}
 
 		res.Dates = res.Dates[1..];
-		res.Downloads = Diff(res.Downloads);
+		res.Subscriptions = Diff(res.Subscriptions);
+		res.Sessions = Diff(res.Sessions);
 		res.Views = Diff(res.Views);
 		res.Favorited = Diff(res.Favorited);
 		res.Playtime = Diff(res.Playtime);
@@ -187,7 +189,7 @@ public class DbController : Controller
 			"""
 			SELECT
 			    mod_id as label,
-			    array_agg(downloads_total ORDER BY date) as data,
+			    array_agg(subscriptions ORDER BY date) as data,
 			    array_agg(date ORDER BY date) as dates
 			FROM mod_history
 			WHERE author_id = @steamId
@@ -217,7 +219,7 @@ public class DbController : Controller
 	public async Task<IEnumerable<ModListResponse>> GetModList(
 		int page,
 		[FromQuery] bool desc,
-		[FromQuery] ModListOrder sort = ModListOrder.DownloadsTotal,
+		[FromQuery] ModListOrder sort = ModListOrder.Subscriptions,
 		[FromQuery] string[]? modSideFilters = null,
 		[FromQuery] string[]? tagFilters = null,
 		[FromQuery] string[]? versionFilters = null,
@@ -228,13 +230,13 @@ public class DbController : Controller
 
 		string orderByColumn = sort switch
 		{
-			ModListOrder.DownloadsTotal => "downloads_total",
+			ModListOrder.Subscriptions => "subscriptions_total",
 			ModListOrder.Favorited      => "favorited",
 			ModListOrder.Views          => "views",
 			ModListOrder.Score          => "score",
 			ModListOrder.TimeCreated    => "time_created",
 			ModListOrder.TimeUpdated    => "time_updated",
-			_ => "downloads_total"
+			_ => "subscriptions_total"
 		};
 		string sortOrder = desc ? "DESC" : "ASC";
 		bool shouldFilterZeroScore = sort == ModListOrder.Score && !desc;
@@ -247,7 +249,10 @@ public class DbController : Controller
 				display_name,
 				author,
 				description,
-				downloads_total,
+				subscriptions_total,
+				subscriptions,
+				favorited_total,
+				sessions,
 				views,
 				favorited,
 				score,
@@ -320,7 +325,7 @@ public class DbController : Controller
 	public async Task<IEnumerable<CreatorListResponse>> GetCreatorList(
 		int page,
 		[FromQuery] bool desc,
-		[FromQuery] CreatorListOrder sort = CreatorListOrder.DownloadsTotal,
+		[FromQuery] CreatorListOrder sort = CreatorListOrder.Subscriptions,
 		[FromQuery] string search = "")
 	{
 		const int PageSize = 100;
@@ -329,10 +334,10 @@ public class DbController : Controller
 		string orderByColumn = sort switch
 		{
 			CreatorListOrder.ModCount       => "mod_count",
-			CreatorListOrder.DownloadsTotal => "a.total_downloads",
+			CreatorListOrder.Subscriptions => "a.total_subscriptions",
 			CreatorListOrder.Favorited      => "a.total_favorited",
 			CreatorListOrder.Views          => "a.total_views",
-			_ => "a.total_downloads"
+			_ => "a.total_subscriptions"
 		};
 
 		string sortOrder = desc ? "DESC" : "ASC";
@@ -344,7 +349,7 @@ public class DbController : Controller
 			     a.author_id::text,
 			     mode() WITHIN GROUP (ORDER BY m.author) AS author_name,
 			     COUNT(am.mod_id)                        AS mod_count,
-			     a.total_downloads                        AS downloads,
+			     a.total_subscriptions                    AS subscriptions,
 			     a.total_views                            AS views,
 			     a.total_favorited                        AS favorites
 			 FROM authors a
@@ -385,7 +390,7 @@ public class DbController : Controller
 				LOWER(display_name) LIKE '%' || LOWER(@query) || '%'
 				OR LOWER(internal_name) LIKE '%' || LOWER(@query) || '%'
 				OR mod_id::text = @query
-			ORDER BY downloads_total DESC
+			ORDER BY subscriptions_total DESC
 			LIMIT 50;
 			""", new { query });
 	}
@@ -405,7 +410,7 @@ public class DbController : Controller
 				LOWER(author) LIKE '%' || LOWER(@query) || '%'
 				OR author_id::text = @query
 			GROUP BY author, author_id
-			ORDER BY SUM(downloads_total) DESC
+			ORDER BY SUM(subscriptions_total) DESC
 			LIMIT 50;
 			""", new { query });
 	}

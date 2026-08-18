@@ -32,7 +32,7 @@ export function formatDate(value: number) {
 
 export function formatDuration(value: number) {
 	const duration = msToDuration(value)
-	
+
 	if (duration.years > 0) return duration.years + " year" + (duration.years > 1 ? "s" : "")
 	if (duration.months > 0) return duration.months + " month" + (duration.months > 1 ? "s" : "")
 	if (duration.days > 0) return duration.days + " day" + (duration.days > 1 ? "s" : "")
@@ -50,11 +50,26 @@ export function formatNumberShort(value: number) {
 	return new Intl.NumberFormat('en-US', { notation: 'compact' }).format(value)
 }
 
+export function formatBytes(value: number) {
+	if (value / 1_000_000_000 > 1) {
+		return `${value / 1_000_000_000} GB`
+	}
+	if (value / 1_000_000 > 1) {
+		return `${value / 1_000_000} MB`
+	}
+	if (value / 1_000 > 1) {
+		return `${value / 1_000} KB`
+	}
+
+	return `${value} Byte`
+}
+
 export type ModHistoryData = {
 	dates: string[];
-	downloads: number[];
+	subscriptions: number[];
 	views: number[];
 	favorited: number[];
+	sessions: number[];
 	playtime: number[];
 	votes_up: number[];
 	votes_down: number[];
@@ -92,8 +107,10 @@ export type ModData = {
 
 	children: number[] | null;
 
-	downloads_total: number;
+	subscriptions: number;
+	subscriptions_total: number;
 	favorited: number;
+	favorited_total: number;
 	followers: number;
 	views: number;
 
@@ -103,6 +120,7 @@ export type ModData = {
 		votes_down: number;
 	} | null;
 
+	sessions: number;
 	playtime: string;
 	num_comments: number;
 	description: string | null;
@@ -114,6 +132,7 @@ export type ModData = {
 		reddit: string | null;
 		sketchfab: string | null;
 	} | null;
+	file_size: string;
 };
 
 
@@ -122,7 +141,7 @@ export type ModListData = {
 	display_name: string;
 	author: string;
 	description: string;
-	downloads_total: number;
+	subscriptions: number;
 	views: number;
 	favorited: number;
 	score: number;
@@ -140,7 +159,7 @@ export type AuthorData = {
 	steam_avatar: string;
 	mods: ModData[];
 	total: number;
-	total_downloads: number;
+	total_subscriptions: number;
 	total_favorites: number;
 	total_views: number;
 }
@@ -158,7 +177,7 @@ export type CreatorListData = {
 	author_id: string;
 	author_name: string;
 	mod_count: number;
-	downloads: number;
+	subscriptions: number;
 	views: number;
 	favorites: number;
 	avatar?: string;

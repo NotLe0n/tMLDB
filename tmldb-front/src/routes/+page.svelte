@@ -7,9 +7,9 @@
 	import LoadingSpinner from "$lib/components/LoadingSpinner.svelte";
 	import { mdiDownload, mdiEye, mdiPackageVariant, mdiAccount } from "@mdi/js";
 
-	type GlobalStatsResponse = { mods: number, downloads: number, views: number, creators: number }
+	type GlobalStatsResponse = { mods: number, subscriptions: number, views: number, creators: number }
 	type TopModsResponse = { display_name: string, internal_name: string, description: string, icon: string }
-	type TopCreatorsResponse = { downloads: number, mod_count: number, author_id: string, author_name: string, avatar: string }
+	type TopCreatorsResponse = { subscriptions: number, mod_count: number, author_id: string, author_name: string, avatar: string }
 	type ModHistogramResponse = { dates: string[], mods: number[] }
 
 	async function getGlobalStats(): Promise<GlobalStatsResponse> {
@@ -47,7 +47,7 @@
 		{:then global_stats}
 			<div id="global-stat-cards">
 				<StatCard label="Total Mod Count" value={global_stats.mods} icon={mdiPackageVariant} />
-				<StatCard label="Total Mod Downloads" value={global_stats.downloads} icon={mdiDownload} />
+				<StatCard label="Total Mod Current Subscriptions" value={global_stats.subscriptions} icon={mdiDownload} />
 				<StatCard label="Total Mod Views" value={global_stats.views} icon={mdiEye} />
 				<StatCard label="Total Mod Creators" value={global_stats.creators} icon={mdiAccount} />
 			</div>
@@ -98,7 +98,7 @@
 						id={creator.author_id}
 						name={creator.author_name}
 						modCount={creator.mod_count}
-						totalDownloads={creator.downloads}
+						totalSubscriptions={creator.subscriptions}
 						avatar={creator.avatar}
 					/>
 				{/each}

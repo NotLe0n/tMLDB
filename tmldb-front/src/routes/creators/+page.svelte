@@ -21,10 +21,10 @@
 	let searchQuery = $state(DEFAULT_SEARCH);
 
 	const sortOptions = [
-		{id: "mod-count",    path: mdiPackageVariant, title: "Mod Count"},
-		{id: "download",     path: mdiDownload,     title: "Downloads"},
-		{id: "favorites",    path: mdiStar,         title: "Favorites"},
-		{id: "views",        path: mdiEye,          title: "Views"}
+		{id: "mod-count",     path: mdiPackageVariant, title: "Mod Count"},
+		{id: "subscriptions", path: mdiDownload,       title: "Subscriptions"},
+		{id: "favorites",     path: mdiStar,           title: "Favorites"},
+		{id: "views",         path: mdiEye,            title: "Views"}
 	]
 
 	const fetchCreators = async (): Promise<CreatorListData[]> => {

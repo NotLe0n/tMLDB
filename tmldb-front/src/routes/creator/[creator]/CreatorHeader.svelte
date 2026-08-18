@@ -45,7 +45,7 @@
 		</div>
 		<div id="stat-grid">
 			<StatCard label="Mods Created" value={creator.total} icon={mdiPackageVariant} />
-			<StatCard label="Total Downloads" value={creator.total_downloads} icon={mdiDownload} />
+			<StatCard label="Total Subscriptions" value={creator.total_subscriptions} icon={mdiDownload} />
 			<StatCard label="Total Favorites" value={creator.total_favorites} icon={mdiHeart} />
 			<StatCard label="Total Views" value={creator.total_views} icon={mdiEye} />
 		</div>

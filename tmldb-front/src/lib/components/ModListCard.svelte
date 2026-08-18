@@ -63,9 +63,9 @@
 					<span>{timeUpdated}</span>
 				</div>
 
-				<div class="stat-item" title="Downloads">
+				<div class="stat-item" title="Subscriptions">
 					<Icon path={mdiDownload} size=16 viewBox='5 0 15 19' />
-					<span class="stat-value">{mod.downloads_total.toLocaleString()}</span>
+					<span class="stat-value">{mod.subscriptions.toLocaleString()}</span>
 				</div>
 				<div class="stat-item" title="Views">
 					<Icon path={mdiEye} size=16 />
