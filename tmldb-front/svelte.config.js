@@ -10,6 +10,7 @@ const config = {
 				'script-src': ['self', 'https://static.cloudflareinsights.com'],
 				'connect-src': ['self', 'https://cloudflareinsights.com'],
 				'worker-src': ['self', 'blob:'],
+				'style-src': ['self', 'unsafe-inline'],
 				'img-src': ['*', 'data:'],
 				'base-uri': ['self'],
 				'form-action': ['self'],
