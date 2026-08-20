@@ -57,7 +57,7 @@
 <div id="compare-page">
 	<div class="search-row">
 		<div>
-			<ModSearch searchMod={true}>
+			<ModSearch searchMod={true} onSubmit={res => setMod1(res[0].id)}>
 				{#snippet resultContent(searchResults: SearchResult[])}
 					{#each searchResults as res}
 						<button onclick={() => {
@@ -72,7 +72,7 @@
 		</div>
 		<span>vs</span>
 		<div>
-			<ModSearch searchMod={true}>
+			<ModSearch searchMod={true} onSubmit={res => setMod2(res[0].id)}>
 				{#snippet resultContent(searchResults: SearchResult[])}
 					{#each searchResults as res}
 						<button onclick={() => {

@@ -2,7 +2,12 @@
 	import type { SearchResult } from "$lib";
 	import { afterNavigate } from "$app/navigation";
 
-	let { searchMod, resultContent, onSubmit }: { searchMod: boolean, resultContent: any, onSubmit: any } = $props()
+	let { searchMod, resultContent, onSubmit }: {
+		searchMod: boolean,
+		resultContent: any,
+		onSubmit: (results: SearchResult[]) => void
+	} = $props()
+
 	let searchQuery = $state("")
 	let searchResults = $state<SearchResult[]>([])
 	let searchTimer = $state<number | null>(null)
