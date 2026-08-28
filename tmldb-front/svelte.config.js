@@ -6,16 +6,16 @@ const config = {
 		adapter: adapter(),
 		csp: {
 			directives: {
-				'default-src': ['self'],
+				'default-src': ['none'],
 				'script-src': ['self', 'https://static.cloudflareinsights.com'],
 				'connect-src': ['self', 'https://cloudflareinsights.com'],
 				'worker-src': ['self', 'blob:'],
 				'style-src': ['self', 'unsafe-inline'],
+				'font-src': ['self'],
 				'img-src': ['*', 'data:'],
 				'base-uri': ['self'],
 				'form-action': ['self'],
 				'frame-ancestors': ['none'],
-				'object-src': ['none']
 			}
 		},
 	},
