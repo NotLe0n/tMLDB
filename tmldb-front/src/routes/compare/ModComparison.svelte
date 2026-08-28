@@ -60,10 +60,10 @@
 
 		<div class="mod1-cell">
 			<span class="label">Subscriptions</span>
-			<span>{mod1 ? formatNumber(mod1.subscriptions_total) : ''}</span>
+			<span>{mod1 ? formatNumber(mod1.subscriptions) : ''}</span>
 		</div>
-		{@render diff(percDiff(mod1?.subscriptions_total, mod2?.subscriptions_total))}
-		<span>{mod2 ? formatNumber(mod2.subscriptions_total) : ''}</span>
+		{@render diff(percDiff(mod1?.subscriptions, mod2?.subscriptions))}
+		<span>{mod2 ? formatNumber(mod2.subscriptions) : ''}</span>
 
 		<div class="mod1-cell">
 			<span class="label">Favorites</span>

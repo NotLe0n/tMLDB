@@ -74,7 +74,7 @@
 	<div id="header-right">
 		<div id="stat-grid">
 			{#if mod}
-				<StatCard label="Subscriptions" value={mod.subscriptions_total} icon={mdiDownload} />
+				<StatCard label="Subscriptions" value={mod.subscriptions} icon={mdiDownload} />
 				<StatCard label="Favorites" value={mod.favorited} icon={mdiHeart} />
 				<StatCard label="Views" value={mod.views} icon={mdiEye} />
 				<StatCard label="Average playtime" value={formatDuration(Number.parseInt(mod.playtime) / mod.sessions)} icon={mdiClockOutline } />
