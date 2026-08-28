@@ -113,7 +113,8 @@ public enum ModListOrder
 	Favorited,
 	Score,
 	TimeCreated,
-	TimeUpdated
+	TimeUpdated,
+	FileSize
 }
 
 public sealed class ModListResponse

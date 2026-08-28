@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { MS_TO_HRS, MS_TO_MIN, MS_TO_SEC, msToDuration, type ModHistoryData, type DateRange } from '$lib';
+	import { S_TO_HRS, S_TO_MIN, msToDuration, type ModHistoryData, type DateRange, S_TO_MTH } from '$lib';
 	import Chart from 'chart.js/auto';
 	import type { Chart as ChartType } from 'chart.js/auto';
 	import annotationPlugin, { type AnnotationOptions } from 'chartjs-plugin-annotation';
@@ -16,10 +16,11 @@
 		const min = Math.min(...playtime);
 		const minDur = msToDuration(min);
 
-		if (minDur.hours > 0) return [playtime.map(x => x / MS_TO_HRS), "hours"]
-		if (minDur.minutes > 0) return [playtime.map(x => x / MS_TO_MIN), "minutes"]
+		if (minDur.months > 0) return [playtime.map(x => x / S_TO_MTH), "months"]
+		if (minDur.hours > 0) return [playtime.map(x => x / S_TO_HRS), "hours"]
+		if (minDur.minutes > 0) return [playtime.map(x => x / S_TO_MIN), "minutes"]
 
-		return [playtime.map(x => x / MS_TO_SEC), "seconds"]
+		return [playtime, "seconds"]
 	}
 	const convertedPlaytime = $derived(convertPlaytime(data.playtime))
 

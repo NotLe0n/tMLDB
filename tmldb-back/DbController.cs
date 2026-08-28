@@ -236,6 +236,7 @@ public class DbController : Controller
 			ModListOrder.Score          => "score",
 			ModListOrder.TimeCreated    => "time_created",
 			ModListOrder.TimeUpdated    => "time_updated",
+			ModListOrder.FileSize       => "file_size::INTEGER",
 			_ => "subscriptions_total"
 		};
 		string sortOrder = desc ? "DESC" : "ASC";
@@ -278,7 +279,7 @@ public class DbController : Controller
 			))
 			AND (@search = '' OR display_name LIKE '%' || @search || '%')
 			AND (NOT @shouldFilterZeroScore OR score != 0)
-			ORDER BY {orderByColumn} {sortOrder}
+			ORDER BY {orderByColumn} {sortOrder} NULLS LAST
 			LIMIT @PageSize OFFSET @offset
 			""", new {
 				PageSize, offset, search, modSideFilters, tagFilters, versionFilters, shouldFilterZeroScore

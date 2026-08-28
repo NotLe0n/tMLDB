@@ -1,21 +1,20 @@
 // place files you want to import through the `$lib` alias in this folder.
 export const tmlapis = "https://tmlapis.le0n.dev/"
 
-export const MS_TO_YRS = 31556952000;
-export const MS_TO_MTH = 2629746000;
-export const MS_TO_DAY = 86400000;
-export const MS_TO_HRS = 3600000;
-export const MS_TO_MIN = 60000;
-export const MS_TO_SEC = 1000;
+export const S_TO_YRS = 31556952;
+export const S_TO_MTH = 2629746;
+export const S_TO_DAY = 86400;
+export const S_TO_HRS = 3600;
+export const S_TO_MIN = 60;
 
 export function msToDuration(value: number) {
 	const duration = {
-		years: Math.floor(value / MS_TO_YRS),
-		months: Math.floor(value / MS_TO_MTH),
-		days: Math.floor(value / MS_TO_DAY),
-		hours: Math.floor(value / MS_TO_HRS),
-		minutes: Math.floor(value / MS_TO_MIN),
-		seconds: Math.floor(value / MS_TO_SEC),
+		years: Math.floor(value / S_TO_YRS),
+		months: Math.floor(value / S_TO_MTH),
+		days: Math.floor(value / S_TO_DAY),
+		hours: Math.floor(value / S_TO_HRS),
+		minutes: Math.floor(value / S_TO_MIN),
+		seconds: Math.floor(value),
 	};
 
 	return duration;
@@ -141,8 +140,10 @@ export type ModListData = {
 	display_name: string;
 	author: string;
 	description: string;
+	subscriptions_total: number;
 	subscriptions: number;
 	views: number;
+	favorited_total: number;
 	favorited: number;
 	score: number;
 	votes_up: number;
@@ -151,6 +152,8 @@ export type ModListData = {
 	workshop_icon_url: string;
 	time_updated: number;
 	time_created: number;
+	sessions: number;
+	file_size: number;
 }
 
 export type AuthorData = {

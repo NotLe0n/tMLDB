@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { ModListData } from "$lib";
-	import { mdiClockEdit, mdiClockPlus, mdiDownload, mdiEye, mdiStar, mdiThumbsUpDown } from "@mdi/js";
+	import { mdiClock, mdiClockEdit, mdiClockPlus, mdiDownload, mdiEye, mdiFile, mdiStar, mdiThumbsUpDown } from "@mdi/js";
 
 	import FilterSelector from "./FilterSelector.svelte";
 	import ModListCard from "$lib/components/ModListCard.svelte";
@@ -42,7 +42,8 @@
 		{id: "views",         path: mdiEye,          title: "Views"},
 		{id: "score",         path: mdiThumbsUpDown, title: "Score"},
 		{id: "time-created",  path: mdiClockPlus,    title: "Time Created"},
-		{id: "time-updated",  path: mdiClockEdit,    title: "Time Updated"}
+		{id: "time-updated",  path: mdiClockEdit,    title: "Time Updated"},
+		{id: "file-size",     path: mdiFile,         title: "File Size"},
 	]
 
 	const fetchMods = async (): Promise<ModListData[]> => {

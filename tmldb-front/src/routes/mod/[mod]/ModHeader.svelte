@@ -39,6 +39,8 @@
 							<span><b>Mod ID</b>: {mod.mod_id}</span>
 							<span><b>Internal name</b>: {mod.internal_name}</span>
 							<span><b>File size</b>: {formatBytes(Number.parseInt(mod.file_size))}</span>
+							<span><b>Cumulative playtime</b>: {formatDuration(Number.parseInt(mod.playtime))}</span>
+							<span><b>Number of sessions</b>: {mod.sessions}</span>
 						</div>
 					</div>
 					<div id="creator">
@@ -75,7 +77,7 @@
 				<StatCard label="Subscriptions" value={mod.subscriptions_total} icon={mdiDownload} />
 				<StatCard label="Favorites" value={mod.favorited} icon={mdiHeart} />
 				<StatCard label="Views" value={mod.views} icon={mdiEye} />
-				<StatCard label="Combined Playtime" value={formatDuration(Number.parseInt(mod.playtime))} icon={mdiClockOutline } />
+				<StatCard label="Average playtime" value={formatDuration(Number.parseInt(mod.playtime) / mod.sessions)} icon={mdiClockOutline } />
 				{#if mod.vote_data}
 					<VotingCard votes_up={mod.vote_data.votes_up} votes_down={mod.vote_data.votes_down} score={mod.vote_data.score} />
 				{/if}

@@ -75,9 +75,9 @@
 					<Icon path={mdiStar} size=16 />
 					<span class="stat-value">{mod.favorited.toLocaleString()}</span>
 				</div>
-				<div class="stat-item" title="Cumulative Playtime">
+				<div class="stat-item" title="Average playtime over {mod.sessions} sessions">
 					<Icon path={mdiClock} size=16 />
-					<span class="stat-value">{formatDuration(Number.parseInt(mod.playtime))}</span>
+					<span class="stat-value">{formatDuration((Number.parseInt(mod.playtime) / mod.sessions) || 0)}</span>
 				</div>
 			</div>
 			<div class="vote-stats">

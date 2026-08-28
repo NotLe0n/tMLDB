@@ -60,7 +60,7 @@
 			<div>
 				<b>Mod Side</b>
 				<div class="filter-container">
-					{#each filters.mod_sides as mod_side, i}
+					{#each filters.mod_sides.filter(f => f.length > 0) as mod_side, i}
 						<input
 							type="checkbox"
 							id="mod-side-filter-{i}"
