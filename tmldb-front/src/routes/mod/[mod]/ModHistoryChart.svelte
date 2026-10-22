@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { S_TO_HRS, S_TO_MIN, msToDuration, type ModHistoryData, type DateRange, S_TO_MTH } from '$lib';
+	import { S_TO_HRS, S_TO_MIN, msToDuration, type ModHistoryData, type DateRange, S_TO_MTH } from '#lib';
 	import Chart from 'chart.js/auto';
 	import type { Chart as ChartType } from 'chart.js/auto';
 	import annotationPlugin, { type AnnotationOptions } from 'chartjs-plugin-annotation';

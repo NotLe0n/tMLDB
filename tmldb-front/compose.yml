@@ -3,6 +3,8 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
+        args:
+                - BACKEND_URL=${BACKEND_URL}
         ports:
             - "3000:3000"
         environment:

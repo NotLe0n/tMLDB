@@ -1,15 +1,15 @@
 <script lang="ts">
-	import type { ModListData } from "$lib";
+	import type { ModListData } from "#lib";
 	import { mdiClock, mdiClockEdit, mdiClockPlus, mdiDownload, mdiEye, mdiFile, mdiStar, mdiThumbsUpDown } from "@mdi/js";
 
 	import FilterSelector from "./FilterSelector.svelte";
-	import ModListCard from "$lib/components/ModListCard.svelte";
-	import SortSelector from "$lib/components/SortSelector.svelte";
-	import ScrollDetector from "$lib/components/ScrollDetector.svelte";
+	import ModListCard from "#lib/components/ModListCard.svelte";
+	import SortSelector from "#lib/components/SortSelector.svelte";
+	import ScrollDetector from "#lib/components/ScrollDetector.svelte";
 	import { onMount } from "svelte";
 	import { page } from "$app/state";
 	import { goto } from "$app/navigation";
-	import ListPage from "$lib/components/page-components/ListPage.svelte";
+	import ListPage from "#lib/components/page-components/ListPage.svelte";
 
 	const DEFAULT_SEARCH = ""
 	const DEFAULT_SORT = 0

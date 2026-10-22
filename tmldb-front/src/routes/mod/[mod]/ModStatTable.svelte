@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { formatDuration, formatNumber, type ModHistoryData } from "$lib";
+    import { formatDuration, formatNumber, type ModHistoryData } from "#lib";
 
 	const { data, beginDate, endDate }: { data: ModHistoryData, beginDate: string, endDate: string } = $props();
 

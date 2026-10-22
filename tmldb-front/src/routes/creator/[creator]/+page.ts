@@ -1,4 +1,4 @@
-import type { AuthorData, AuthorHistoryData } from '$lib';
+import type { AuthorData, AuthorHistoryData } from '#lib';
 import { error } from '@sveltejs/kit';
 import type { PageLoad } from './$types';
 

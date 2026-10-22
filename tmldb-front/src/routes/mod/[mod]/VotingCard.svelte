@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { formatNumber, formatNumberShort } from "$lib";
+	import { formatNumber, formatNumberShort } from "#lib";
 
 	let { votes_up, votes_down, score } = $props();
 

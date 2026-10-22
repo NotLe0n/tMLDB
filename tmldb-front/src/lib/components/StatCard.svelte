@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { formatNumber, formatNumberShort } from '$lib';
+	import { formatNumber, formatNumberShort } from '#lib';
 	import Icon from './Icon.svelte';
 
 	let { label, value, icon } = $props()

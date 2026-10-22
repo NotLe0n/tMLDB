@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { goto } from "$app/navigation";
-	import type { ModData, SearchResult } from "$lib";
-	import LoadingSpinner from "$lib/components/LoadingSpinner.svelte";
-	import ModSearch from "$lib/ModSearch.svelte";
+	import type { ModData, SearchResult } from "#lib";
+	import LoadingSpinner from "#lib/components/LoadingSpinner.svelte";
+	import ModSearch from "#lib/ModSearch.svelte";
 	import { onMount } from "svelte";
 	import ModComparison from "./ModComparison.svelte";
 	import { page } from "$app/state";
@@ -61,7 +61,7 @@
 				{#snippet resultContent(searchResults: SearchResult[])}
 					{#each searchResults as res}
 						<button onclick={() => {
-							const params = new URLSearchParams(page.url.searchParams)
+							const params = new URL(page.url.href).searchParams
 							params.set("mod1", res.id)
 							goto(`?${params.toString()}`)
 							setMod1(res.id)
@@ -76,7 +76,7 @@
 				{#snippet resultContent(searchResults: SearchResult[])}
 					{#each searchResults as res}
 						<button onclick={() => {
-							const params = new URLSearchParams(page.url.searchParams)
+							const params = new URL(page.url.href).searchParams
 							params.set("mod2", res.id)
 							goto(`?${params.toString()}`)
 							setMod2(res.id)

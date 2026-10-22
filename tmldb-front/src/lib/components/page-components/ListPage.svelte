@@ -1,6 +1,6 @@
 
 <script lang="ts">
-	import Icon from "$lib/components/Icon.svelte";
+	import Icon from "#lib/components/Icon.svelte";
 	import { mdiCog, mdiCogRefresh } from "@mdi/js";
 
 	let { list, controls, searchQuery = $bindable(), onsubmit, resetControls } = $props();

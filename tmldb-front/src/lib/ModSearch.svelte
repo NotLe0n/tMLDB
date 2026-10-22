@@ -1,10 +1,10 @@
 <script lang="ts">
-	import type { SearchResult } from "$lib";
+	import type { SearchResult } from "#lib";
 	import { afterNavigate } from "$app/navigation";
 
-	let { searchMod, resultContent, onSubmit }: {
-		searchMod: boolean,
-		resultContent: any,
+	let { searchMod, resultContent, onSubmit }: { 
+		searchMod: boolean;
+		resultContent: any;
 		onSubmit: (results: SearchResult[]) => void
 	} = $props()
 
@@ -31,18 +31,16 @@
 	async function search() {
 		let searchUrl;
 		if (searchMod) {
-			searchUrl = `/api/search_mod?query=${searchQuery}`
-		}
-		else {
-			searchUrl = `/api/search_creator?query=${searchQuery}`
+			searchUrl = `/api/search_mod?query=${searchQuery}`;
+		} else {
+			searchUrl = `/api/search_creator?query=${searchQuery}`;
 		}
 
 		searchResults = await (await fetch(searchUrl)).json()
 		if (searchResults.length > 0) {
-			resultContainer?.showPopover()
-		}
-		else {
-			resultContainer?.hidePopover()
+			resultContainer?.showPopover();
+		} else {
+			resultContainer?.hidePopover();
 		}
 	}
 
@@ -61,11 +59,13 @@
 		}, 50)
 	}
 
-	afterNavigate(() => {
-		searchQuery = ""
-		searchResults = []
-		resultContainer?.hidePopover()
-	})
+	afterNavigate(({ shallow, type }) => {
+		if (shallow && type === 'goto') return;
+
+		searchQuery = "";
+		searchResults = [];
+		resultContainer?.hidePopover();
+	});
 </script>
 
 <div class="panel-small--wrapper">
@@ -79,7 +79,7 @@
 		onfocusin={() => openResultContainer()}
 		onfocusout={() => closeResultContainer()}
 		placeholder="Search {searchMod ? 'mods' : 'creators'}..."
-	>
+	/>
 </div>
 <div class="search-result-container panel"
 	popover="manual"

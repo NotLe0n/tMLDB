@@ -1,4 +1,4 @@
-// place files you want to import through the `$lib` alias in this folder.
+// place files you want to import through the `#lib` alias in this folder.
 export const tmlapis = "https://tmlapis.le0n.dev/"
 
 export const S_TO_YRS = 31556952;

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { mdiMenuDown } from "@mdi/js";
-	import Icon from "$lib/components/Icon.svelte";
+	import Icon from "#lib/components/Icon.svelte";
 
 	type FilterSelectorProps = { modSides: string[], tags: string[], versions: string[], onapply: any}
 	let { modSides = $bindable([]), tags = $bindable([]), versions = $bindable([]), onapply }: FilterSelectorProps = $props()

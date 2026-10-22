@@ -1,13 +1,13 @@
 <script lang="ts">
-	import { type CreatorListData } from "$lib"
+	import { type CreatorListData } from "#lib"
 	import { mdiDownload, mdiStar, mdiEye, mdiPackageVariant } from "@mdi/js";
-	import SortSelector from "$lib/components/SortSelector.svelte";
+	import SortSelector from "#lib/components/SortSelector.svelte";
 	import CreatorListCard from "./CreatorListCard.svelte";
-	import ScrollDetector from "$lib/components/ScrollDetector.svelte";
+	import ScrollDetector from "#lib/components/ScrollDetector.svelte";
 	import { onMount } from "svelte";
 	import { page } from "$app/state";
 	import { goto } from "$app/navigation";
-	import ListPage from "$lib/components/page-components/ListPage.svelte";
+	import ListPage from "#lib/components/page-components/ListPage.svelte";
 
 	const DEFAULT_SEARCH = ""
 	const DEFAULT_SORT = 1

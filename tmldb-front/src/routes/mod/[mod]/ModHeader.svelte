@@ -1,14 +1,14 @@
 <script lang="ts">
-	import LinkButton from '$lib/components/LinkButton.svelte'
-	import ModIcon from '$lib/components/ModIcon.svelte'
+	import LinkButton from '#lib/components/LinkButton.svelte'
+	import ModIcon from '#lib/components/ModIcon.svelte'
 	import ModTag from './ModTag.svelte'
 	import ModSocialsList from './ModSocialsList.svelte'
-	import StatCard from '$lib/components/StatCard.svelte'
+	import StatCard from '#lib/components/StatCard.svelte'
 	import VotingCard from './VotingCard.svelte'
 	import { mdiDownload, mdiHeart, mdiClockOutline, mdiEye, mdiChevronDown, mdiChevronUp } from '@mdi/js'
-	import { formatDate, formatDuration, formatBytes, type ModData } from '$lib'
-	import LoadingSpinner from '$lib/components/LoadingSpinner.svelte';
-    import Icon from '$lib/components/Icon.svelte';
+	import { formatDate, formatDuration, formatBytes, type ModData } from '#lib'
+	import LoadingSpinner from '#lib/components/LoadingSpinner.svelte';
+    import Icon from '#lib/components/Icon.svelte';
 
 	const { mod }: { mod: ModData | undefined } = $props()
 

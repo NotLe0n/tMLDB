@@ -1,8 +1,8 @@
 <script lang="ts">
-	import type { AuthorData } from "$lib";
-	import Icon from "$lib/components/Icon.svelte";
-	import LoadingSpinner from "$lib/components/LoadingSpinner.svelte";
-	import StatCard from "$lib/components/StatCard.svelte";
+	import type { AuthorData } from "#lib";
+	import Icon from "#lib/components/Icon.svelte";
+	import LoadingSpinner from "#lib/components/LoadingSpinner.svelte";
+	import StatCard from "#lib/components/StatCard.svelte";
 	import { mdiDownload, mdiHeart, mdiEye, mdiPackageVariant, mdiSteam } from "@mdi/js";
 
 	const { creator } : { creator: AuthorData | undefined } = $props()

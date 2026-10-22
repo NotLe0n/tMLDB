@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { formatDate, formatDuration, formatNumber, type ModData } from "$lib";
+	import { formatDate, formatDuration, formatNumber, type ModData } from "#lib";
 
 	const { mod1, mod2 }: { mod1: ModData | null, mod2: ModData | null } = $props()
 

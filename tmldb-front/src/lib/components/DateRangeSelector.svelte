@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { DATE_RANGES, type DateRange } from "$lib";
+	import { DATE_RANGES, type DateRange } from "#lib";
 
 	let dateSelectorElm: HTMLDivElement;
 

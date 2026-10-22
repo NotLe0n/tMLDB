@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { formatDate, formatDuration, type ModData, type ModListData } from "$lib";
+	import { formatDate, formatDuration, type ModData, type ModListData } from "#lib";
 	import { mdiClock, mdiClockEdit, mdiClockPlus, mdiDownload, mdiEye, mdiStar, mdiThumbDown, mdiThumbUp } from "@mdi/js";
 	import ModIcon from "./ModIcon.svelte";
 	import bbobHTML from '@bbob/html'

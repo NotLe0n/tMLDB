@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { type AuthorHistoryData } from '$lib';
+	import { type AuthorHistoryData } from '#lib';
 	import Chart from 'chart.js/auto';
 	import type { Chart as ChartType } from 'chart.js/auto';
 

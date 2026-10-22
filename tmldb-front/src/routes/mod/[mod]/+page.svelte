@@ -3,14 +3,14 @@
 	import presetHTML5 from '@bbob/preset-html5'
 
 	import ModHistoryChart from './ModHistoryChart.svelte'
-	import LoadingSpinner from '$lib/components/LoadingSpinner.svelte';
-	import ModListCard from '$lib/components/ModListCard.svelte';
+	import LoadingSpinner from '#lib/components/LoadingSpinner.svelte';
+	import ModListCard from '#lib/components/ModListCard.svelte';
 	import ModHeader from './ModHeader.svelte';
 	import type { PageData } from './$types';
-	import StatPage from '$lib/components/page-components/StatPage.svelte';
+	import StatPage from '#lib/components/page-components/StatPage.svelte';
 	import DateRangeSelector from '../../../lib/components/DateRangeSelector.svelte';
 	import ModStatTable from './ModStatTable.svelte';
-	import ToggleChip from '$lib/components/ToggleChip.svelte';
+	import ToggleChip from '#lib/components/ToggleChip.svelte';
 
 	let { data }: { data: PageData } = $props();
 	const mod = $derived(data.mod);

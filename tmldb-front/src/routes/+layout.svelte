@@ -1,9 +1,9 @@
 <script lang="ts">
-	import favicon from '$lib/assets/favicon.svg';
-	import Icon from '$lib/components/Icon.svelte';
+	import favicon from '#lib/assets/favicon.svg';
+	import Icon from '#lib/components/Icon.svelte';
 	import { mdiAccount, mdiPackageVariant } from '@mdi/js';
-	import ModSearch from '$lib/ModSearch.svelte';
-	import type { SearchResult } from '$lib';
+	import ModSearch from '#lib/ModSearch.svelte';
+	import type { SearchResult } from '#lib';
 	import { page } from '$app/state';
     import { goto } from '$app/navigation';
 

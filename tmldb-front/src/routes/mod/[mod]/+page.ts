@@ -1,4 +1,4 @@
-import type { ModData, ModHistoryData } from '$lib';
+import type { ModData, ModHistoryData } from '#lib';
 import { error } from '@sveltejs/kit';
 import type { PageLoad } from './$types';
 

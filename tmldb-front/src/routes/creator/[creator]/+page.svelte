@@ -1,11 +1,11 @@
 <script lang="ts">
-	import type { ModData } from "$lib";
-	import ModListCard from "$lib/components/ModListCard.svelte";
-	import LoadingSpinner from "$lib/components/LoadingSpinner.svelte";
+	import type { ModData } from "#lib";
+	import ModListCard from "#lib/components/ModListCard.svelte";
+	import LoadingSpinner from "#lib/components/LoadingSpinner.svelte";
 	import CreatorHistoryChart from "./CreatorHistoryChart.svelte";
 	import CreatorHeader from "./CreatorHeader.svelte";
 	import type { PageData } from './$types';
-	import StatPage from "$lib/components/page-components/StatPage.svelte";
+	import StatPage from "#lib/components/page-components/StatPage.svelte";
 	import DateRangeSelector from "../../../lib/components/DateRangeSelector.svelte";
 
 	let { data }: { data: PageData } = $props();

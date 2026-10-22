@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { CreatorListData } from "$lib";
+	import type { CreatorListData } from "#lib";
 	import { mdiDownload, mdiEye, mdiPackageVariant, mdiStar } from "@mdi/js";
-	import Icon from "$lib/components/Icon.svelte";
+	import Icon from "#lib/components/Icon.svelte";
 
 	const { creator }: { creator: CreatorListData } = $props();
 </script>
